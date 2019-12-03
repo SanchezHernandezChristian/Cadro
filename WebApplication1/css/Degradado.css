@@ -1,0 +1,49 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 10/01/2017, 12:09:42 AM
+    Author     : Leonardo
+*/
+.degradadoGeneral {
+background: -webkit-linear-gradient(left, white); /* For Safari 5.1 to 6.0 */
+background: -o-linear-gradient(right, #1B9382, white); /* For Opera 11.1 to 12.0 */
+background: -moz-linear-gradient(right, #1B9382, white); /* For Firefox 3.6 to 15 */
+background: linear-gradient(to right, #1B9382 , white); /* , white); /* Standard syntax */
+}
+.degradadoEstFin {
+background: -webkit-linear-gradient(left, #95C350 , white); /* For Safari 5.1 to 6.0 */
+background: -o-linear-gradient(right, #95C350, white); /* For Opera 11.1 to 12.0 */
+background: -moz-linear-gradient(right, #95C350, white); /* For Firefox 3.6 to 15 */
+background: linear-gradient(to right, #95C350 , white); /* Standard syntax */
+}
+
+.degradadoExpediente {
+background: -webkit-linear-gradient(left, #B41D76 , white); /* For Safari 5.1 to 6.0 */
+background: -o-linear-gradient(right, #B41D76, white); /* For Opera 11.1 to 12.0 */
+background: -moz-linear-gradient(right, #B41D76, white); /* For Firefox 3.6 to 15 */
+background: linear-gradient(to right, #B41D76 , white); /* Standard syntax */
+}
+
+.degradadoAutorizado {
+background: -webkit-linear-gradient(left, #CD612D , white); /* For Safari 5.1 to 6.0 */
+background: -o-linear-gradient(right, #CD612D, white); /* For Opera 11.1 to 12.0 */
+background: -moz-linear-gradient(right, #CD612D, white); /* For Firefox 3.6 to 15 */
+background: linear-gradient(to right, #CD612D , white); /* Standard syntax */
+}
+
+.degradadoLiberaciones {
+background: -webkit-linear-gradient(left, #E3AB3E , white); /* For Safari 5.1 to 6.0 */
+background: -o-linear-gradient(right, #E3AB3E, white); /* For Opera 11.1 to 12.0 */
+background: -moz-linear-gradient(right, #E3AB3E, white); /* For Firefox 3.6 to 15 */
+background: linear-gradient(to right, #E3AB3E , white); /* Standard syntax */
+}
+.degradadoCalendarizaciones {
+background: -webkit-linear-gradient(left, #569B8F , white); /* For Safari 5.1 to 6.0 */
+background: -o-linear-gradient(right, #569B8F, white); /* For Opera 11.1 to 12.0 */
+background: -moz-linear-gradient(right, #569B8F, white); /* For Firefox 3.6 to 15 */
+background: linear-gradient(to right, #569B8F , white); /* Standard syntax */
+}
+

@@ -1,0 +1,99 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="SiteCADRO.master.cs" Inherits="WebApplication1.SiteCADRO" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Comisión de Admisión de Directores Responsables de Obra y Corresponsables en el Estado de Oaxaca</title>
+    <link rel="shortcut icon" href="css/img/LogoVII.ico" type="image/x-icon">
+    <link rel="icon" href="css/img/LogoVII.ico" type="image/x-icon">
+    <link href="css/Master.css" rel="stylesheet"/>
+    <script src="Scripts/JSMaster.js"></script>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body id="principal" style="height:1180px; width:1368px; margin:0; padding:0; background-image:url(css/img/Principal.png);  background-repeat:no-repeat;" >
+    <form id="form1" runat="server">
+        <div id="wrap" style="background-color:transparent">
+            <header id="cabeza" style="height:140px;">
+                <table style="height:60px; margin-left: 1150px">
+                    <tr style="height:30px;">
+                        <td style="width:100px;"> 
+                            <dx:ASPxLabel runat="server" ID="lblBienvenido" Font-Size="18px" Text="Bienvenido: " Theme="Material" Font-Bold="true" ForeColor="#101F29">
+                            </dx:ASPxLabel>
+                        </td>
+                        <td>
+                            <dx:ASPxLabel runat="server" ID="lblNombreUsuario" Font-Size="18px" Text="" Theme="Material" Font-Bold="true" ForeColor="#101F29">
+                            </dx:ASPxLabel>
+                        </td>
+                    </tr>
+                </table>
+                <table style="height:50px; margin-left: 1150px;">
+                    <tr style="height:40px;">
+                        <td>
+                            <dx:ASPxButton runat="server" CausesValidation="false" RenderMode="Link" AutoPostBack="true" OnClick="Unnamed_Click" Border-BorderStyle="None" BackColor="Transparent" BackgroundImage-ImageUrl="~/css/img/Recurso 28.png" BackgroundImage-Repeat="NoRepeat" Height="37px" Width="144px">
+                            </dx:ASPxButton>
+                        </td>
+                    </tr>
+                </table>
+            </header>
+            <section style="background-color:transparent">
+                <dx:ASPxLabel runat="server" Text="" ID="lblError" ForeColor="Transparent">
+                </dx:ASPxLabel>
+                <dx:ASPxSplitter ID="ASPxSplitter1" Width="1350px" Height="925px" runat="server" BackColor="Transparent">
+                    <Panes>
+                        <dx:SplitterPane Size="223px" ShowCollapseBackwardButton="False">
+                            <ContentCollection>
+                                <dx:SplitterContentControl runat="server">
+                                    <dx:ASPxMenu ID="menuCadro" runat="server" Width="100%" Orientation="Vertical" HorizontalAlign="Left" Theme="Material" OnDataBound="menuCadro_DataBound" OnItemDataBound="menuCadro_ItemDataBound" BackColor="White">
+                                        <Items>
+                                            <dx:MenuItem Text="Solicitudes" NavigateUrl="solicitudes.aspx">
+                                                <Image Url="css/img/Recurso 30.png">
+                                                </Image>
+                                            </dx:MenuItem>
+                                            <dx:MenuItem Text="Reportes" NavigateUrl="reporteregion.aspx">
+                                                <Image Url="css/img/Recurso 67.png">
+                                                        </Image>
+                                            </dx:MenuItem>
+                                            <dx:MenuItem Text="Edita tu perfil" NavigateUrl="EditarPerfil.aspx">
+                                                <Image  Url="css/img/Recurso 33.png">
+                                                </Image>
+                                            </dx:MenuItem>
+                                        </Items>
+                                    </dx:ASPxMenu>
+                                </dx:SplitterContentControl>
+                            </ContentCollection>
+                        </dx:SplitterPane>
+                        <dx:SplitterPane Size="1120px" AutoHeight="true">
+                            <ContentCollection>
+                                <dx:SplitterContentControl runat="server">
+                                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                                    </asp:ContentPlaceHolder>
+                                </dx:SplitterContentControl>
+                            </ContentCollection>
+                        </dx:SplitterPane>
+                    </Panes>
+                </dx:ASPxSplitter>
+            </section>
+        </div>
+        <div style="background-color:transparent">
+            <dx:ASPxGlobalEvents ID="ASPxGlobalEvents1" runat="server">
+                <ClientSideEvents EndCallback="endCallbackControls" />
+            </dx:ASPxGlobalEvents>
+        </div>
+
+        <footer style="height: 40px">
+            <div style="text-align: center">
+                <dx:ASPxLabel ID="ASPxLabel5" Font-Size="15px" runat="server" Font-Bold="true" ForeColor="White" Text="Gobierno del Estado de Oaxaca 2016-2022"></dx:ASPxLabel>
+            </div>
+        </footer>
+        <dx:ASPxCallback ID="cbMasterTerminar" ClientInstanceName="cbMasterTerminar" runat="server" OnCallback="cbMaster_Callback">
+            <ClientSideEvents CallbackComplete="function(s, e) {
+	alert('termino');
+}" />
+
+        </dx:ASPxCallback>
+    </form>
+</body>
+</html>

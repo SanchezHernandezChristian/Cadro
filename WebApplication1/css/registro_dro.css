@@ -1,0 +1,84 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+}
+/*  ----------  Cuerpo  -------------   */
+#principal {
+    background-image:url(img/registo.png);
+    height: 940px;
+    width: 1366px;
+    background-repeat: no-repeat; /*No repetir imagen*/
+    background-color: #C2D4FD; /*Color de fondo*/
+}
+/*  ----------  Imagen de centro  -------------   */
+#imagen_avatar {
+    width: 170px;
+    height: 170px;
+}
+
+#imagen {
+    height: 30px;
+}
+/*  ----------  Login  -------------   */
+@font-face {
+    font-family: "Geo";
+    src: url("fonts/Geometos.ttf");
+}
+
+#p {
+    font-family: "Geo";
+    font-size: 150%;
+    color: #D6D2C9;
+}
+
+#p1 {
+    font-family: "Geo";
+    /*  font-size: 20px;  */
+    color: #D6D2C9;
+}
+
+#texto {
+    height: 80px;
+    width: 250px;
+}
+
+#UserName {
+    font-size: 15px;
+    height: 40px;
+    width: 250px;
+    border: 2px solid #aaa;
+    border-radius: 4px;
+    margin: 8px 0;
+    outline: none;
+    padding: 8px;
+    box-sizing: border-box;
+    transition: 0.3s;
+}
+
+    #UserName:focus {
+        border-color: dodgerblue;
+        box-shadow: 0 0 8px 0 dodgerblue;
+    }
+
+#pwd {
+    height: 80px;
+    width: 250px;
+}
+
+#PassWord {
+    font-size: 15px;
+    height: 40px;
+    width: 250px;
+    border: 2px solid #aaa;
+    border-radius: 4px;
+    margin: 8px 0;
+    outline: none;
+    padding: 8px;
+    box-sizing: border-box;
+    transition: 0.3s;
+}
+
+    #PassWord:focus {
+        border-color: dodgerblue;
+        box-shadow: 0 0 8px 0 dodgerblue;
+    }

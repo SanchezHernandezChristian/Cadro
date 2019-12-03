@@ -1,0 +1,40 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+}
+/*  ----------  Cuerpo  -------------   */
+#principal {
+    background-image: url(img/Pantalla8.png);
+    height: 1300px;
+    width: 1366px;
+    background-repeat: no-repeat; /*No repetir imagen*/
+    background-color: #C2D4FD; /*Color de fondo*/
+}
+
+cabeza {
+    height: 180px;
+}
+/*  ----------  Imagen de centro  -------------   */
+#imagen_avatar {
+    width: 170px;
+    height: 170px;
+}
+
+#imagen {
+    height: 30px;
+}
+/*  ----------  Login  -------------   */
+@font-face {
+    font-family: "Geo";
+    src: url("fonts/Geometos.ttf");
+}
+
+p {
+    font-family: "Geo";
+    font-size: 150%;
+}
+
+#texto {
+    height: 80px;
+    width: 250px;
+}
