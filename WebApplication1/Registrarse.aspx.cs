@@ -33,7 +33,7 @@ namespace WebApplication1
                     if (reader["fecha_de_sesion"] == DBNull.Value)
                     {
                         btnGuardar.ClientVisible = false;
-                        lblMensajeError.Text = "No puede generar una nueva solicitud, si su última solicitud aún no ha sido dictaminada.";
+                        lblMensajeError.Text = " No puede generar una nueva solicitud, si su última solicitud aún no ha sido dictaminada.";
                     }
                     else
                     {
@@ -53,6 +53,7 @@ namespace WebApplication1
         }
         void llenarRegiones(object idMunicipio)
         {
+
             if (idMunicipio != null)
             {
                 conn = new SqlConnection(strConexion);
@@ -93,31 +94,6 @@ namespace WebApplication1
             }
         }
 
-
-        /* 
-        void idregistro(object id)
-        {
-            if (id != null)
-            {
-                conn = new SqlConnection(strConexion);
-                conn.Open();
-                String cSQL = string.Format(" SELECT MAX (Idregistro) FROM [tblPadronDRO] ");
-
-                cmd = conn.CreateCommand();
-                cmd.CommandText = cSQL;
-
-                SqlDataReader drR = cmd.ExecuteReader();
-                while (drR.Read())
-                {
-                    s.Items.Add(drR["Idregistro"].ToString(), drR["Idregistro"].ToString());
-                    s.Value = drR["Idregistro"].ToString();
-                }
-                conn.Close();
-            }
-        }
-       */
-
-
         protected void cboEgresado_DataBinding(object sender, EventArgs e)
         {
             try
@@ -149,6 +125,7 @@ namespace WebApplication1
         }
 
 
+
         protected void cbSolicitud_Callback(object sender, DevExpress.Web.CallbackEventArgsBase e)
         {
             try
@@ -164,7 +141,6 @@ namespace WebApplication1
                 transaction = conn.BeginTransaction();
                 cmd = conn.CreateCommand();
                 cmd.Transaction = transaction;
-
                 switch (e.Parameter)
                 {
                     case "Guardar":
@@ -265,13 +241,12 @@ namespace WebApplication1
       " ,IdUsuario " +
       " ,Idlocalidad " +
       " ,NombreLocalidad " +
-      " ,NombreMunicipio) values (@cedula,@altadro,@clasificacion,@aPaterno,@aMaterno,@nombres,@claveProfesion,@calle,@colonia,@municipio,@region,@telLocal,@telCelular,@colegio,@egresado,@fechaTitulo,@fechacedula,'',@cursos,0,@email,'',null,@digital,getdate(),getdate(),@idUsuario,@idLocalidad,@nombreLocalidad,@nombreMunicipio); select scope_identity()";
+      " ,NombreMunicipio) values (@cedula,'',@clasificacion,@aPaterno,@aMaterno,@nombres,@claveProfesion,@calle,@colonia,@municipio,@region,@telLocal,@telCelular,@colegio,@egresado,@fechaTitulo,@fechacedula,'',@cursos,0,@email,'',null,'',getdate(),getdate(),@idUsuario,@idLocalidad,@nombreLocalidad,@nombreMunicipio); select scope_identity()";
 
 
                             cmd.CommandText = cSQL;
                             cmd.Parameters.AddWithValue("@cedula", objInfDRO.CedulaProfesional);
-                            cmd.Parameters.AddWithValue("@altadro", droalta.Text);
-                            cmd.Parameters.AddWithValue("@clasificacion", cboClasificacion.Value);
+                            cmd.Parameters.AddWithValue("@clasificacion", objInfDRO.Clasificacion);
                             cmd.Parameters.AddWithValue("@aPaterno", objInfDRO.APaterno);
                             cmd.Parameters.AddWithValue("@aMaterno", objInfDRO.AMaterno);
                             cmd.Parameters.AddWithValue("@nombres", objInfDRO.Nombre);
@@ -284,11 +259,9 @@ namespace WebApplication1
                             cmd.Parameters.AddWithValue("@region", objInfDRO.IdRegion);
                             cmd.Parameters.AddWithValue("@telLocal", objInfDRO.TelLocal);
                             cmd.Parameters.AddWithValue("@telCelular", objInfDRO.TelCelular);
-                            cmd.Parameters.AddWithValue("@digital", FlpArchivo.FileName);
+
                             cmd.Parameters.AddWithValue("@colegio", objInfDRO.IdColegio);
                             cmd.Parameters.AddWithValue("@egresado", objInfDRO.IdUniversidad);
-
-
                             if (objInfDRO.FechaTitulo == null)
                             {
                                 cmd.Parameters.AddWithValue("@fechaTitulo", DBNull.Value);
@@ -333,14 +306,15 @@ namespace WebApplication1
                             " ,ultima_vigencia " +
                             " ,fecha_de_entrega_de_licencia " +
                             " ,cedula_profesional " +
-                            " ,entregado_por) values (null,null,getdate(),0,null,@tramiteSolicita,null,null,null,null,null,null,null,'EN ESPERA DE DICTAMEN',null,null,@cedulaProfesional,null); select scope_identity();";
+                            " ,email " +
+                           " ,entregado_por) values (null,null,getdate(),0,null,@tramiteSolicita,null,null,null,null,null,null,null,'EN ESPERA DE DICTAMEN',null,null,@cedulaProfesional,@correo,null); select scope_identity();";
                         cmd.CommandText = cSQL;
                         cmd.Parameters.Clear();
                         cmd.Parameters.AddWithValue("@tramiteSolicita", cboTipoTramites.Value.ToString());
                         cmd.Parameters.AddWithValue("@cedulaProfesional", txtCedula.Text);
+                        cmd.Parameters.AddWithValue("@correo", txtCorreoElectronico.Text);
                         var folio = cmd.ExecuteScalar();
                         transaction.Commit();
-                        LimpiaCampos();
                         cbSolicitud.JSProperties["cp_Resultado"] = "true|Solicitud generada con folio " + folio.ToString();
                         break;
 
@@ -351,9 +325,9 @@ namespace WebApplication1
                         ObtenerInformacion(txtCedula.Text);
                         cboLocalidad.DataBind();
                         llenarRegiones(cboMunicipio.Value);
-                        gvHistorial.DataBind();
                         break;
                 }
+
             }
             catch (Exception ex)
             {
@@ -371,7 +345,6 @@ namespace WebApplication1
 
         void LimpiaCampos()
         {
-
             txtApaterno.Text = "";
             txtAMaterno.Text = "";
             txtNombres.Text = "";
@@ -398,7 +371,7 @@ namespace WebApplication1
             {
                 conn = new SqlConnection(strConexion);
                 conn.Open();
-                String cSQL = string.Format("select top 1 * from [tblPadronDRO] where Cedula_Profesional='{0}' ", cedulaProfesional);
+                String cSQL = string.Format(" select top 1 * from [tblPadronDRO] where Cedula_Profesional='{0}' ", cedulaProfesional);
                 cmd = conn.CreateCommand();
                 cmd.CommandText = cSQL;
                 SqlDataReader dr = cmd.ExecuteReader();
@@ -510,160 +483,13 @@ namespace WebApplication1
                 }
             }
         }
-
-        /*   protected void upcCedula_FileUploadComplete(object sender, FileUploadCompleteEventArgs e)
-           {
-               try
-               {
-                   string file = "";
-                   string domainName = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
-                   string cedula = "";
-
-                   if (!string.IsNullOrEmpty(cedula))
-                   {
-                       file = string.Format("{0}_{1}.pdf", DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss"), cedula.Trim());
-                       string directorio = Server.MapPath(string.Format("~/Documents/Cedulas/{0}", cedula));
-                       if (!Directory.Exists(directorio))
-                       {
-                           Directory.CreateDirectory(directorio);
-                       }
-                       else
-                       {
-                           Directory.Delete(directorio, true);
-                           Directory.CreateDirectory(directorio);
-                       }
-                       var Archivo = Server.MapPath(string.Format("~/Documents/Cedulas/{0}/{1}", cedula.Trim(), file.Trim()));
-                       e.UploadedFile.SaveAs(Archivo);
-                       if (e.IsValid)
-                       {
-
-                           btnVisualizarCedula.ClientEnabled = true;
-                           btnVisualizarCedula.NavigateUrl = string.Format("true|~/Documents/Cedulas/{0}/{1}", cedula.Trim(), file.Trim());
-                           e.CallbackData = string.Format("true|{0}/Documents/Cedulas/{1}/{2}|{2}", domainName, cedula.Trim(), file.Trim());
-                           // e.CallbackData = string.Format("true|{0}/websfu/sfu_viewPDF?id=1&doc={1}|{1}", domainName, file);
-
-                       }
-                   }
-                   else
-                   {
-                       e.CallbackData = "false|Es obligatorio capturar el numero de cédula antes de anexar el archivo.";
-                   }
-
-               }
-               catch (Exception ex)
-               {
-                   e.CallbackData = "false|" + ex.Message;
-               }
-           }   */
-
-        protected void gvHistorial_DataBinding(object sender, EventArgs e)
-        {
-            try
-            {
-                conn = new SqlConnection(strConexion);
-                conn.Open();
-                String cSQL = string.Format(" SELECT  id " +
-     "  ,year(fecha_de_sesion) as anioVigencia " +
-     "  ,fecha_solicitud " +
-     "  ,folio_solicitud " +
-     "  ,registro_dro " +
-     "  ,tramites.id_tipo_solicitud as idTramiteSolicita " +
-     "  ,tramites.descripcion as tramiteSolicita " +
-     "  ,case procede_si_no when 'S' then 1  when 'N' then 0 else  procede_si_no end as procede_si_no " +
-     "  ,observaciones " +
-     "  ,status " +
-     "  ,tramitesP.id_tipo_solicitud as idTramiteProcede " +
-     "  ,tramitesP.descripcion as tramiteProcede " +
-     "  FROM tblsolicitudes as sol " +
-     "  inner join catalogo_de_tramites as tramites " +
-     "  on tramites.id_tipo_solicitud = sol.tramite_que_solicita " +
-     "  left join catalogo_de_tramites as tramitesP " +
-     "  on tramitesP.id_tipo_solicitud = sol.tramite_que_procede " +
-     "  where cedula_profesional = '{0}' " +
-     "  order by fecha_solicitud, fecha_de_sesion", txtCedula.Text);
-                cmd = conn.CreateCommand();
-                cmd.CommandText = cSQL;
-                DataTable dt = new DataTable();
-                dt.Load(cmd.ExecuteReader());
-            }
-            catch (Exception ex)
-            {
-                (Master.FindControl("lblError") as DevExpress.Web.ASPxLabel).Text = ex.Message;
-            }
-            finally
-            {
-                if (conn != null)
-                {
-                    conn.Close();
-                }
-            }
-        }
-
         protected void callpanelLocalidad_Callback(object sender, DevExpress.Web.CallbackEventArgsBase e)
         {
             cboLocalidad.DataBind();
         }
-
-      //  DataClasses1DataContext db = new DataClasses1DataContext();
-
+        
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
-            String cSQL = "";
-            try
-            {
-                conn = new SqlConnection(strConexion);
-                conn.Open();
-                cmd = conn.CreateCommand();
-                string cPassword = "";
-                //Valida que el usuario no se encuentre registrado
-                bool isRegistrado = false;
-                cSQL = string.Format("select * from DRO_user where email='{0}'", txtCorreoElectronico.Text);
-                cmd.CommandText = cSQL;
-                SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    isRegistrado = true;
-                    cPassword = reader["Contrasena"].ToString();
-                }
-                reader.Close();
-
-                cSQL = " insert into DRO_user (nombre,paterno,materno,isactivado,fecharegistro,email,contra,cedulapro) values(@nombre,@apaterno,@amaterno,@isactivado,getdate(),@email,@contrasena,@cedula)";
-                cmd.CommandText = cSQL;
-                cmd.Parameters.AddWithValue("@nombre", txtNombres.Text);
-                cmd.Parameters.AddWithValue("@apaterno", txtApaterno.Text);
-                cmd.Parameters.AddWithValue("@amaterno", txtAMaterno.Text);
-                cmd.Parameters.AddWithValue("@isactivado", true);
-                cmd.Parameters.AddWithValue("@email", txtCorreoElectronico.Text);
-                cmd.Parameters.AddWithValue("@contrasena", contra.Text);
-                cmd.Parameters.AddWithValue("@cedula", txtCedula.Text);
-                cmd.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-            }
-            finally
-            {
-                if (conn != null)
-                {
-                    conn.Close();
-                }
-            }
-
-            string fname = FlpArchivo.FileName;
-            string flocation = "Documents/";
-            string pathstring = System.IO.Path.Combine(flocation, fname);
-     /*       var st = new Documents
-            {
-                FileName = txtCedula.Text,
-                FileLocation = pathstring,
-            }; */
-
-      //      db.Documentos.InsertOnSubmit(st);
-        //    db.SubmitChanges();
-            FlpArchivo.SaveAs(MapPath(pathstring));
-            lblinformacion.Text = "Success";
-
-
             //Envia el correo
             System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
             mail.To.Add(txtCorreoElectronico.Text);
@@ -673,11 +499,10 @@ namespace WebApplication1
             //mail.Bcc.Add("ismaelgomezvelasco@outlook.com");
             mail.SubjectEncoding = System.Text.Encoding.UTF8;
             mail.Body = "Nombre de DRO = " + txtNombres.Text + " " + txtApaterno.Text + " " + txtAMaterno.Text + "<br/>" +
-                        "Usuario = " + txtCorreoElectronico.Text + "<br/>" +
-                        "Contraseña = " + contra.Text + "<br/>" +
-                        "Registro DRO = " + droalta.Text + "<br/>" +
-                        "Clave de solicitud = " + txtFolio.Text + "<br/>" +
-                        "Cedula = " + txtCedula.Text;
+                       "Usuario = " + txtCorreoElectronico.Text + "<br/>" +
+                       "Cedula = " + txtCedula.Text + "<br/>" +
+                       "Tramite Solicitado = " + cboTipoTramites.Text + "<br/>" +
+                       "Estado de trámite = " + "EN ESPERA DE ASIGNACIÓN DE FECHA PARA REVISIÓN" + "<br/>";
             mail.BodyEncoding = System.Text.Encoding.UTF8;
             mail.IsBodyHtml = true;
             mail.Priority = MailPriority.High;

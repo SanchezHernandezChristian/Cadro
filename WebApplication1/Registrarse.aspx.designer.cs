@@ -13,22 +13,13 @@ namespace WebApplication1 {
     public partial class Registrarse {
         
         /// <summary>
-        /// Control frmHitCounter.
+        /// Control envioRegistro.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl frmHitCounter;
-        
-        /// <summary>
-        /// Control lbluser.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbluser;
+        protected global::System.Web.UI.HtmlControls.HtmlForm envioRegistro;
         
         /// <summary>
         /// Control txtCedula.
@@ -103,15 +94,6 @@ namespace WebApplication1 {
         protected global::DevExpress.Web.ASPxLabel droalta;
         
         /// <summary>
-        /// Control lblFolio.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel lblFolio;
-        
-        /// <summary>
         /// Control txtFolio.
         /// </summary>
         /// <remarks>
@@ -121,13 +103,13 @@ namespace WebApplication1 {
         protected global::DevExpress.Web.ASPxTextBox txtFolio;
         
         /// <summary>
-        /// Control ASPxLabel2.
+        /// Control lblFolio.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel ASPxLabel2;
+        protected global::DevExpress.Web.ASPxLabel lblFolio;
         
         /// <summary>
         /// Control txtApaterno.
@@ -247,15 +229,6 @@ namespace WebApplication1 {
         protected global::DevExpress.Web.ASPxComboBox cboRegion;
         
         /// <summary>
-        /// Control ASPxLabel3.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel ASPxLabel3;
-        
-        /// <summary>
         /// Control txtTelLocal.
         /// </summary>
         /// <remarks>
@@ -281,15 +254,6 @@ namespace WebApplication1 {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxTextBox txtCorreoElectronico;
-        
-        /// <summary>
-        /// Control ASPxLabel4.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel ASPxLabel4;
         
         /// <summary>
         /// Control cboProfesion.
@@ -373,15 +337,6 @@ namespace WebApplication1 {
         protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource5;
         
         /// <summary>
-        /// Control ASPxLabel5.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel ASPxLabel5;
-        
-        /// <summary>
         /// Control txtAñoRegistro.
         /// </summary>
         /// <remarks>
@@ -425,24 +380,6 @@ namespace WebApplication1 {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxComboBox cboClaveProfesion;
-        
-        /// <summary>
-        /// Control ASPxLabel6.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel ASPxLabel6;
-        
-        /// <summary>
-        /// Control gvHistorial.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxGridView gvHistorial;
         
         /// <summary>
         /// Control btnGuardar.

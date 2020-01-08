@@ -1,0 +1,56 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="AsignadorMaster.master.cs" Inherits="WebApplication1.AsignadorMaster" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <link href="Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="Content-Language" content="es"/>
+    <title>Comisión de Admisión de Directores Responsables de Obra y Corresponsables en el Estado de Oaxaca</title>
+    <link rel="shortcut icon" href="css/img/LogoVII.ico" type="image/x-icon"/>
+    <link rel="icon" href="css/img/LogoVII.ico" type="image/x-icon" />
+    <link href="css/Master.css" rel="stylesheet"/>
+    <script src="Scripts/JSMaster.js"></script>
+    <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
+    </asp:ContentPlaceHolder>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+
+        <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-2 bg-white border-bottom shadow-sm">
+            <img style="text-align: center; background-size: cover; max-width:15%; " src="/css/img/logo.png"/>
+            <br />
+            <h5 class="my-0 mr-md-auto font-weight-normal col-6" style="padding-left: 1rem;">Comité de acreditación de Dirección de Responsables de Obra</h5>
+
+
+            <nav class="my-2 my-md-0 mr-md-3">
+                <dx:ASPxLabel runat="server" ID="lblBienvenido" Font-Size="18px" Text="Bienvenido: " Theme="Material" Font-Bold="true" ForeColor="#101F29">
+                                </dx:ASPxLabel>
+                <dx:ASPxLabel runat="server" ID="lblNombreUsuario" Font-Size="18px" Text="" Theme="Material" Font-Bold="true" ForeColor="#101F29">
+                                </dx:ASPxLabel>
+            </nav>
+            <dx:ASPxButton runat="server" CausesValidation="false" theme="Material" AutoPostBack="true" OnClick="Unnamed_Click" Border-BorderStyle="None" text="Cerrar Sesión" CssClass="mr-2 btn btn-cerrar btn-sm" width="5%">
+                <Image Url="/css/img/cerrar-sesion.png"></Image>                      
+            </dx:ASPxButton>
+            </div>
+        <div class="d-flex justify-content-start flex-wrap flex-md-nowrap align-items-center ">
+            
+             <dx:ASPxLabel runat="server" Text="" ID="lblError" ForeColor="Transparent">
+                </dx:ASPxLabel>
+          </div>
+    
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>
+    
+
+    
+    </form>
+</body>
+</html>

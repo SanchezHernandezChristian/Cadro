@@ -37,8 +37,10 @@ namespace WebApp.Code
         private string _Correo;
         private int _UltimaVigencia;
         private string _Observaciones;
-       
-             
+        private string _Curp;
+        private string _Rfc;
+        private string _Nacimiento;
+
         public long Id
         {
             get
@@ -423,6 +425,42 @@ namespace WebApp.Code
             set
             {
                 _Clasificacion = value;
+            }
+        }
+        public string Curp
+        {
+            get
+            {
+                return _Curp;
+            }
+
+            set
+            {
+                _Curp = value;
+            }
+        }
+        public string Rfc
+        {
+            get
+            {
+                return _Rfc;
+            }
+
+            set
+            {
+                _Rfc = value;
+            }
+        }
+        public string Nacimiento
+        {
+            get
+            {
+                return _Nacimiento;
+            }
+
+            set
+            {
+                _Nacimiento = value;
             }
         }
     }

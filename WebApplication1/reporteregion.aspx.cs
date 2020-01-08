@@ -68,7 +68,7 @@ namespace WebApplication1
                 if (cboRegion.Value != null)
                 {
                     if (Convert.ToInt32(cboRegion.Value) != -1)
-                        cFiltro = string.Format(" where p.region='{0}'", cboRegion.Value);
+                        cFiltro = string.Format("where p.region='{0}'", cboRegion.Value);
                 }
 
                 String cSQL = string.Format("SELECT p.[Id] as Folio, s.[fecha_de_entrega_de_licencia], concat([apellido_paterno] " +
@@ -79,8 +79,6 @@ namespace WebApplication1
                     "inner join tblSolicitudes s on p.[cedula_profesional] = s.[cedula_profesional] " +
                     "inner join catalogo_de_tramites t on t.[id_tipo_solicitud] = s.[tramite_que_solicita] " +
                     "inner join[catregiones] r on p.[region] = r.[iIdRegion] {0}", cFiltro);
-
-
                 cmd = conn.CreateCommand();
                 cmd.CommandText = cSQL;
 

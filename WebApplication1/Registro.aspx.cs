@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Text.RegularExpressions;
@@ -20,34 +21,14 @@ namespace WebApplication1
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            /*   int currentNumberOfUsers = WebApp.HitCounters.CurrentNumberOfUsers;
-   int totalNumberOfUsers = WebApp.HitCounters.TotalNumberOfUsers;
-   lblCurrentNumberOfUsers.Text = currentNumberOfUsers.ToString();
-   lblTotalNumberOfUsers.Text = totalNumberOfUsers.ToString();  
-lbluser.Text = Application["NoOfVisitors"].ToString();
-*/
             if (!IsPostBack)
             {
-               // LimpiaCampos();
+                LimpiaCampos();
             }
-            //   int numero = 1;
-            //   var numeroFormato = numero.ToString("D4");
-            //   droalta.Text = numeroFormato;
             string nuevaContraseña = Membership.GeneratePassword(8, 1);
             Random rdn = new Random();
             nuevaContraseña = Regex.Replace(nuevaContraseña, @"[^0-9]", m => rdn.Next(1, 9).ToString());
             contra.Text = nuevaContraseña;
-
-            String dro = Membership.GeneratePassword(4, 1);
-            dro = Regex.Replace(dro, @"[^4-9]", m => rdn.Next(4, 9).ToString());
-            droalta.Text = dro;
-
-
-            /*       int contador;
-                   contador = int.Parse(s.Text);
-                   contador++;
-                   s.Text = contador.ToString(); */
-
         }
 
         void validarFechaSesion()
@@ -59,7 +40,7 @@ lbluser.Text = Application["NoOfVisitors"].ToString();
                 cmd = conn.CreateCommand();
                 cmd.CommandText = string.Format(" SELECT " +
                                   " top 1 * from tblsolicitudes" +
-                                  " where cedula_profesional = '{0}' order by id desc ", txtCedula.Text.Trim());
+                                  " where cedula = '{0}' order by id desc ", txtCedula.Text.Trim());
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
@@ -127,85 +108,28 @@ lbluser.Text = Application["NoOfVisitors"].ToString();
             }
         }
 
-
-        /* 
-        void idregistro(object id)
-        {
-            if (id != null)
-            {
-                conn = new SqlConnection(strConexion);
-                conn.Open();
-                String cSQL = string.Format(" SELECT MAX (Idregistro) FROM [tblPadronDRO] ");
-
-                cmd = conn.CreateCommand();
-                cmd.CommandText = cSQL;
-
-                SqlDataReader drR = cmd.ExecuteReader();
-                while (drR.Read())
+        protected void cboEgresado_DataBinding(object sender, EventArgs e)
                 {
-                    s.Items.Add(drR["Idregistro"].ToString(), drR["Idregistro"].ToString());
-                    s.Value = drR["Idregistro"].ToString();
+                   
                 }
-                conn.Close();
-            }
-        }
-       */
-
-        /*
-                protected void cboEgresado_DataBinding(object sender, EventArgs e)
-                {
-                    try
-                    {
-                        conn = new SqlConnection(strConexion);
-                        conn.Open();
-                        String cSQL = string.Format(" SELECT [Id], [NOmbre] " +
-                        " FROM [tblUniversidades] ORDER BY[NOmbre] ");
-                        cmd = conn.CreateCommand();
-                        cmd.CommandText = cSQL;
-
-                        SqlDataReader drR = cmd.ExecuteReader();
-                        DataTable dt = new DataTable();
-                        dt.Load(drR);
-
-                        cboEgresado.DataSource = dt;
-                    }
-                    catch (Exception ex)
-                    {
-                        (Master.FindControl("lblError") as DevExpress.Web.ASPxLabel).Text = ex.Message;
-                    }
-                    finally
-                    {
-                        if (conn != null)
-                        {
-                            conn.Close();
-                        }
-                    }
-                }*/
 
 
         protected void cbSolicitud_Callback(object sender, DevExpress.Web.CallbackEventArgsBase e)
         {
             try
             {
-                InfUsuario objInfUsuario = null;
-                if (Session["InfoUsuario"] != null)
-                {
-                    objInfUsuario = Session["InfoUsuario"] as InfUsuario;
-                }
                 String cSQL = "";
                 conn = new SqlConnection(strConexion);
                 conn.Open();
                 transaction = conn.BeginTransaction();
                 cmd = conn.CreateCommand();
                 cmd.Transaction = transaction;
-
                 switch (e.Parameter)
                 {
                     case "Guardar":
-                        /*
                         bool isRegistrado = false;
                         ///si no se encuentra en el padrón de DRO´S se agrega  a la base                        
-                        cmd.CommandText = " select * from tblPadronDRO where cedula_profesional='" + txtCedula.Text + "'";
+                        cmd.CommandText = " select * from tblPadronDRO where cedula='" + txtCedula.Text + "'";
                         SqlDataReader reader = cmd.ExecuteReader();
                         while (reader.Read())
                         {
@@ -214,187 +138,77 @@ lbluser.Text = Application["NoOfVisitors"].ToString();
                         reader.Close();
                         if (isRegistrado == false)
                         {
-
                             InfDRO objInfDRO = new InfDRO();
-                            objInfDRO.AMaterno = txtAMaterno.Text;
-                            objInfDRO.AnioRegistroSOP = int.Parse(txtAñoRegistro.Text == "" ? "0" : txtAñoRegistro.Text);
-                            objInfDRO.APaterno = txtApaterno.Text;
-                            objInfDRO.CalleNum = txtCalleNumero.Text;
-                            objInfDRO.CedulaProfesional = txtCedula.Text;
-                            if (cboClasificacion.Value == null)
-                            {
-                                objInfDRO.Clasificacion = "";
-                            }
-                            else
-                            {
-                                objInfDRO.Clasificacion = cboClasificacion.Value.ToString();
-                            }
-                            objInfDRO.Colonia = txtColonia.Text;
-                            objInfDRO.Correo = txtCorreoElectronico.Text;
-                            objInfDRO.CursoActualizacion = txtCursos.Text;
-                            objInfDRO.IdRegistro = 0;
-
-                            if (cboProfesion.Value == null)
-                            {
-                                objInfDRO.ClaveProfesion = "";
-                            }
-                            else
-                            {
-                                objInfDRO.ClaveProfesion = cboProfesion.Value.ToString();
-                            }
-                            if (dtFechaCedula.Date.Year == 1)
-                            {
-                                objInfDRO.FechaCedula = null;
-                            }
-                            else
-                            {
-                                objInfDRO.FechaCedula = dtFechaCedula.Date;
-                            }
-                            if (dtFechaTitulo.Date.Year == 1)
-                            {
-                                objInfDRO.FechaTitulo = null;
-                            }
-                            else
-                            {
-                                objInfDRO.FechaTitulo = dtFechaTitulo.Date;
-                            }
-                            objInfDRO.IdMunicipio = int.Parse(cboMunicipio.Value.ToString());
-                            objInfDRO.Municipio = cboMunicipio.Text.ToString();
-                            objInfDRO.IdUniversidad = int.Parse(cboEgresado.Value.ToString());
-                            objInfDRO.IdLocalidad = int.Parse(cboLocalidad.Value.ToString());
-                            objInfDRO.Localidad = cboLocalidad.Text;
-                            objInfDRO.Nombre = txtNombres.Text;
-                            objInfDRO.Region = cboRegion.Text;
-                            objInfDRO.TelCelular = txtTelCelular.Text;
-                            objInfDRO.TelLocal = txtTelLocal.Text;
-                            objInfDRO.Universidad = cboEgresado.Text;
-                            objInfDRO.IdColegio = int.Parse(cboColegio.Value.ToString());
-                            objInfDRO.IdRegion = int.Parse(cboRegion.Value.ToString());
-                            cSQL = " insert into tblPadronDRO ( " +
-                                      "  cedula_profesional " +
-                                      " ,Idregistro  " +
-                                      " ,clasifica " +
-                                      " ,apellido_paterno " +
-                                      " ,apellido_materno " +
-                                      " ,nombres " +
-                                      " ,clave_profesion " +
-                                      " ,calle_numero " +
-                                      " ,colonia " +
-                                      " ,municipio " +
-                                      " ,region " +
-                                      " ,telefono_local " +
-                                      " ,telefono_celular " +
-                                      " ,colegio " +
-                                      " ,egresado_de " +
-                                      " ,fecha_titulo " +
-                                      " ,fecha_cedula " +
-                                      " ,anio_registro_sop " +
-                                      " ,cursos " +
-                                      " ,total_vigencias " +
-                                      " ,email " +
-                                      " ,ultima_vigencia " +
-                                      " ,observaciones " +
-                                      " ,url_foto " +
-                                      " ,FechaRegistro " +
-                                      " ,FechaActualizacion " +
-                                      " ,IdUsuario " +
-                                      " ,Idlocalidad " +
-                                      " ,NombreLocalidad " +
-                                      " ,NombreMunicipio) values (@cedula,@altadro,@clasificacion,@aPaterno,@aMaterno,@nombres,@claveProfesion,@calle,@colonia,@municipio,@region,@telLocal,@telCelular,@colegio,@egresado,@fechaTitulo,@fechacedula,'',@cursos,0,@email,'',null,@digital,getdate(),getdate(),@idUsuario,@idLocalidad,@nombreLocalidad,@nombreMunicipio); select scope_identity()";
-
+                            cSQL = " insert into IdRegistros (fecha) values(getdate()); select scope_identity();";
                             cmd.CommandText = cSQL;
-                            cmd.Parameters.AddWithValue("@cedula", objInfDRO.CedulaProfesional);
-                            cmd.Parameters.AddWithValue("@altadro", droalta.Text);
-                            cmd.Parameters.AddWithValue("@clasificacion", cboClasificacion.Value);
-                            cmd.Parameters.AddWithValue("@aPaterno", objInfDRO.APaterno);
-                            cmd.Parameters.AddWithValue("@aMaterno", objInfDRO.AMaterno);
-                            cmd.Parameters.AddWithValue("@nombres", objInfDRO.Nombre);
-                            cmd.Parameters.AddWithValue("@claveProfesion", objInfDRO.ClaveProfesion == null ? "" : objInfDRO.ClaveProfesion.ToString());
-                            cmd.Parameters.AddWithValue("@calle", objInfDRO.CalleNum);
-                            cmd.Parameters.AddWithValue("@colonia", objInfDRO.Colonia);
-                            cmd.Parameters.AddWithValue("@calleNum", objInfDRO.CalleNum);
-                            cmd.Parameters.AddWithValue("@municipio", objInfDRO.IdMunicipio);
-                            cmd.Parameters.AddWithValue("@nombreMunicipio", objInfDRO.Municipio);
-                            cmd.Parameters.AddWithValue("@region", objInfDRO.IdRegion);
-                            cmd.Parameters.AddWithValue("@telLocal", objInfDRO.TelLocal);
-                            cmd.Parameters.AddWithValue("@telCelular", objInfDRO.TelCelular);
-                            cmd.Parameters.AddWithValue("@digital", FlpArchivo.FileName);
-                            cmd.Parameters.AddWithValue("@colegio", objInfDRO.IdColegio);
-                            cmd.Parameters.AddWithValue("@egresado", objInfDRO.IdUniversidad);
+                            var folioRegistro = cmd.ExecuteScalar();
+                            cmd.Parameters.Clear();
+                            cSQL = " insert into tblPadronDRO ( " + "  cedula " + " ,Idregistro  " + " ,clasificacion " + " ,ap_paterno " +
+                                       " ,ap_materno " + " ,nombre " + " ,id_profesion " + " ,calle_numero " +
+                                       " ,colonia " + " ,telefono_local " + " ,telefono_celular " + " ,id_colegio " + " ,id_universidad" + " ,fecha_titulo " +
+                                       " ,fecha_cedula " + " ,anio_reg_sop " + " ,cursos " + " ,email " + " ,ultima_vigencia " + " ,observaciones " + " ,FechaRegistro " +
+                                       " ,FechaActualizacion " + " ,Idlocalidad " + " ,curp " + " ,rfc " +
+                                       " ,nacimiento) values (@cedula,@idRegistro,@clasificacion,@aPaterno,@aMaterno,@nombres,@claveProfesion,@calle,@colonia,@telLocal,@telCelular,@colegio,@egresado,@fechaTitulo,@fechacedula,'',@cursos,@email,'',null,getdate(),getdate(),@idLocalidad,@curp,@rfc,@nacimiento); select scope_identity()";
+                            cmd.CommandText = cSQL;
+                            cmd.Parameters.AddWithValue("@cedula", txtCedula.Text);
+                            cmd.Parameters.AddWithValue("@idRegistro", folioRegistro.ToString());
+                            cmd.Parameters.AddWithValue("@clasificacion", " ");
+                            cmd.Parameters.AddWithValue("@aPaterno", txtApaterno.Text);
+                            cmd.Parameters.AddWithValue("@aMaterno", txtAMaterno.Text);
+                            cmd.Parameters.AddWithValue("@nombres", txtNombres.Text);
+                            cmd.Parameters.AddWithValue("@claveProfesion", cboProfesion.Value.ToString() == null ? "" : cboProfesion.Value.ToString());
+                            cmd.Parameters.AddWithValue("@calle", txtCalleNumero.Text);
+                            cmd.Parameters.AddWithValue("@colonia", txtColonia.Text);
+                            cmd.Parameters.AddWithValue("@telLocal", txtTelLocal.Text);
+                            cmd.Parameters.AddWithValue("@telCelular", txtTelCelular.Text);
+                            cmd.Parameters.AddWithValue("@colegio", cboColegio.Value.ToString());
+                            cmd.Parameters.AddWithValue("@egresado", cboEgresado.Value.ToString());
 
-
-                            if (objInfDRO.FechaTitulo == null)
+                            if (dtFechaTitulo.Date == null)
                             {
                                 cmd.Parameters.AddWithValue("@fechaTitulo", DBNull.Value);
                             }
                             else
                             {
-                                cmd.Parameters.AddWithValue("@fechaTitulo", objInfDRO.FechaTitulo);
+                                cmd.Parameters.AddWithValue("@fechaTitulo", dtFechaTitulo.Date);
                             }
-                            if (objInfDRO.FechaCedula == null)
+                            if (dtFechaCedula.Date == null)
                             {
                                 cmd.Parameters.AddWithValue("@fechaCedula", DBNull.Value);
                             }
                             else
                             {
-                                cmd.Parameters.AddWithValue("@fechaCedula", objInfDRO.FechaCedula);
+                                cmd.Parameters.AddWithValue("@fechaCedula", dtFechaCedula.Date);
                             }
-                            cmd.Parameters.AddWithValue("@cursos", objInfDRO.CursoActualizacion);
-                            cmd.Parameters.AddWithValue("@email", objInfDRO.Correo);
-                            cmd.Parameters.AddWithValue("@idUsuario", 0);
-                            cmd.Parameters.AddWithValue("@idLocalidad", objInfDRO.IdLocalidad);
-                            cmd.Parameters.AddWithValue("@nombreLocalidad", objInfDRO.Localidad);
-
+                            cmd.Parameters.AddWithValue("@cursos", txtCursos.Text);
+                            cmd.Parameters.AddWithValue("@email", txtCorreoElectronico.Text);
+                            cmd.Parameters.AddWithValue("@idLocalidad", cboLocalidad.Value.ToString());
+                            cmd.Parameters.AddWithValue("@curp", curp.Text);
+                            cmd.Parameters.AddWithValue("@rfc", rfc.Text);
+                            cmd.Parameters.AddWithValue("@nacimiento", nacimiento.Text);
                             cmd.ExecuteNonQuery();
                         }
-
-                        //Guarda la solicitud
-                        cSQL = " insert into tblsolicitudes ( " +
-                            " fecha_de_sesion " +
-                            " ,fecha_escrito " +
-                            " ,fecha_solicitud " +
-                            " ,folio_solicitud " +
-                            " ,registro_dro " +
-                            " ,tramite_que_solicita " +
-                            " ,procede_si_no " +
-                            " ,observaciones " +
-                            " ,tramite_que_procede " +
-                            " ,folio_autorizado " +
-                            " ,folio_rechazado " +
-                            " ,numero_de_oficio " +
-                            " ,fecha_de_oficios " +
-                            " ,status " +
-                            " ,ultima_vigencia " +
-                            " ,fecha_de_entrega_de_licencia " +
-                            " ,cedula_profesional " +
-                            " ,entregado_por) values (null,null,getdate(),0,null,@tramiteSolicita,null,null,null,null,null,null,null,'EN ESPERA DE DICTAMEN',null,null,@cedulaProfesional,null); select scope_identity();";
-                        cmd.CommandText = cSQL;
-                        cmd.Parameters.Clear();
-                        cmd.Parameters.AddWithValue("@tramiteSolicita", cboTipoTramites.Value.ToString());
-                        cmd.Parameters.AddWithValue("@cedulaProfesional", txtCedula.Text);
-                        var folio = cmd.ExecuteScalar();
-                        transaction.Commit();
-                        LimpiaCampos();
-                        cbSolicitud.JSProperties["cp_Resultado"] = "true|Solicitud generada con folio " + folio.ToString();
-                        */
+                        /*            //Guarda la solicitud
+                                     cSQL = "insert into tblsolicitudes ( " +
+                                        " fecha_de_sesion " + " ,fecha_solicitud " + " ,id_PadronDRO " + " ,tramite_que_solicita " + " ,observaciones " +
+                                        " ,numero_de_oficio " + " ,fecha_de_oficio " + " ,status " + " ,fecha_de_entrega_de_licencia " + " ,cedula " +
+                                        " ,entregado_por) values (null,getdate(),'',@tramiteSolicita,null,null,null,'EN ASIGNACION DE FECHA',null,@cedula,null); select scope_identity();";
+                                     cmd.CommandText = cSQL;
+                                     cmd.Parameters.Clear();
+                                     //     ClientScript.RegisterStartupScript(GetType(), "Message", "notificacion('" + "inicio insercion en solicitudes" + "');", true);
+                                     cmd.Parameters.AddWithValue("@idRegistro", folioRegistro.ToString());
+                                     cmd.Parameters.AddWithValue("@tramiteSolicita", cboTipoTramites.Value.ToString());
+                                     cmd.Parameters.AddWithValue("@cedula", txtCedula.Text);
+                                     var folio = cmd.ExecuteScalar(); /*    */
+                                     transaction.Commit();
+                                     Solicitud.JSProperties["cp_Resultado"] = "true|Solicitud generada con folio " + txtCedula.ToString();  
                         break;
-
-                    default:
-                        /*LimpiaCampos();
-                        validarFechaSesion();
-                        //Obtiene los datos del profesionista y lo pone en los controles
-                        ObtenerInformacion(txtCedula.Text);
-                        cboLocalidad.DataBind();
-                        llenarRegiones(cboMunicipio.Value);
-                        gvHistorial.DataBind*/
-                        break;
-
-                }//borrar
+                }
             }
             catch (Exception ex)
             {
                 transaction.Rollback();
-                cbSolicitud.JSProperties["cp_Resultado"] = "false|" + ex.Message;
+                Solicitud.JSProperties["cp_Resultado"] = "false|" + ex.Message;
             }
             finally
             {
@@ -405,9 +219,9 @@ lbluser.Text = Application["NoOfVisitors"].ToString();
             }
         }
 
-        /*void LimpiaCampos()
-        {
 
+        void LimpiaCampos()
+        {
             txtApaterno.Text = "";
             txtAMaterno.Text = "";
             txtNombres.Text = "";
@@ -426,25 +240,24 @@ lbluser.Text = Application["NoOfVisitors"].ToString();
             txtFolio.Text = "";
             dtFechaCedula.Value = null;
             dtFechaTitulo.Value = null;
-        }*/
-        /*
+        }
+        
         void ObtenerInformacion(string cedulaProfesional)
         {
             try
             {
                 conn = new SqlConnection(strConexion);
                 conn.Open();
-                String cSQL = string.Format("select top 1 * from [tblPadronDRO] where Cedula_Profesional='{0}' ", cedulaProfesional);
+                String cSQL = string.Format("select top 1 * from [tblPadronDRO] where cedula='{0}' ", cedulaProfesional);
                 cmd = conn.CreateCommand();
                 cmd.CommandText = cSQL;
                 SqlDataReader dr = cmd.ExecuteReader();
 
                 while (dr.Read())
                 {
-
-                    txtApaterno.Text = dr["apellido_paterno"].ToString();
-                    txtAMaterno.Text = dr["apellido_materno"].ToString();
-                    txtNombres.Text = dr["nombres"].ToString();
+                    txtApaterno.Text = dr["ap_paterno"].ToString();
+                    txtAMaterno.Text = dr["ap_materno"].ToString();
+                    txtNombres.Text = dr["nombre"].ToString();
                     txtCalleNumero.Text = dr["calle_numero"].ToString();
                     txtColonia.Text = dr["colonia"].ToString();
                     cboMunicipio.Value = dr["municipio"].ToString();
@@ -491,7 +304,7 @@ lbluser.Text = Application["NoOfVisitors"].ToString();
                     conn.Close();
                 }
             }
-        }*/
+        }
 
         protected void cbValidar_Callback(object source, DevExpress.Web.CallbackEventArgs e)
         {
@@ -500,7 +313,7 @@ lbluser.Text = Application["NoOfVisitors"].ToString();
                 bool existeRegistro = false;
                 conn = new SqlConnection(strConexion);
                 conn.Open();
-                String cSQL = string.Format(" select * from tblPadronDRO where cedula_Profesional='{0}'", txtCedula.Text.Trim());
+                String cSQL = string.Format(" select * from tblPadronDRO where cedula='{0}'", txtCedula.Text.Trim());
                 cmd = conn.CreateCommand();
                 cmd.CommandText = cSQL;
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -548,49 +361,6 @@ lbluser.Text = Application["NoOfVisitors"].ToString();
         }
         
 
-        protected void gvHistorial_DataBinding(object sender, EventArgs e)
-        {
-            try
-            {
-                conn = new SqlConnection(strConexion);
-                conn.Open();
-                String cSQL = string.Format(" SELECT  id " +
-     "  ,year(fecha_de_sesion) as anioVigencia " +
-     "  ,fecha_solicitud " +
-     "  ,folio_solicitud " +
-     "  ,registro_dro " +
-     "  ,tramites.id_tipo_solicitud as idTramiteSolicita " +
-     "  ,tramites.descripcion as tramiteSolicita " +
-     "  ,case procede_si_no when 'S' then 1  when 'N' then 0 else  procede_si_no end as procede_si_no " +
-     "  ,observaciones " +
-     "  ,status " +
-     "  ,tramitesP.id_tipo_solicitud as idTramiteProcede " +
-     "  ,tramitesP.descripcion as tramiteProcede " +
-     "  FROM tblsolicitudes as sol " +
-     "  inner join catalogo_de_tramites as tramites " +
-     "  on tramites.id_tipo_solicitud = sol.tramite_que_solicita " +
-     "  left join catalogo_de_tramites as tramitesP " +
-     "  on tramitesP.id_tipo_solicitud = sol.tramite_que_procede " +
-     "  where cedula_profesional = '{0}' " +
-     "  order by fecha_solicitud, fecha_de_sesion", txtCedula.Text);
-                cmd = conn.CreateCommand();
-                cmd.CommandText = cSQL;
-                DataTable dt = new DataTable();
-                dt.Load(cmd.ExecuteReader());
-            }
-            catch (Exception ex)
-            {
-                (Master.FindControl("lblError") as DevExpress.Web.ASPxLabel).Text = ex.Message;
-            }
-            finally
-            {
-                if (conn != null)
-                {
-                    conn.Close();
-                }
-            }
-        }
-
         protected void callpanelLocalidad_Callback(object sender, DevExpress.Web.CallbackEventArgsBase e)
         {
             cboLocalidad.DataBind();
@@ -599,39 +369,117 @@ lbluser.Text = Application["NoOfVisitors"].ToString();
        
         
         protected void btnGuardar_Click(object sender, EventArgs e)
-        {/*
-            String cSQL = "";
+        {
+            string path = Path.Combine(Server.MapPath("~/Documents/Cedulas"), txtCedula.Text);
+            Directory.CreateDirectory(path);
+
+
+            if (FileUpload1.HasFile)
+            {
+                string fullPath = Path.Combine(Server.MapPath("~/Documents/Cedulas/" + txtCedula.Text), FileUpload1.FileName);
+                FileUpload1.SaveAs(fullPath);
+            }
+        }
+
+        protected void Solicitud_Callback(object sender, DevExpress.Web.CallbackEventArgsBase e)
+        {
             try
             {
+                String cSQL = "";
                 conn = new SqlConnection(strConexion);
                 conn.Open();
+                transaction = conn.BeginTransaction();
                 cmd = conn.CreateCommand();
-                string cPassword = "";
-                //Valida que el usuario no se encuentre registrado
-                bool isRegistrado = false;
-                cSQL = string.Format("select * from DRO_user where email='{0}'", txtCorreoElectronico.Text);
-                cmd.CommandText = cSQL;
-                SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
+                cmd.Transaction = transaction;
+                switch (e.Parameter)
                 {
-                    isRegistrado = true;
-                    cPassword = reader["Contrasena"].ToString();
-                }
-                reader.Close();
+                    case "Guardar":
+                        bool isRegistrado = false;
+                        ///si no se encuentra en el padrón de DRO´S se agrega  a la base                        
+                        cmd.CommandText = " select * from tblPadronDRO where cedula='" + txtCedula.Text + "'";
+                        SqlDataReader reader = cmd.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            isRegistrado = true;
+                        }
+                        reader.Close();
+                        if (isRegistrado == false)
+                        {
+                            InfDRO objInfDRO = new InfDRO();
+                            cSQL = " insert into IdRegistros (fecha) values(getdate()); select scope_identity();";
+                            cmd.CommandText = cSQL;
+                            var folioRegistro = cmd.ExecuteScalar();
+                            cmd.Parameters.Clear();
+                          //  int idPersona;
+                            cSQL = " insert into tblPadronDRO ( " + "  cedula " + " ,Idregistro  " + " ,clasificacion " + " ,ap_paterno " +
+                                       " ,ap_materno " + " ,nombre " + " ,id_profesion " + " ,calle_numero " +
+                                       " ,colonia " + " ,telefono_local " + " ,telefono_celular " + " ,id_colegio " + " ,id_universidad" + " ,fecha_titulo " +
+                                       " ,fecha_cedula " + " ,anio_reg_sop " + " ,cursos " + " ,email " + " ,ultima_vigencia " + " ,observaciones " + " ,FechaRegistro " +
+                                       " ,FechaActualizacion " + " ,Idlocalidad " + " ,curp " + " ,rfc " +
+                                       " ,nacimiento) output inserted.id values (@cedula,@idRegistro,@clasificacion,@aPaterno,@aMaterno,@nombres,@claveProfesion,@calle,@colonia,@telLocal,@telCelular,@colegio,@egresado,@fechaTitulo,@fechacedula,'',@cursos,@email,'',null,getdate(),getdate(),@idLocalidad,@curp,@rfc,@nacimiento); select scope_identity()";
+                            cmd.CommandText = cSQL;
+                            cmd.Parameters.AddWithValue("@cedula", txtCedula.Text);
+                            cmd.Parameters.AddWithValue("@idRegistro", folioRegistro.ToString());
+                            cmd.Parameters.AddWithValue("@clasificacion", " ");
+                            cmd.Parameters.AddWithValue("@aPaterno", txtApaterno.Text);
+                            cmd.Parameters.AddWithValue("@aMaterno", txtAMaterno.Text);
+                            cmd.Parameters.AddWithValue("@nombres", txtNombres.Text);
+                            cmd.Parameters.AddWithValue("@claveProfesion", cboProfesion.Value.ToString() == null ? "" : cboProfesion.Value.ToString());
+                            cmd.Parameters.AddWithValue("@calle", txtCalleNumero.Text);
+                            cmd.Parameters.AddWithValue("@colonia", txtColonia.Text);
+                            cmd.Parameters.AddWithValue("@telLocal", txtTelLocal.Text);
+                            cmd.Parameters.AddWithValue("@telCelular", txtTelCelular.Text);
+                            cmd.Parameters.AddWithValue("@colegio", cboColegio.Value.ToString());
+                            cmd.Parameters.AddWithValue("@egresado", cboEgresado.Value.ToString());
 
-                cSQL = " insert into DRO_user (nombre,paterno,materno,isactivado,fecharegistro,email,contra,cedulapro) values(@nombre,@apaterno,@amaterno,@isactivado,getdate(),@email,@contrasena,@cedula)";
-                cmd.CommandText = cSQL;
-                cmd.Parameters.AddWithValue("@nombre", txtNombres.Text);
-                cmd.Parameters.AddWithValue("@apaterno", txtApaterno.Text);
-                cmd.Parameters.AddWithValue("@amaterno", txtAMaterno.Text);
-                cmd.Parameters.AddWithValue("@isactivado", true);
-                cmd.Parameters.AddWithValue("@email", txtCorreoElectronico.Text);
-                cmd.Parameters.AddWithValue("@contrasena", contra.Text);
-                cmd.Parameters.AddWithValue("@cedula", txtCedula.Text);
-                cmd.ExecuteNonQuery();
+                            if (dtFechaTitulo.Date == null)
+                            {
+                                cmd.Parameters.AddWithValue("@fechaTitulo", DBNull.Value);
+                            }
+                            else
+                            {
+                                cmd.Parameters.AddWithValue("@fechaTitulo", dtFechaTitulo.Date);
+                            }
+                            if (dtFechaCedula.Date == null)
+                            {
+                                cmd.Parameters.AddWithValue("@fechaCedula", DBNull.Value);
+                            }
+                            else
+                            {
+                                cmd.Parameters.AddWithValue("@fechaCedula", dtFechaCedula.Date);
+                            }
+                            cmd.Parameters.AddWithValue("@cursos", txtCursos.Text);
+                            cmd.Parameters.AddWithValue("@email", txtCorreoElectronico.Text);
+                            cmd.Parameters.AddWithValue("@idLocalidad", cboLocalidad.Value.ToString());
+                            cmd.Parameters.AddWithValue("@curp", curp.Text);
+                            cmd.Parameters.AddWithValue("@rfc", rfc.Text);
+                            cmd.Parameters.AddWithValue("@nacimiento", nacimiento.Text);
+                            //cmd.ExecuteNonQuery();
+                            // int idPersona = cmd.ExecuteNonQuery();
+                            var idPersona = cmd.ExecuteScalar();
+                            cmd.Parameters.Clear();
+                            //Guarda la solicitud
+                            cSQL = "insert into tblsolicitudes ( " +
+                               " fecha_de_sesion " + " ,fecha_solicitud " + " ,id_PadronDRO " + " ,tramite_que_solicita " + " ,observaciones " +
+                               " ,numero_de_oficio " + " ,fecha_de_oficio " + " ,status " + " ,fecha_de_entrega_de_licencia " +
+                               " ,entregado_por) values (null,getdate(),@idRegister,@tramiteSolicita,null,null,null,'EN ASIGNACION DE FECHA',null,null); select scope_identity();";
+                            cmd.CommandText = cSQL;
+                       //     cmd.Parameters.Clear();
+                            //     ClientScript.RegisterStartupScript(GetType(), "Message", "notificacion('" + "inicio insercion en solicitudes" + "');", true);
+                            cmd.Parameters.AddWithValue("@idRegister", idPersona);
+                            cmd.Parameters.AddWithValue("@tramiteSolicita", cboTipoTramites.Value.ToString());
+                            var folio = cmd.ExecuteScalar();
+                            Solicitud.JSProperties["cp_Resultado"] = "true|Solicitud generada con folio " + folio.ToString();
+                        }
+                        transaction.Commit();
+                        //Solicitud.JSProperties["cp_Resultado"] = "true|Solicitud generada correctamente ";
+                        break;
+                }
             }
             catch (Exception ex)
             {
+                transaction.Rollback();
+                Solicitud.JSProperties["cp_Resultado"] = "false|" + ex.Message;
             }
             finally
             {
@@ -640,56 +488,6 @@ lbluser.Text = Application["NoOfVisitors"].ToString();
                     conn.Close();
                 }
             }
-
-            string fname = FlpArchivo.FileName;
-            string flocation = "Documents/";
-            string pathstring = System.IO.Path.Combine(flocation, fname);
-          
-            lblinformacion.Text = "Success";
-
-
-            //Envia el correo
-            System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
-            mail.To.Add(txtCorreoElectronico.Text);
-            mail.From = new MailAddress("cadro.sinfra@gmail.com", "CADRO", System.Text.Encoding.UTF8);
-            mail.Subject = "Registro Exitoso";
-            mail.Bcc.Add("yarielsilva54@gmail.com");
-            //mail.Bcc.Add("ismaelgomezvelasco@outlook.com");
-            mail.SubjectEncoding = System.Text.Encoding.UTF8;
-            mail.Body = "Nombre de DRO = " + txtNombres.Text + " " + txtApaterno.Text + " " + txtAMaterno.Text + "<br/>" +
-                        "Usuario = " + txtCorreoElectronico.Text + "<br/>" +
-                        "Contraseña = " + contra.Text + "<br/>" +
-                        "Registro DRO = " + droalta.Text + "<br/>" +
-                        "Clave de solicitud = " + txtFolio.Text + "<br/>" +
-                        "Cedula = " + txtCedula.Text;
-            mail.BodyEncoding = System.Text.Encoding.UTF8;
-            mail.IsBodyHtml = true;
-            mail.Priority = MailPriority.High;
-            SmtpClient client = new SmtpClient();
-            client.Credentials = new System.Net.NetworkCredential("cadro.sinfra@gmail.com", "judicial10");
-            client.Port = 587;
-            client.Host = "smtp.gmail.com";
-            client.EnableSsl = true;
-            try
-            {
-                client.Send(mail);
-            }
-            catch (Exception ex)
-            {
-            }*/
         }
-        /*
-        protected void sube_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                FlpArchivo.SaveAs(Server.MapPath("~/Documents/Cedulas/") + FlpArchivo.FileName);
-                lblinformacion.Text = "El archivo " + FlpArchivo.FileName + " ha sido subido correctamente";
-            }
-            catch
-            {
-                lblinformacion.Text = "Ha ocurrido un error al intentar subir el archivo al servidor";
-            }
-        }*/
     }
 }

@@ -41,7 +41,6 @@ namespace WebApp.Code
             string pagina = getPageName().ToLower();
             if (this.Session["InfoUsuario"] == null)
             {
-
                 //create a cookie               
                 //Add key-values in the cookie
                 myCookie.Values.Add("login", "false");
@@ -65,7 +64,6 @@ namespace WebApp.Code
             }
             catch (Exception ex)
             {
-
                 throw (ex);
             }
         }

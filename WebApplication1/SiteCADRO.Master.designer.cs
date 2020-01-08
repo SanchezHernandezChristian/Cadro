@@ -13,6 +13,15 @@ namespace WebApplication1 {
     public partial class SiteCADRO {
         
         /// <summary>
+        /// Control ContentPlaceHolder2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder2;
+        
+        /// <summary>
         /// Control head.
         /// </summary>
         /// <remarks>
@@ -49,6 +58,15 @@ namespace WebApplication1 {
         protected global::DevExpress.Web.ASPxLabel lblNombreUsuario;
         
         /// <summary>
+        /// Control correo.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel correo;
+        
+        /// <summary>
         /// Control lblError.
         /// </summary>
         /// <remarks>
@@ -58,24 +76,6 @@ namespace WebApplication1 {
         protected global::DevExpress.Web.ASPxLabel lblError;
         
         /// <summary>
-        /// Control ASPxSplitter1.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxSplitter ASPxSplitter1;
-        
-        /// <summary>
-        /// Control menuCadro.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxMenu menuCadro;
-        
-        /// <summary>
         /// Control ContentPlaceHolder1.
         /// </summary>
         /// <remarks>
@@ -83,32 +83,5 @@ namespace WebApplication1 {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder1;
-        
-        /// <summary>
-        /// Control ASPxGlobalEvents1.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxGlobalEvents ASPxGlobalEvents1;
-        
-        /// <summary>
-        /// Control ASPxLabel5.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel ASPxLabel5;
-        
-        /// <summary>
-        /// Control cbMasterTerminar.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxCallback cbMasterTerminar;
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,6 +12,7 @@ namespace WebApp.Code
         private string _Rol;
         private bool _IsActivo;
         private string _cedula;
+        private string _nomUser;
 
         public string Nombre
         {
@@ -23,6 +24,19 @@ namespace WebApp.Code
             set
             {
                 _Nombre = value;
+            }
+        }
+
+        public string nomUser
+        {
+            get
+            {
+                return _nomUser;
+            }
+
+            set
+            {
+                _nomUser = value;
             }
         }
 

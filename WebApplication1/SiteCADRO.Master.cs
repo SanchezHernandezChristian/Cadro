@@ -18,26 +18,11 @@ namespace WebApplication1
                 if (Session["InfoUsuario"] != null)
                 {
                     InfUsuario objInfUsuario = Session["InfoUsuario"] as InfUsuario;
-                    lblNombreUsuario.Text = objInfUsuario.Nombre;
-
-                    InfUsuario objUsuario = Session["InfoUsuario"] as InfUsuario;
-                    if (objUsuario.Rol == "CIUDADANO")
-                    {
-
-                        menuCadro.Items[0].Items[1].ClientVisible = false;
-                        menuCadro.Items[0].Items[2].ClientVisible = false;
-                        menuCadro.Items[0].Items[3].ClientVisible = false;
-                        menuCadro.Items[0].Items[4].ClientVisible = false;
-                        menuCadro.Items[1].ClientVisible = false;
-                    }
-                    else
-                    {
-
-                    }
+                    
                 }
                 else
                 {
-                    Response.Redirect("login.aspx", false);
+                    Response.Redirect("default.aspx", false);
                 }
             }
         }
@@ -64,7 +49,7 @@ namespace WebApplication1
             HttpContext.Current.User = null;
             System.Web.Security.FormsAuthentication.SignOut(); // if forms auth is used
             Session.Abandon();
-            Response.Redirect("Login.aspx", false);
+            Response.Redirect("default.aspx", false);
         }
     }
 }
