@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using WebApp.Code;
+using WebApplication1.Code;
 
 namespace WebApplication1
 {
@@ -15,9 +15,9 @@ namespace WebApplication1
         {
             if (!IsPostBack)
             {
-                if (Session["InfoUsuario"] != null)
+                if (Session["InfoUsuario2"] != null)
                 {
-                    InfUsuario objInfUsuario = Session["InfoUsuario"] as InfUsuario;
+                    InfUsuario objInfUsuario = Session["InfoUsuario2"] as InfUsuario;
                     lblNombreUsuario.Text = objInfUsuario.Nombre;
 
                     InfUsuario objUsuario = Session["InfoUsuario"] as InfUsuario;

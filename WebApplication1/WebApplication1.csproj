@@ -17,7 +17,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>WebApplication1</RootNamespace>
     <AssemblyName>WebApplication1</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -27,6 +27,8 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TypeScriptToolsVersion>3.2</TypeScriptToolsVersion>
+    <Use64BitIISExpress />
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -50,7 +52,16 @@
       <HintPath>..\packages\AspNet.ScriptManager.jQuery.3.0.0\lib\net45\AspNet.ScriptManager.jQuery.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="BusinessEntities">
+      <HintPath>F:\dll\BusinessEntities.dll</HintPath>
+    </Reference>
     <Reference Include="DevExpress.Data.v16.1, Version=16.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.DataAccess.v16.1, Version=16.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Docs.v16.1, Version=16.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>F:\dll\DevExpress.Docs.v16.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Pdf.v16.1.Core, Version=16.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.RichEdit.v16.1.Export, Version=16.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Printing.v16.1.Core, Version=16.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Office.v16.1.Core, Version=16.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
@@ -60,12 +71,27 @@
     <Reference Include="DevExpress.Web.Resources.v16.1, Version=16.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Web.v16.1, Version=16.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Charts.v16.1.Core, Version=16.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Xpo.v16.1, Version=16.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraCharts.v16.1, Version=16.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.PivotGrid.v16.1.Core, Version=16.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Sparkline.v16.1.Core, Version=16.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.CodeParser.v16.1, Version=16.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGauges.v16.1.Core, Version=16.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraReports.v16.1, Version=16.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraReports.v16.1.Web, Version=16.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="ERP.Core.Log4Net">
+      <HintPath>F:\dll\ERP.Core.Log4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="ExifLibrary">
+      <HintPath>F:\dll\ExifLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>F:\dll\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="MessagingToolkit.QRCode, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MessagingToolkit.QRCode.1.3.0\lib\MessagingToolkit.QRCode.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -99,13 +125,20 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="RestMembership, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>F:\dll\RestMembership.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
@@ -127,6 +160,9 @@
     </Reference>
     <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="UtilsInfraestructura">
+      <HintPath>F:\dll\UtilsInfraestructura.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
@@ -215,6 +251,8 @@
     <Content Include="Account\ResetPasswordConfirmation.aspx" />
     <Content Include="Account\TwoFactorAuthenticationSignIn.aspx" />
     <Content Include="Account\VerifyPhoneNumber.aspx" />
+    <Content Include="administrador.aspx" />
+    <Content Include="archivos_dro.aspx" />
     <Content Include="asignacionFecha.aspx" />
     <Content Include="asignador.aspx" />
     <Content Include="Contact.aspx" />
@@ -224,21 +262,141 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\notificaciones.js" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\sweetalert2.all.js" />
+    <Content Include="Content\sweetalert2.all.min.js" />
+    <Content Include="Content\sweetalert2.css" />
+    <Content Include="Content\sweetalert2.js" />
+    <Content Include="Content\sweetalert2.min.css" />
+    <Content Include="Content\sweetalert2.min.js" />
+    <Content Include="Content\tarjeta.css" />
+    <Content Include="credencial\c_atras.png" />
+    <Content Include="credencial\c_delante.png" />
+    <Content Include="credencial\logo.png" />
     <Content Include="css\Cadro.css" />
     <Content Include="css\Degradado.css" />
+    <Content Include="css\img\8873.jpg" />
+    <Content Include="css\img\aceptar.png" />
+    <Content Include="css\img\architecture.jpg" />
+    <Content Include="css\img\asignar-fecha.png" />
+    <Content Include="css\img\assa.png" />
+    <Content Include="css\img\cancelar.png" />
+    <Content Include="css\img\cerrar-sesion.png" />
+    <Content Include="css\img\enviar.png" />
+    <Content Include="css\img\Fondo1.png" />
+    <Content Include="css\img\Fondo2.png" />
+    <Content Include="css\img\imprimir.png" />
+    <Content Include="css\img\inicio-sesion.png" />
+    <Content Include="css\img\Inicio.png" />
+    <Content Include="css\img\kuala-lumpur.jpg" />
+    <Content Include="css\img\les.png" />
+    <Content Include="css\img\Login.png" />
+    <Content Include="css\img\LoginIII.png" />
+    <Content Include="css\img\Loginiv.png" />
+    <Content Include="css\img\logo.jpg" />
+    <Content Include="css\img\logo.png" />
+    <Content Include="css\img\LogoCaDRo.png" />
+    <Content Include="css\img\LogoCompleto.png" />
+    <Content Include="css\img\LogoVII.ico" />
+    <Content Include="css\img\LogoVII.png" />
+    <Content Include="css\img\LogoXII.png" />
+    <Content Include="css\img\LogoXII_Semi.png" />
+    <Content Include="css\img\logo_sin.png" />
+    <Content Include="css\img\Menu_DRO.png" />
+    <Content Include="css\img\Mesa de trabajo 9.png" />
+    <Content Include="css\img\oaxacaPrincipal.jpg" />
+    <Content Include="css\img\Panatalla4.png" />
+    <Content Include="css\img\panorama-3094696_1920.jpg" />
+    <Content Include="css\img\Pantalla1.png" />
+    <Content Include="css\img\Pantalla10.png" />
+    <Content Include="css\img\Pantalla12.png" />
+    <Content Include="css\img\Pantalla13.png" />
+    <Content Include="css\img\Pantalla14.png" />
+    <Content Include="css\img\Pantalla2.png" />
+    <Content Include="css\img\Pantalla3.png" />
+    <Content Include="css\img\Pantalla44.png" />
+    <Content Include="css\img\Pantalla5.png" />
+    <Content Include="css\img\Pantalla6.png" />
+    <Content Include="css\img\Pantalla7.png" />
+    <Content Include="css\img\Pantalla8.png" />
+    <Content Include="css\img\Pantalla9.png" />
+    <Content Include="css\img\Principal.png" />
+    <Content Include="css\img\rechazar.png" />
+    <Content Include="css\img\Recurso 1.png" />
+    <Content Include="css\img\Recurso 10.png" />
+    <Content Include="css\img\Recurso 11.png" />
+    <Content Include="css\img\Recurso 13.png" />
+    <Content Include="css\img\Recurso 14.png" />
+    <Content Include="css\img\Recurso 15.png" />
+    <Content Include="css\img\Recurso 16.png" />
+    <Content Include="css\img\Recurso 17.png" />
+    <Content Include="css\img\Recurso 18.png" />
+    <Content Include="css\img\Recurso 19.png" />
+    <Content Include="css\img\Recurso 2.png" />
+    <Content Include="css\img\Recurso 20.png" />
+    <Content Include="css\img\Recurso 21.png" />
+    <Content Include="css\img\Recurso 22.png" />
+    <Content Include="css\img\Recurso 23.png" />
+    <Content Include="css\img\Recurso 24.png" />
+    <Content Include="css\img\Recurso 25.png" />
+    <Content Include="css\img\Recurso 27.png" />
+    <Content Include="css\img\Recurso 28.png" />
+    <Content Include="css\img\Recurso 29.png" />
+    <Content Include="css\img\Recurso 3.png" />
+    <Content Include="css\img\Recurso 30.png" />
+    <Content Include="css\img\Recurso 31.png" />
+    <Content Include="css\img\Recurso 32.png" />
+    <Content Include="css\img\Recurso 33.png" />
+    <Content Include="css\img\Recurso 34.png" />
+    <Content Include="css\img\Recurso 48.png" />
+    <Content Include="css\img\Recurso 5.png" />
+    <Content Include="css\img\Recurso 52.png" />
+    <Content Include="css\img\Recurso 53.png" />
+    <Content Include="css\img\Recurso 54.png" />
+    <Content Include="css\img\Recurso 55.png" />
+    <Content Include="css\img\Recurso 56.png" />
+    <Content Include="css\img\Recurso 57.png" />
+    <Content Include="css\img\Recurso 58.png" />
+    <Content Include="css\img\Recurso 59.png" />
+    <Content Include="css\img\Recurso 6.png" />
+    <Content Include="css\img\Recurso 60.png" />
+    <Content Include="css\img\Recurso 61.png" />
+    <Content Include="css\img\Recurso 62.png" />
+    <Content Include="css\img\Recurso 63.png" />
+    <Content Include="css\img\Recurso 64.png" />
+    <Content Include="css\img\Recurso 65.png" />
+    <Content Include="css\img\Recurso 66.png" />
+    <Content Include="css\img\Recurso 67.png" />
+    <Content Include="css\img\Recurso 7.png" />
+    <Content Include="css\img\Recurso 8.png" />
+    <Content Include="css\img\registo.png" />
+    <Content Include="css\img\registrar.png" />
+    <Content Include="css\img\Registro.png" />
+    <Content Include="css\img\san-francisco.jpg" />
+    <Content Include="css\img\singapore.jpg" />
+    <Content Include="css\img\user-login-icon-14.png" />
+    <Content Include="css\img\votar.png" />
     <Content Include="css\login_style.css" />
     <Content Include="css\Master.css" />
     <Content Include="css\MenuDRO.css" />
     <Content Include="css\registro_dro.css" />
+    <Content Include="datos_dro.aspx" />
     <Content Include="DictamenSolicitud.aspx" />
     <Content Include="Account\Web.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="login.aspx" />
-    <Content Include="Registrarse.aspx" />
+    <Content Include="Download.aspx" />
+    <Content Include="dro_Administrador.aspx" />
+    <Content Include="dro_detalleproyectos.aspx" />
+    <Content Include="dro_misproyectos.aspx" />
+    <Content Include="imp_crede.aspx" />
+    <Content Include="imp_dictamen.aspx" />
+    <Content Include="registros_dro.aspx" />
     <Content Include="reporteregion.aspx" />
+    <Content Include="rep_credencial.aspx" />
+    <Content Include="rep_dictamen.aspx" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -268,6 +426,11 @@
     <None Include=".bin\node.cmd" />
     <Content Include="Content\bootstrap\variables.less" />
     <Content Include="Content\bootstrap\mixins.less" />
+    <Content Include="prueba.Master" />
+    <Content Include="AsignadorMaster.Master" />
+    <Content Include="css\fonts\Geometos.ttf" />
+    <Content Include="Documents\REGLAMENTO.pdf" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
     <Content Include="Scripts\jquery-3.0.0.min.js" />
@@ -374,7 +537,7 @@
     <Content Include="Global.asax" />
     <Content Include="solicitante.aspx" />
     <Content Include="solicitudes.aspx" />
-    <Content Include="subirr.aspx" />
+    <Content Include="validar_documentos.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -510,6 +673,13 @@
     <Compile Include="Account\VerifyPhoneNumber.aspx.designer.cs">
       <DependentUpon>VerifyPhoneNumber.aspx</DependentUpon>
     </Compile>
+    <Compile Include="administrador.aspx.cs">
+      <DependentUpon>administrador.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="administrador.aspx.designer.cs">
+      <DependentUpon>administrador.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="About.aspx.cs">
       <DependentUpon>About.aspx</DependentUpon>
@@ -521,6 +691,13 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="archivos_dro.aspx.cs">
+      <DependentUpon>archivos_dro.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="archivos_dro.aspx.designer.cs">
+      <DependentUpon>archivos_dro.aspx</DependentUpon>
+    </Compile>
     <Compile Include="asignacionFecha.aspx.cs">
       <DependentUpon>asignacionFecha.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -535,12 +712,24 @@
     <Compile Include="asignador.aspx.designer.cs">
       <DependentUpon>asignador.aspx</DependentUpon>
     </Compile>
+    <Compile Include="AsignadorMaster.Master.cs">
+      <DependentUpon>AsignadorMaster.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AsignadorMaster.Master.designer.cs">
+      <DependentUpon>AsignadorMaster.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Code\ApiService.cs" />
+    <Compile Include="Code\credencial.cs" />
+    <Compile Include="Code\dro_sesion.cs" />
     <Compile Include="Code\InfDRO.cs" />
     <Compile Include="Code\InfUsuario.cs" />
+    <Compile Include="Code\LocationExtractor.cs" />
     <Compile Include="Code\PageBase.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Code\ReporteFichaIndividual.cs" />
+    <Compile Include="Code\SessionHelper.cs" />
     <Compile Include="Code\SMTPEmailSender.cs" />
     <Compile Include="Code\Utils.cs" />
     <Compile Include="Contact.aspx.cs">
@@ -551,6 +740,13 @@
       <DependentUpon>Contact.aspx</DependentUpon>
     </Compile>
     <Compile Include="Correo.cs" />
+    <Compile Include="datos_dro.aspx.cs">
+      <DependentUpon>datos_dro.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="datos_dro.aspx.designer.cs">
+      <DependentUpon>datos_dro.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -565,24 +761,65 @@
     <Compile Include="DictamenSolicitud.aspx.designer.cs">
       <DependentUpon>DictamenSolicitud.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Download.aspx.cs">
+      <DependentUpon>Download.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Download.aspx.designer.cs">
+      <DependentUpon>Download.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="dro_Administrador.aspx.cs">
+      <DependentUpon>dro_Administrador.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="dro_Administrador.aspx.designer.cs">
+      <DependentUpon>dro_Administrador.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="dro_detalleproyectos.aspx.cs">
+      <DependentUpon>dro_detalleproyectos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="dro_detalleproyectos.aspx.designer.cs">
+      <DependentUpon>dro_detalleproyectos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="dro_misproyectos.aspx.cs">
+      <DependentUpon>dro_misproyectos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="dro_misproyectos.aspx.designer.cs">
+      <DependentUpon>dro_misproyectos.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="login.aspx.cs">
-      <DependentUpon>login.aspx</DependentUpon>
+    <Compile Include="imp_crede.aspx.cs">
+      <DependentUpon>imp_crede.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="login.aspx.designer.cs">
-      <DependentUpon>login.aspx</DependentUpon>
+    <Compile Include="imp_crede.aspx.designer.cs">
+      <DependentUpon>imp_crede.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="imp_dictamen.aspx.cs">
+      <DependentUpon>imp_dictamen.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="imp_dictamen.aspx.designer.cs">
+      <DependentUpon>imp_dictamen.aspx</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Registrarse.aspx.cs">
-      <DependentUpon>Registrarse.aspx</DependentUpon>
+    <Compile Include="prueba.Master.cs">
+      <DependentUpon>prueba.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Registrarse.aspx.designer.cs">
-      <DependentUpon>Registrarse.aspx</DependentUpon>
+    <Compile Include="prueba.Master.designer.cs">
+      <DependentUpon>prueba.Master</DependentUpon>
+    </Compile>
+    <Compile Include="registros_dro.aspx.cs">
+      <DependentUpon>registros_dro.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="registros_dro.aspx.designer.cs">
+      <DependentUpon>registros_dro.aspx</DependentUpon>
     </Compile>
     <Compile Include="reporteregion.aspx.cs">
       <DependentUpon>reporteregion.aspx</DependentUpon>
@@ -590,6 +827,35 @@
     </Compile>
     <Compile Include="reporteregion.aspx.designer.cs">
       <DependentUpon>reporteregion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="rep_credencial.aspx.cs">
+      <DependentUpon>rep_credencial.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="rep_credencial.aspx.designer.cs">
+      <DependentUpon>rep_credencial.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="rep_dictamen.aspx.cs">
+      <DependentUpon>rep_dictamen.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="rep_dictamen.aspx.designer.cs">
+      <DependentUpon>rep_dictamen.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="rptCredencial.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="rptCredencial2.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="rptFichaIndividual.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="rptFichaIndividual2.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="rptFichaIndividual2.designer.cs">
+      <DependentUpon>rptFichaIndividual2.cs</DependentUpon>
     </Compile>
     <Compile Include="Site.Mobile.Master.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
@@ -620,12 +886,12 @@
       <DependentUpon>solicitudes.aspx</DependentUpon>
     </Compile>
     <Compile Include="Startup.cs" />
-    <Compile Include="subirr.aspx.cs">
-      <DependentUpon>subirr.aspx</DependentUpon>
+    <Compile Include="validar_documentos.aspx.cs">
+      <DependentUpon>validar_documentos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="subirr.aspx.designer.cs">
-      <DependentUpon>subirr.aspx</DependentUpon>
+    <Compile Include="validar_documentos.aspx.designer.cs">
+      <DependentUpon>validar_documentos.aspx</DependentUpon>
     </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
@@ -645,9 +911,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\" />
-    <Folder Include="css\fonts\" />
-    <Folder Include="css\img\" />
-    <Folder Include="Documents\" />
+    <Folder Include="DevExpress\" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
@@ -657,6 +921,21 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="rptCredencial.resx">
+      <DependentUpon>rptCredencial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="rptCredencial2.resx">
+      <DependentUpon>rptCredencial2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="rptFichaIndividual.resx">
+      <DependentUpon>rptFichaIndividual.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="rptFichaIndividual2.resx">
+      <DependentUpon>rptFichaIndividual2.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

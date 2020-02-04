@@ -6,7 +6,7 @@ using System.Net.Mail;
 using System.Text.RegularExpressions;
 using System.Web;
 
-namespace WebApp.Code
+namespace WebApplication1.Code
 {
     /// <summary>
     /// Clase para el envío de correos por medio de un servidor SMTP

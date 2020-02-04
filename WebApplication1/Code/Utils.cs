@@ -1,12 +1,15 @@
-﻿using System;
+﻿using BusinessEntities;
+using ExifLibrary;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 
-namespace WebApp.Code
+namespace WebApplication1.Code
 {
     public static class Utils
     {
@@ -153,6 +156,98 @@ namespace WebApp.Code
                     Sb.Append(b.ToString("x2"));
             }
             return Sb.ToString();
+        }
+
+        /// <summary>
+        /// Verificar modelo y marca del dispositivo con el que se capturo una fotografia
+        /// </summary>
+        /// <param name="textoEncriptado"></param>
+        /// <returns></returns>
+        /// 
+        public static UtilsInfraestructura.Response verificarMetadatosFotografia(string path)
+        {
+            bool res = false;
+            UtilsInfraestructura.Response response = new UtilsInfraestructura.Response();
+            ExifFile data;
+            try
+            {
+                data = ExifFile.Read(path);
+
+                foreach (ExifProperty item in data.Properties.Values)
+                {
+                    if (item.Tag.ToString() == "Model" && !string.IsNullOrEmpty(item.Value.ToString()))
+                    {
+                        res = true;
+                    }
+                }
+                if (res)
+                {
+                    response.IsSuccess = true;
+                }
+                else
+                {
+                    response.IsSuccess = false;
+                    response.Message = "Verifique que su fotografía sea capturado desde un dispositivo con GPS integrado.";
+                }
+                //{
+                //    Image img = Image.FromFile(path);
+
+                //    // Obtener la lista de propiedades de la imagen para determinar si tiene la propiedad de marca y modelo.
+
+                //    //0x010F --- marca de dispositivo
+                //    //0x0110 ---- modelo
+
+                //    var propiedades = img.PropertyIdList;
+                //    if (propiedades.Contains(0x010F) || propiedades.Contains(0x0110))
+                //    {
+                //        response.IsSuccess = true;
+                //    }
+                //    else
+                //    {
+                //        response.IsSuccess = false;
+                //        response.Message = "Es necesario que la fotográfia sea capturada desde un dispositivo válido.";
+                //    }
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = "***IMPORTANTE.****\nVerifique que su fotografía sea capturado desde un dispositivo con GPS integrado.";
+                ERP.Core.Log4Net.Log4NetCommon.WriteException(ex);
+
+            }
+            return response;
+
+        }
+
+        /// <summary>
+        /// Obtiene los status del ppi
+        /// </summary>
+        /// <returns></returns>
+        public static DataTable ObtenerUnidadMedida()
+        {
+            ApiService apiService = new ApiService();
+            DataTable dt = new DataTable();
+            dt.Columns.Add("IdUnidad", typeof(int));//identificador autonumérico del sistema
+            dt.Columns.Add("NombreUnidad", typeof(string));
+
+
+            var response = apiService.GetLista<UnidadMedida>(string.Format("UnidadMedidas"));
+            if (response.IsSuccess)
+            {
+                var lista = (List<UnidadMedida>)response.Result;
+                var listaUnidades1 = lista.Where(x => x.Componente == true).ToList();
+
+                foreach (var u in listaUnidades1)
+                {
+                    DataRow row = dt.NewRow();
+                    row["IdUnidad"] = u.IdUnidad;
+                    row["NombreUnidad"] = u.StUnidaMedida;
+
+                    dt.Rows.Add(row);
+                }
+            }
+
+            return dt;
         }
     }
 }

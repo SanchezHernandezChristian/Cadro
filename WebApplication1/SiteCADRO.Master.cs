@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using WebApp.Code;
+using WebApplication1.Code;
 
 namespace WebApplication1
 {
@@ -15,15 +15,16 @@ namespace WebApplication1
         {
             if (!IsPostBack)
             {
-                if (Session["InfoUsuario"] != null)
+                if (SessionHelper.InformacionUsuario != null)
                 {
-                    InfUsuario objInfUsuario = Session["InfoUsuario"] as InfUsuario;
-                    
+                    lblNombreUsuario.Text = SessionHelper.InformacionUsuario.FullName;
+                    correo.Text = SessionHelper.InformacionUsuario.Email; //objUser.Correo;
                 }
                 else
                 {
                     Response.Redirect("default.aspx", false);
                 }
+               
             }
         }
 

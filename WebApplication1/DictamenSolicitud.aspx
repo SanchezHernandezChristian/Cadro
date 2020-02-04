@@ -1,11 +1,17 @@
-﻿<%@ Page Title="Solicitud" Language="C#" MasterPageFile="~/SiteCADRO.Master" AutoEventWireup="true" CodeBehind="DictamenSolicitud.aspx.cs" Inherits="WebApplication1.DictamenSolicitud" %>
+﻿<%@ Page Title="Dictamen de Solicitud" Language="C#" MasterPageFile="~/SiteCADRO.Master" AutoEventWireup="true" CodeBehind="DictamenSolicitud.aspx.cs" Inherits="WebApplication1.DictamenSolicitud" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script type="text/javascript">
         function terminaCallbackDictamen(s, e) {
-            lp.Hide();
-            alert(e.result);
-            window.location.href = 'solicitudes.aspx';
+            var htmlData = e.result.split('|');
+            if (htmlData[0] == "true") {
+                lp.Hide();
+                var ubicacion = "solicitudes.aspx"
+                console.log(htmlData[1])
+                notexitoso(htmlData[1], ubicacion);
+            } else {
+                notificacionerror(htmlData[1]);
+            }
         }
     </script>
 </asp:Content>
@@ -26,6 +32,7 @@
                     </dx:ASPxDateEdit>
                            
                 </div>
+                <dx:ASPxLabel ID="ASPxLabel1" runat="server" ClientVisible="false" Text=""></dx:ASPxLabel>
                 <div class="form-label-group col-md-4">
                     <label>Cédula profesional</label>
                     <dx:ASPxTextBox ID="txtCedula" ClientEnabled="false" ClientInstanceName="txtCedula" runat="server" Theme="Material" Width="100%">
@@ -57,6 +64,14 @@
         <div class="form-group">
             <div class="row" >
                 <div class="form-label-group col-md-4">
+                    <label>Nombre(s)</label>
+                    <dx:ASPxTextBox ID="txtNombres" runat="server" ClientEnabled="false" Theme="Material" Width="100%">
+                            <ValidationSettings SetFocusOnError="True" ErrorText="" ErrorTextPosition="Bottom">
+                                <RequiredField IsRequired="True" ErrorText="Obligatorio" />
+                            </ValidationSettings>
+                    </dx:ASPxTextBox>
+                </div>
+                <div class="form-label-group col-md-4">
                     <label>A. Paterno</label>
                     <dx:ASPxTextBox ID="txtApaterno" runat="server" Theme="Material" ClientEnabled="false" Width="100%">
                             <ValidationSettings SetFocusOnError="True" ErrorText="" ErrorTextPosition="Bottom">
@@ -74,14 +89,7 @@
                     </dx:ASPxTextBox>
                             
                 </div>
-                <div class="form-label-group col-md-4">
-                    <label>Nombre(s)</label>
-                    <dx:ASPxTextBox ID="txtNombres" runat="server" ClientEnabled="false" Theme="Material" Width="100%">
-                            <ValidationSettings SetFocusOnError="True" ErrorText="" ErrorTextPosition="Bottom">
-                                <RequiredField IsRequired="True" ErrorText="Obligatorio" />
-                            </ValidationSettings>
-                    </dx:ASPxTextBox>
-                </div>
+                
                 <div class="form-label-group col-md-4">
                     <label>Calle y número</label>
                     <dx:ASPxTextBox ID="txtCalleNumero" runat="server" ClientEnabled="false" Theme="Material" Width="100%">
@@ -101,22 +109,6 @@
 
                 </div>
                 <div class="form-label-group col-md-4">
-                    <label>Cédula</label>
-                    <dx:ASPxLabel runat="server" ID="lblinformacion" Text="Digital" ForeColor="#D6D2C9" Theme="Material">
-                        </dx:ASPxLabel>
-                    <asp:GridView runat="server" ID="GridView1" BorderColor="Transparent" OnDataBinding="GridView1_DataBinding" BackColor="Transparent" ForeColor="Transparent" AutoGenerateColumns="false" RowHeaderColumn="false">
-                        <Columns>
-                            <asp:TemplateField>
-                            <%--  --%>    <ItemTemplate>
-                                    <asp:LinkButton ID="LinkButton1" ForeColor="Blue" runat="server" OnClick="LinkButton1_Click">Ver</asp:LinkButton>
-                                </ItemTemplate>   <%--  --%>
-                            </asp:TemplateField>
-                            <asp:BoundField HeaderText="" DataField="Id" Visible="false"/>
-                            <asp:BoundField HeaderText="" DataField="FileName" Visible="false"/>
-                            <asp:BoundField HeaderText="" DataField="FileLocation" Visible="true" ItemStyle-ForeColor="Transparent"/>
-                        </Columns>
-                    </asp:GridView>
-
                 </div>
                 <div class="form-label-group col-md-4">
                     <label>Región</label>
@@ -249,10 +241,196 @@
                                 </ValidationSettings>
                             </dx:ASPxComboBox>
                      <asp:SqlDataSource ID="SqlDataSource5" runat="server" ConnectionString="<%$ ConnectionStrings:BD_CADROConnectionString %>" SelectCommand="SELECT [Id_Colegio], [Descripcion] FROM [tblColegios] ORDER BY [Descripcion]"></asp:SqlDataSource>  
-
-                </div>
+                 </div>
             </div>
         </div>
+
+        <p class="text-center text-black rounded h5" style="background-color: cornsilk">Documentos</p>
+                                <div class="form-group">
+                                    <div class="row" >
+                                        <div class="form-label-group col-md-4">
+                                            <label>Comprobante de pago</label>
+                                            <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CellPadding="4"
+            ForeColor="#333333" GridLines="None" DataKeyNames="Name">
+            <RowStyle BackColor="#EFF3FB" />
+            <Columns>
+                <asp:TemplateField HeaderText="Nombre Archivo">
+                    <ItemTemplate>
+                        <asp:HyperLink ID="nombre" runat="server" Target="_blank" NavigateUrl='<%# Eval("Name", "~/Documents/Pagos/"+ASPxLabel1.Text+"/{0}") %>'
+                            Text='<%# Eval("Name") %>'>
+                        </asp:HyperLink>
+                    </ItemTemplate>
+                </asp:TemplateField>
+            </Columns>
+            <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+            <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+            <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+            <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+            <EditRowStyle BackColor="#2461BF" />
+            <AlternatingRowStyle BackColor="White" />
+        </asp:GridView>
+</div>
+
+                                        <div class="form-label-group col-md-4">
+                                            <label>Credencial de elector</label>
+                                            
+                                            <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" CellPadding="4"
+            ForeColor="#333333" GridLines="None" DataKeyNames="Name">
+            <RowStyle BackColor="#EFF3FB" />
+            <Columns>
+                <asp:TemplateField HeaderText="Nombre Archivo">
+                    <ItemTemplate>
+                        <asp:HyperLink ID="nombre" runat="server" Target="_blank" NavigateUrl='<%# Eval("Name", "~/Documents/Elector/"+ASPxLabel1.Text+"/{0}") %>'
+                            Text='<%# Eval("Name") %>'>
+                        </asp:HyperLink>
+                    </ItemTemplate>
+                </asp:TemplateField>
+            </Columns>
+            <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+            <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+            <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+            <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+            <EditRowStyle BackColor="#2461BF" />
+            <AlternatingRowStyle BackColor="White" />
+        </asp:GridView>
+                                            <br />
+                                            <br />
+                                            </div>
+
+                                        <div class="form-label-group col-md-4">
+                                            <label>Comprobante de domicilio</label>
+                                            
+                                             <asp:GridView ID="GridView3" runat="server" AutoGenerateColumns="False" CellPadding="4"
+            ForeColor="#333333" GridLines="None" DataKeyNames="Name">
+            <RowStyle BackColor="#EFF3FB" />
+            <Columns>
+                <asp:TemplateField HeaderText="Nombre Archivo">
+                    <ItemTemplate>
+                        <asp:HyperLink ID="nombre" runat="server" Target="_blank" NavigateUrl='<%# Eval("Name", "~/Documents/Domicilio/"+ASPxLabel1.Text+"/{0}") %>'
+                            Text='<%# Eval("Name") %>'>
+                        </asp:HyperLink>
+                    </ItemTemplate>
+                </asp:TemplateField>
+            </Columns>
+            <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+            <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+            <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+            <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+            <EditRowStyle BackColor="#2461BF" />
+            <AlternatingRowStyle BackColor="White" />
+        </asp:GridView>
+
+                                            <br />
+                                            <br />
+                                            </div>
+                                        </div>
+                                    <div class="row">
+                                        <div class="form-label-group col-md-4">
+                                            <label>Acta de nacimiento</label>
+                                            
+                                           <asp:GridView ID="GridView4" runat="server" AutoGenerateColumns="False" CellPadding="4"
+            ForeColor="#333333" GridLines="None" DataKeyNames="Name">
+            <RowStyle BackColor="#EFF3FB" />
+            <Columns>
+                <asp:TemplateField HeaderText="Nombre Archivo">
+                    <ItemTemplate>
+                        <asp:HyperLink ID="nombre" runat="server" Target="_blank" NavigateUrl='<%# Eval("Name", "~/Documents/Nacimiento/"+ASPxLabel1.Text+"/{0}") %>'
+                            Text='<%# Eval("Name") %>'>
+                        </asp:HyperLink>
+                    </ItemTemplate>
+                </asp:TemplateField>
+            </Columns>
+            <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+            <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+            <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+            <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+            <EditRowStyle BackColor="#2461BF" />
+            <AlternatingRowStyle BackColor="White" />
+        </asp:GridView>
+
+                                            <br />
+                                            <br />
+                                        </div>
+                                        <div class="form-label-group col-md-4">
+                                            <label>Curriculum Vitae</label>
+                                            
+                                             <asp:GridView ID="GridView5" runat="server" AutoGenerateColumns="False" CellPadding="4"
+            ForeColor="#333333" GridLines="None" DataKeyNames="Name">
+            <RowStyle BackColor="#EFF3FB" />
+            <Columns>
+                <asp:TemplateField HeaderText="Nombre Archivo">
+                    <ItemTemplate>
+                        <asp:HyperLink ID="nombre" runat="server" Target="_blank" NavigateUrl='<%# Eval("Name", "~/Documents/Vitae/"+ASPxLabel1.Text+"/{0}") %>'
+                            Text='<%# Eval("Name") %>'>
+                        </asp:HyperLink>
+                    </ItemTemplate>
+                </asp:TemplateField>
+            </Columns>
+            <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+            <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+            <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+            <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+            <EditRowStyle BackColor="#2461BF" />
+            <AlternatingRowStyle BackColor="White" />
+        </asp:GridView>
+                                        
+                                            <br />
+                                            <br />
+                                        </div>
+                                        <div class="form-label-group col-md-4">
+                                            <label>Fotografia</label>
+                                           
+                                                     <asp:GridView ID="GridView6" runat="server" AutoGenerateColumns="False" CellPadding="4"
+            ForeColor="#333333" GridLines="None" DataKeyNames="Name">
+            <RowStyle BackColor="#EFF3FB" />
+            <Columns>
+                <asp:TemplateField HeaderText="Nombre Archivo">
+                    <ItemTemplate>
+                        <asp:HyperLink ID="nombre" runat="server" Target="_blank" NavigateUrl='<%# Eval("Name", "~/Documents/Foto/"+ASPxLabel1.Text+"/{0}") %>'
+                            Text='<%# Eval("Name") %>'>
+                        </asp:HyperLink>
+                    </ItemTemplate>
+                </asp:TemplateField>
+            </Columns>
+            <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+            <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+            <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+            <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+            <EditRowStyle BackColor="#2461BF" />
+            <AlternatingRowStyle BackColor="White" />
+        </asp:GridView>
+
+                                        </div>
+                                        </div>
+                                    <div class="row">
+                                        <div class="form-label-group col-md-4">
+                                            <label>Cedula Profesional</label>
+
+                                                     <asp:GridView ID="GridView7" runat="server" AutoGenerateColumns="False" CellPadding="4"
+            ForeColor="#333333" GridLines="None" DataKeyNames="Name">
+            <RowStyle BackColor="#EFF3FB" />
+            <Columns>
+                <asp:TemplateField HeaderText="Nombre Archivo">
+                    <ItemTemplate>
+                        <asp:HyperLink ID="nombre" runat="server" Target="_blank" NavigateUrl='<%# Eval("Name", "~/Documents/Cedulas/"+ASPxLabel1.Text+"/{0}") %>'
+                            Text='<%# Eval("Name") %>'>
+                        </asp:HyperLink>
+                    </ItemTemplate>
+                </asp:TemplateField>
+            </Columns>
+            <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+            <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+            <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+            <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+            <EditRowStyle BackColor="#2461BF" />
+            <AlternatingRowStyle BackColor="White" />
+        </asp:GridView>
+
+                                            </div>
+                                    </div>
+                                    </div>
+
+
         <p class="text-center text-black rounded h5" style="background-color: cornsilk">Registro en SINFRA</p>
         <div class="form-group">
             <div class="row" >
@@ -287,19 +465,6 @@
         <div class="form-group">
             <div class="row" >
                 <div class="form-label-group col-md-4">
-                    <label>Estado del trámite</label>
-                    <dx:ASPxComboBox runat="server" ID="rdstatus" Theme="Material" Width="95%">
-                    <Items>
-                        <dx:ListEditItem Text="Autorizado" Value="Autorizado" />
-                        <dx:ListEditItem Text="Rechazado" Value="Rechazado" />
-                    </Items>
-                        <ValidationSettings SetFocusOnError="True" ErrorText="">
-                            <RequiredField IsRequired="True" ErrorText="Obligatorio" />
-                        </ValidationSettings>
-                    </dx:ASPxComboBox>
-                           
-                </div>
-                <div class="form-label-group col-md-4">
                     <label>Trámite que procedio</label>
                     <dx:ASPxComboBox runat="server" ClientEnabled="false" ID="cbTramiteProcede" ClientInstanceName="cbTramiteProcede" ValueField="id_tipo_solicitud" ValueType="System.String" TextField="descripcion" Theme="Material" Width="100%" DataSourceID="SqlDataSource1">
                         <ValidationSettings SetFocusOnError="True" ErrorText="">
@@ -309,6 +474,21 @@
                             
                 </div>
                 <div class="form-label-group col-md-4">
+                    <label>Estado del trámite</label>
+                    <dx:ASPxComboBox runat="server" ID="rdstatus" Theme="Material" Width="95%">
+                    <Items>
+                        <dx:ListEditItem Text="Autorizado" Value="Autorizado" />
+                        <dx:ListEditItem Text="Rechazado" Value="Rechazado" />
+                        <dx:ListEditItem Text="Abstencion" Value="Abstencion" />
+                    </Items>
+                        <ValidationSettings SetFocusOnError="True" ErrorText="">
+                            <RequiredField IsRequired="True" ErrorText="Obligatorio" />
+                        </ValidationSettings>
+                    </dx:ASPxComboBox>
+                           
+                </div>
+                
+                <div class="form-label-group col-md-12">
                     <label>Observaciones</label>
                     <dx:ASPxMemo runat="server" ID="txtObservacionesDictamen" Width="100%" Theme="Material" >
                         <ValidationSettings SetFocusOnError="True" ErrorText="">
@@ -322,17 +502,9 @@
         <div class="form-group">
             <div class="row  justify-content-center" >
                 <div class="form-label-group text-center col-md-2">
-                        <dx:ASPxButton runat="server" Theme="Material" AutoPostBack="False" ClientInstanceName="btnCancelar" ID="btnCancelar" Border-BorderStyle="None" BackColor="Transparent" BackgroundImage-ImageUrl="~/css/img/Recurso 57.png" BackgroundImage-Repeat="NoRepeat" Height="45px" Width="180px">
-                            <ClientSideEvents Click="function(s, e) {
-                                window.location.href='solicitudes.aspx';	
-                                }" />
-                        </dx:ASPxButton>
-                </div>
-                       
-                <div class="form-label-group text-center col-md-2">
-                    <dx:ASPxButton runat="server" Theme="Material" ID="btnGuardar" AutoPostBack="false" ClientInstanceName="btnGuardar" 
-                        Border-BorderStyle="None" BackColor="Transparent" BackgroundImage-ImageUrl="~/css/img/Recurso 56.png" BackgroundImage-Repeat="NoRepeat" 
-                        Height="45px" Width="180px" >
+                    <dx:ASPxButton runat="server" Theme="Material" ID="btnGuardar" AutoPostBack="false" ClientInstanceName="btnGuardar" Border-BorderStyle="None" 
+                        Text="Votar" CssClass="mr-2 btn btn-aceptar" width="100%">
+                            <Image Url="~/css/img/votar.png"></Image> 
                             <ClientSideEvents Click="function(s, e) {
                                 if(ASPxClientEdit.AreEditorsValid()){
                                 lp.Show();
@@ -341,7 +513,18 @@
                                 }" />
                         </dx:ASPxButton>
                 </div>
-                   <dx:ASPxLoadingPanel ID="lp" ClientInstanceName="lp" Theme="Material" runat="server">
+                <div class="form-label-group text-center col-md-2">
+                        <dx:ASPxButton runat="server" Theme="Material" AutoPostBack="False" ClientInstanceName="btnCancelar" ID="btnCancelar" Border-BorderStyle="None" 
+                            Text="Cancelar" CssClass="mr-2 btn btn-cancelar" width="100%">
+                            <Image Url="~/css/img/cancelar.png"></Image> 
+                            <ClientSideEvents Click="function(s, e) {
+                                window.location.href='solicitudes.aspx';	
+                                }" />
+                        </dx:ASPxButton>
+                </div>
+                       
+                
+                   <dx:ASPxLoadingPanel ID="lp" ClientInstanceName="lp" Theme="Material" runat="server" Modal="true">
             </dx:ASPxLoadingPanel>
             <dx:ASPxCallback ID="cbGuardar" ClientInstanceName="cbGuardar" OnCallback="cbGuardar_Callback" runat="server">
                 <ClientSideEvents  CallbackComplete="function(s, e) {

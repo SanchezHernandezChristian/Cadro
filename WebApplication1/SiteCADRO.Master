@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
+<head runat="server">   
     <link href="Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <meta http-equiv="Content-Type" content="text/html" charset="utf-8"/>
     <meta name="viewport" content="width=device-width,  initial-scale=1.0" />
@@ -13,7 +13,13 @@
     <link rel="shortcut icon" href="css/img/LogoVII.ico" type="image/x-icon"/>
     <link rel="icon" href="css/img/LogoVII.ico" type="image/x-icon" />
     <script src="Content/sweetalert2.all.min.js"></script>
+    <script src="Content/notificaciones.js"></script>
     <link href="css/Master.css" rel="stylesheet"/>
+    <script>
+        function imagenarriba() {
+            window.location.href = '../';
+        }
+    </script>
     <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
     </asp:ContentPlaceHolder>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -24,9 +30,14 @@
     <form id="form1" runat="server">
 
         <div class="d-flex flex-column flex-md-row align-items-start p-3 px-md-4 mb-2 bg-white border-bottom shadow-sm">
-            <img class="col-xl" style="text-align: center; background-size: cover; max-width:200px; " src="/css/img/logo.png"/>
+            <asp:HyperLink id="link" NavigateUrl="~/" runat="server">
+                    <asp:image id="imagenTop" runat="server" ImageUrl="~/css/img/logo.png" style="text-align: center; background-size: cover; max-width:200px;" CssClass="col-xl"  AlternateText="Imagen no disponible" />
+                </asp:HyperLink>
             <br />
-            <h5 class="my-0 mr-md-auto font-weight-normal" style="padding-left: 1rem;">Comité de acreditación de Dirección de Responsables de Obra</h5>
+            <h5 class="my-0 mr-md-auto font-weight-normal" style="padding-left: 1rem;">Comisión de Admisión de Directores Responsables de Obra</h5>
+
+            <dx:ASPxLabel ID="ASPxLabel1" runat="server" ClientVisible="false" Text=""></dx:ASPxLabel>
+                <dx:ASPxLabel ID="ced" runat="server" ClientVisible="true" Text=""></dx:ASPxLabel>
 
 
             <nav class="my-2 my-md-0  mr-md-3" style="padding-left: 1rem;">
@@ -34,12 +45,11 @@
                                 </dx:ASPxLabel>
                 <dx:ASPxLabel runat="server" ID="lblNombreUsuario" Font-Size="18px" Text="" Theme="Material" Font-Bold="true" ForeColor="#101F29">
                                 </dx:ASPxLabel>
-                <dx:ASPxLabel runat="server" ID="correo" ClientVisible="false" Font-Size="18px" Text="" Theme="Material" Font-Bold="true" ForeColor="#101F29">
-                                </dx:ASPxLabel>
+               
             </nav>
             <div class="col-2">
                 <dx:ASPxButton runat="server" CausesValidation="false" theme="Material" AutoPostBack="true" OnClick="Unnamed_Click" Border-BorderStyle="None" text="Cerrar Sesión" CssClass="mr-2 btn btn-cerrar btn-sm" width="100%">
-                    <Image Url="/css/img/cerrar-sesion.png"></Image>                      
+                    <Image Url="~/css/img/cerrar-sesion.png"></Image>                      
                 </dx:ASPxButton>
             </div>
             
@@ -56,14 +66,15 @@
         <div>
              <dx:ASPxLabel runat="server" Text="" ID="lblError" ForeColor="red">
                 </dx:ASPxLabel>
+             <dx:ASPxLabel runat="server" ID="correo" ClientVisible="false" Font-Size="18px" Text="" Theme="Material" Font-Bold="true" ForeColor="#101F29">
+                                </dx:ASPxLabel>
+                <dx:ASPxLabel runat="server" ID="cedula" ClientVisible="false" Visible="false" Font-Size="18px" Text="" Theme="Material" Font-Bold="true" ForeColor="#101F29">
+                                </dx:ASPxLabel>
         </div>
-    
+       
         <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
         
         </asp:ContentPlaceHolder>
-    
-
-    
     </form>
 </body>
 </html>

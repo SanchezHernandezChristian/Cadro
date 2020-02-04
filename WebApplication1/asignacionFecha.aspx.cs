@@ -2,42 +2,41 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using WebApp;
-using WebApp.Code;
+using WebApplication1.Code;
+
 namespace WebApplication1
 {
     public partial class asignacionFecha : PageBase
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["InfoUsuario"] != null)
-            {
-                InfUsuario objInfUsuario = Session["InfoUsuario"] as InfUsuario;
-                (Master.FindControl("lblNombreUsuario") as DevExpress.Web.ASPxLabel).Text = objInfUsuario.Nombre;
-            }
-            else
-            {
-                Response.Redirect("default.aspx", false);
-            }
+            //if (Session["InfoUsuario2"] != null && Session["rol"].ToString() == "ASIGNADOR")
+            //{
+            //    InfUsuario objInfUsuario = Session["InfoUsuario2"] as InfUsuario;
+            //    (Master.FindControl("lblNombreUsuario") as DevExpress.Web.ASPxLabel).Text = objInfUsuario.Nombre;
+            //}
+            //else
+            //{
+            //    Response.Redirect("default.aspx", false);
+            //}
             try
             {
                 if (!IsPostBack)
                 {
                     ObtenerInformacion(long.Parse(Request.QueryString[0]));
                     obtenerRegion();
-
-
                 }
             }
             catch (Exception ex)
             {
-                (Master.FindControl("lblError") as DevExpress.Web.ASPxLabel).Text = ex.Message;
+                (Master.FindControl("lblError") as DevExpress.Web.ASPxLabel).Text = "No contiene la documentación completa";
             }
         }
 
@@ -52,7 +51,6 @@ namespace WebApplication1
                 cmd = conn.CreateCommand();
                 cmd.CommandText = cSQL;
                 SqlDataReader dr = cmd.ExecuteReader();
-
                 while (dr.Read())
                 {
                     txtApaterno.Text = dr["ap_paterno"].ToString();
@@ -78,10 +76,10 @@ namespace WebApplication1
                     }
                     cboColegio.Value = dr["colegio"].ToString();
                     txtCursos.Text = dr["cursos"].ToString();
-                    if (dr["IdRegistro"] != DBNull.Value)
-                    {
-                        txtCedula.Text = dr["IdRegistro"].ToString();
-                    }
+                    /*       if (dr["IdRegistro"] != DBNull.Value)
+                           {
+                               txtCedula.Text = dr["IdRegistro"].ToString();
+                           }  */
                     txtAnioRegistro.Text = dr["anio_registro_sop"].ToString();
                     cboClasificacion.Value = dr["clasifica"].ToString();
                     cboClaveProfesion.Value = dr["prof.abreviatura_de_profesion as clave_profesion"].ToString();
@@ -153,7 +151,7 @@ namespace WebApplication1
                   " on l.Id = p.Idlocalidad " +
                   " inner join tblMunicipios as m" +
                   " on l.mun = m.idMunicipio " +
-                  " where s.Id ={0}", folio);
+                  " where s.id ={0}", folio);
                 cmd = conn.CreateCommand();
                 cmd.CommandText = cSQL;
                 SqlDataReader dr = cmd.ExecuteReader();
@@ -213,10 +211,6 @@ namespace WebApplication1
                     {
                         cbTramiteSolicita.Value = dr["tramite_que_solicita"].ToString();
                     }
-                    if (dr["notasfecha"] != DBNull.Value)
-                    {
-                        txtObservacionesDictamen.Text = dr["notasfecha"].ToString();
-                    }
                 }
                 dr.Close();
                 //clasificación
@@ -229,10 +223,13 @@ namespace WebApplication1
                     cboClasificacion.ValidationSettings.RequiredField.ErrorText = "*";
 
                 }
+                txtCedula.Text = txtCedula.Text.Trim();
+                ASPxLabel1.Text = txtCedula.Value.ToString();
+                cargagrids();
             }
             catch (Exception ex)
             {
-                (Master.FindControl("lblError") as DevExpress.Web.ASPxLabel).Text = ex.Message;
+                (Master.FindControl("lblError") as DevExpress.Web.ASPxLabel).Text = "No contiene la documentación completa";
             }
             finally
             {
@@ -243,6 +240,37 @@ namespace WebApplication1
             }
         }
 
+        protected void cargagrids()
+        {
+            DirectoryInfo dirInfo = new DirectoryInfo(Server.MapPath("~/Documents/Pagos/" + ASPxLabel1.Text));
+            FileInfo[] fileInfo = dirInfo.GetFiles("*.*", SearchOption.AllDirectories);
+            GridView1.DataSource = fileInfo;
+            GridView1.DataBind();
+            DirectoryInfo dirInfo2 = new DirectoryInfo(Server.MapPath("~/Documents/Elector/" + ASPxLabel1.Text));
+            FileInfo[] fileInfo2 = dirInfo2.GetFiles("*.*", SearchOption.AllDirectories);
+            GridView2.DataSource = fileInfo2;
+            GridView2.DataBind();
+            DirectoryInfo dirInfo3 = new DirectoryInfo(Server.MapPath("~/Documents/Domicilio/" + ASPxLabel1.Text));
+            FileInfo[] fileInfo3 = dirInfo3.GetFiles("*.*", SearchOption.AllDirectories);
+            GridView3.DataSource = fileInfo3;
+            GridView3.DataBind();
+            DirectoryInfo dirInfo4 = new DirectoryInfo(Server.MapPath("~/Documents/Nacimiento/" + ASPxLabel1.Text));
+            FileInfo[] fileInfo4 = dirInfo4.GetFiles("*.*", SearchOption.AllDirectories);
+            GridView4.DataSource = fileInfo4;
+            GridView4.DataBind();
+            DirectoryInfo dirInfo5 = new DirectoryInfo(Server.MapPath("~/Documents/Vitae/" + ASPxLabel1.Text));
+            FileInfo[] fileInfo5 = dirInfo5.GetFiles("*.*", SearchOption.AllDirectories);
+            GridView5.DataSource = fileInfo5;
+            GridView5.DataBind();
+            DirectoryInfo dirInfo6 = new DirectoryInfo(Server.MapPath("~/Documents/Foto/" + ASPxLabel1.Text));
+            FileInfo[] fileInfo6 = dirInfo6.GetFiles("*.*", SearchOption.AllDirectories);
+            GridView6.DataSource = fileInfo6;
+            GridView6.DataBind();
+            DirectoryInfo dirInfo7 = new DirectoryInfo(Server.MapPath("~/Documents/Cedulas/" + ASPxLabel1.Text));
+            FileInfo[] fileInfo7 = dirInfo7.GetFiles("*.*", SearchOption.AllDirectories);
+            GridView7.DataSource = fileInfo7;
+            GridView7.DataBind();
+        }
 
         void obtenerRegion()
         {
@@ -307,29 +335,23 @@ namespace WebApplication1
                 cmd = conn.CreateCommand();
                 transaction = conn.BeginTransaction();
                 cmd.Transaction = transaction;
-                
+
 
                 System.Diagnostics.Debug.WriteLine("ya encontro el id registro");
-                    cSQL = "update [dbo].[tblsolicitudes] set notasfecha = @observaciones,fecha_de_sesion = @asignar, status = 'EN ESPERA DE DICTAMEN' where id="  + Request.QueryString[0].ToString();
-                    cmd.CommandText = cSQL;
+                cSQL = "update [dbo].[tblsolicitudes] set fecha_de_sesion = @asignar, status = 'EN ESPERA DE DICTAMEN' where id=" + Request.QueryString[0].ToString();
+                cmd.CommandText = cSQL;
                 
-                    cmd.Parameters.AddWithValue("@observaciones", txtObservacionesDictamen.Text);
-                    cmd.Parameters.AddWithValue("@asignar", fsesion.Date);
-                    cmd.ExecuteNonQuery();
-
-                System.Diagnostics.Debug.WriteLine("observaciones" + txtObservacionesDictamen.Text);
-                System.Diagnostics.Debug.WriteLine("fecha de sesion " + fsesion.Date);
-                System.Diagnostics.Debug.WriteLine("antes de transaccion");
+                cmd.Parameters.AddWithValue("@asignar", fsesion.Date);
+                cmd.ExecuteNonQuery();
+                enviarCorreo();
                 transaction.Commit();
-                System.Diagnostics.Debug.WriteLine("despues de transaccion");
-                e.Result = "Fecha asignada correctamente";
-                System.Diagnostics.Debug.WriteLine("despues del alert");
-                //enviarCorreo();
-                System.Diagnostics.Debug.WriteLine("despues del enviar correo");
+                e.Result = "true|Fecha asignada correctamente";
+                
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine("antes del rollback");
+                e.Result = "false|Fecha no asignada";
                 transaction.Rollback();
                 (Master.FindControl("lblError") as DevExpress.Web.ASPxLabel).Text = ex.Message;
             }
@@ -351,27 +373,26 @@ namespace WebApplication1
         {
             //Response.Write("<script language='javascript'>alert('inicio enviar correo')</script>");
             //Envia el correo
-                System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
-                mail.To.Add(txtCorreoElectronico.Text);
-                mail.From = new MailAddress("cadro.sinfra@gmail.com", "CADRO", System.Text.Encoding.UTF8);
-                mail.Subject = "Asignación de fecha para solicitud";
-                mail.Bcc.Add("yarielsilva54@gmail.com");
-                //mail.Bcc.Add("ismaelgomezvelasco@outlook.com");
-                mail.SubjectEncoding = System.Text.Encoding.UTF8;
-                mail.Body = "Nombre de DRO = " + txtNombres.Text + " " + txtApaterno.Text + " " + txtAMaterno.Text + "<br/>" +
-                            "Usuario = " + txtCorreoElectronico.Text + "<br/>" +
-                            "Tramite Solicitado = " + cboTipoTramite.Text + "<br/>" +
-                            "Fecha de asignación = " + fsesion.Date.ToString("dd/MM/yyyy") + "<br/>" +
-                            "Notas = " + txtObservacionesDictamen.Text + "<br/>" +
-                            "Cedula = " + txtCedula.Text;
-                mail.BodyEncoding = System.Text.Encoding.UTF8;
-                mail.IsBodyHtml = true;
-                mail.Priority = MailPriority.High;
-                SmtpClient client = new SmtpClient();
-                client.Credentials = new System.Net.NetworkCredential("cadro.sinfra@gmail.com", "judicial10");
-                client.Port = 587;
-                client.Host = "smtp.gmail.com";
-                client.EnableSsl = true;
+            System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
+            mail.To.Add(txtCorreoElectronico.Text);
+            mail.From = new MailAddress("cadro.sinfra@gmail.com", "CADRO", System.Text.Encoding.UTF8);
+            mail.Subject = "Asignación de fecha para solicitud";
+            mail.Bcc.Add("yarielsilva54@gmail.com");
+            //mail.Bcc.Add("ismaelgomezvelasco@outlook.com");
+            mail.SubjectEncoding = System.Text.Encoding.UTF8;
+            mail.Body = "Nombre de DRO = " + txtNombres.Text + " " + txtApaterno.Text + " " + txtAMaterno.Text + "<br/>" +
+                        "Usuario = " + txtCorreoElectronico.Text + "<br/>" +
+                        "Tramite Solicitado = " + cboTipoTramite.Text + "<br/>" +
+                        "Fecha de asignación = " + fsesion.Date.ToString("dd/MM/yyyy") + "<br/>" +
+                        "Cedula = " + txtCedula.Text;
+            mail.BodyEncoding = System.Text.Encoding.UTF8;
+            mail.IsBodyHtml = true;
+            mail.Priority = MailPriority.High;
+            SmtpClient client = new SmtpClient();
+            client.Credentials = new System.Net.NetworkCredential("cadro.sinfra@gmail.com", "judicial10");
+            client.Port = 587;
+            client.Host = "smtp.gmail.com";
+            client.EnableSsl = true;
             try
             {
                 System.Diagnostics.Debug.WriteLine("antes del correo");
@@ -395,7 +416,5 @@ namespace WebApplication1
         {
             fsesion.MinDate = DateTime.Now;
         }
-
-       
     }
 }

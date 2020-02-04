@@ -19,10 +19,8 @@
                 icon: 'error',
                 type: 'error',
                 text: texto
-                
             });
         };
-
     </script>
 </head>
 <body>
@@ -52,8 +50,7 @@
                                         ControlToValidate="UserName"
                                         ErrorMessage="El nombre de usuario es obligatorio." CssClass="LabelTextNormal"
                                         ToolTip="El nombre de usuario es obligatorio." ValidationGroup="LoginCotizador" ForeColor="Red" Display="Dynamic">Usuario obligatorio</asp:RequiredFieldValidator>
-              
-            </div>
+              </div>
           </div>
           <div class="form-group">
             <div class="form-label-group">
@@ -64,14 +61,12 @@
                                         ControlToValidate="PassWord"
                                         ErrorMessage="La contraseña es obligatoria." CssClass="LabelTextNormal"
                                         ToolTip="La contraseña es obligatoria." ForeColor="Red" ValidationGroup="LoginCotizador" Display="Dynamic">Contraseña Obligatoria</asp:RequiredFieldValidator>
-                
-             
-            </div>
+                </div>
           </div>
           <div class="form-group text-center">
             <dx:ASPxButton ID="ASPxButton1" CssClass="text-center" BackgroundImage-ImageUrl="~/css/img/Recurso 62.png" BackgroundImage-Repeat="NoRepeat" 
                 runat="server" AutoPostBack="true" OnClick="ASPxButton1_Click" Height="51px" Width="200px" ValidationGroup="LoginCotizador" CausesValidation="True">
-                                        </dx:ASPxButton>
+            </dx:ASPxButton>
           </div>
           <div class="form-group text-center">
               <a href="registro.aspx" class=" btn-outline-info">REGISTRO</a>

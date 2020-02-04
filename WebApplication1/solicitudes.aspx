@@ -40,7 +40,7 @@
 
                                 <ClientSideEvents CustomButtonClick="function(s, e) { EjecutaBotonEdicion(s, e) }" />
                                 <Columns>
-                                    <dx:GridViewCommandColumn VisibleIndex="0" Caption="Editar" ButtonType="Image" Width="60px">
+                                    <dx:GridViewCommandColumn VisibleIndex="0" Caption="Votar" ButtonType="Image" Width="60px">
                                         <CustomButtons>
                                             <dx:GridViewCommandColumnCustomButton ID="btnEditar" Image-IconID="actions_edit_32x32devav" Visibility="AllDataRows" Text="Modificar">
                                                 <Image Url="css/img/Recurso 34.png">

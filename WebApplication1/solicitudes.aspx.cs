@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using WebApp.Code;
+using WebApplication1.Code;
 
 namespace WebApplication1
 {
@@ -15,16 +15,16 @@ namespace WebApplication1
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["InfoUsuario"] != null)
-            {
-                InfUsuario objInfUsuario = Session["InfoUsuario"] as InfUsuario;
-                (Master.FindControl("lblNombreUsuario") as DevExpress.Web.ASPxLabel).Text = objInfUsuario.Nombre;
-                (Master.FindControl("correo") as DevExpress.Web.ASPxLabel).Text = objInfUsuario.Correo;
-            }
-            else
-            {
-                Response.Redirect("default.aspx", false);
-            }
+            //if (Session["InfoUsuario"] != null && Session["rol"].ToString() == "SESIONADOR")
+            //{
+            //    InfUsuario objInfUsuario = Session["InfoUsuario"] as InfUsuario;
+            //    (Master.FindControl("lblNombreUsuario") as DevExpress.Web.ASPxLabel).Text = objInfUsuario.Nombre;
+            //    (Master.FindControl("correo") as DevExpress.Web.ASPxLabel).Text = objInfUsuario.Correo;
+            //}
+            //else
+            //{
+            //    Response.Redirect("default.aspx", false);
+            //}
             if (!IsPostBack)
             {
                 gvSolicitudes.DataBind();
@@ -67,7 +67,7 @@ namespace WebApplication1
                 " where s.status='EN ESPERA DE DICTAMEN' and (correo_votantes not like @correo or correo_votantes is null)  order by fecha_solicitud desc");
                 cmd = conn.CreateCommand();
                 cmd.CommandText = cSQL;
-                String correo = (Master.FindControl("correo") as DevExpress.Web.ASPxLabel).Text;
+                String correo = SessionHelper.InformacionUsuario.Email;
                 cmd.Parameters.AddWithValue("@correo", "%" +correo + "%");
                 SqlDataReader drR = cmd.ExecuteReader();
                 DataTable dt = new DataTable();

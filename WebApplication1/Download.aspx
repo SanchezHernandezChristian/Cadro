@@ -1,17 +1,11 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Download.aspx.cs" Inherits="WebApplication1.Download" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" MasterPageFile="~/SiteCADRO.Master" CodeBehind="Download.aspx.cs" Inherits="WebApplication1.Download" %>
 
-<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
+
+<asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    
     <div>
-        <dx:ASPxTextBox ID="ASPxTextBox1" runat="server" Text="1" Width="170px"></dx:ASPxTextBox>
+        <dx:ASPxTextBox ID="ASPxTextBox1" runat="server" Text="" Width="170px"></dx:ASPxTextBox>
     </div>
-    </form>
-</body>
-</html>
+    
+    </asp:Content>

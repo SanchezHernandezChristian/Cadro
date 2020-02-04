@@ -1,0 +1,17 @@
+
+roles				acceso
+
+
+
+ciudadano		solicitante.aspx, registro_drro.aspx 
+asignador		asignador.aspx asignacionFecha.aspx
+sesionador		solicitudes.aspx DictamenSolicitud.aspx
+
+
+
+
+Id	Contrasena	Nombre		rol		Email
+1	77k9w77n	Christian	ADMIN		cristhian.135@gmail.com
+2	2		Asignador	ASIGNADOR	asignador@prueba.com
+3	3		Sesionador	SESIONADOR	sesionador@prueba.com
+4	56212456	Prueba6		CIUDADANO	Prueba6@gmail.com

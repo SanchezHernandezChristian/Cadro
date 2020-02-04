@@ -2,23 +2,57 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
+     <script type="text/javascript">
+        function EjecutaBotonEdicion(s, e) {
+            if (e.buttonID == 'btnEditar') {
+                var rowKey = s.GetRowKey(e.visibleIndex);
+                window.location.href = "archivos_dro.aspx";
+            }
+        }
+    </script>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-        <div class="d-flex justify-content-start flex-wrap flex-md-nowrap align-items-center mt-3">
-        <div class="container-fluid row mx-3">
-            <h1 class="h4 col-3"><strong>Solicitudes enviadas</strong>
-            </h1>
-            <a class="btn btn-success " role="button" href="registrarse.aspx"> Nueva solicitud</a>
-            <dx:ASPxLabel runat="server" ClientVisible="false" ForeColor="Transparent" ID="acepta">
-         </dx:ASPxLabel>
-        </div>
-         
+    <div class="col-md-12">
+         <dx:ASPxMenu ID="menuCadro" runat="server" Width="100%" Orientation="Horizontal" HorizontalAlign="Left" Theme="Material" OnDataBound="menuCadro_DataBound" OnItemDataBound="menuCadro_ItemDataBound" BackColor="White">
+                <Items>
+                                            <dx:MenuItem Text="Inicio" NavigateUrl="solicitante.aspx">
+                                                <Image Url="css/img/Recurso 29.png">
+                                                </Image>
+                                            </dx:MenuItem>
+                                            <dx:MenuItem Text="Nuevos Trámites" NavigateUrl="registros_dro.aspx">
+                                                <Image Url="css/img/Recurso 30.png">
+                                                </Image>
+                                            </dx:MenuItem>
+                                          <dx:MenuItem Text="PII" NavigateUrl="~/dro_misproyectos">
+                                          </dx:MenuItem>
+                                        </Items>
+            </dx:ASPxMenu>
     </div>
-    
+    <div class="d-flex justify-content-start flex-wrap flex-md-nowrap align-items-center mt-3">
+        <div class="form-group row mx-3">
+            <div class="form-label-group col-md-2">
+            <h1 class="h4 col-3"><strong>Solicitudes </strong>
+            </h1>
+                </div>
+            <div class="form-label-group col-md-2">
+            <dx:ASPxButton ID="RegistroPadron" Theme="Material" runat="server" AutoPostBack="False" Text="Solicitud de Registro" BackColor="#00CC00" CssClass="btn btn-imprimir col-2">
+                <ClientSideEvents Click="function(s, e) {
+                                                window.location.href = 'archivos_dro.aspx';
+                                                                        }" />
+            </dx:ASPxButton>
+                </div>
+            <%--    <a class="btn btn-success" role="button" href="registros_dro.aspx"> Nueva solicitud</a>   --%>
+            <br />
+            <dx:ASPxLabel runat="server" ClientVisible="false" ForeColor="Transparent" ID="acepta">
+            </dx:ASPxLabel>
+        </div>
+    </div>
     <div class="container-fluid">
         <div class="row">
             <div class="col">
-                <dx:ASPxLabel ID="correo" runat="server" Visible="true" Text=""></dx:ASPxLabel>
+                <dx:ASPxLabel ID="correo" runat="server" ClientVisible="false" Text=""></dx:ASPxLabel>
+                <dx:ASPxLabel ID="ced" runat="server" ClientVisible="false" Text=""></dx:ASPxLabel>
+
                 <dx:ASPxGridView ID="gvSolicitudes" ClientInstanceName="gvSolicitudes" OnHtmlRowPrepared="gvSolicitudes_HtmlRowPrepared" KeyFieldName="id" Width="100%" 
                     Theme="Material" OnCustomCallback="gvSolicitudes_CustomCallback" OnDataBinding="gvSolicitudes_DataBinding" 
                     runat="server" AutoGenerateColumns="False">
@@ -32,16 +66,11 @@
                     <Columns>
                         <dx:GridViewDataTextColumn MinWidth="280" Width="40%" Caption="Clave de solicitud" FieldName="id" VisibleIndex="2">
                         </dx:GridViewDataTextColumn>
-                     <%--   <dx:GridViewDataTextColumn MinWidth="280" Width="36%" Caption="Profesión" FieldName="abreviatura_de_profesion" VisibleIndex="5">
-                        </dx:GridViewDataTextColumn>     --%> 
                         <dx:GridViewDataTextColumn MinWidth="280" Width="36%" Caption="Nombre" FieldName="nombre" VisibleIndex="3">
-                        </dx:GridViewDataTextColumn>
-                        <dx:GridViewDataTextColumn MinWidth="280" Width="36%" Caption="Registro DRO" FieldName="registroDRO" VisibleIndex="6">
+                            <Settings AutoFilterCondition="Contains" />
                         </dx:GridViewDataTextColumn>
                         <dx:GridViewDataTextColumn MinWidth="280" Width="36%" Caption="Municipio" FieldName="nombreMunicipio" VisibleIndex="7">
                         </dx:GridViewDataTextColumn>
-                        <%--  <dx:GridViewDataTextColumn Width="200px" Caption="Localidad" FieldName="nombreLocalidad" VisibleIndex="8">
-                        </dx:GridViewDataTextColumn>   --%> 
                         <dx:GridViewDataTextColumn MinWidth="280" Width="40%" Caption="Trámite solicitado" FieldName="descripcion" VisibleIndex="9">
                         </dx:GridViewDataTextColumn>
                         <dx:GridViewDataTextColumn MinWidth="280" Width="40%" Caption="Estado de trámite" FieldName="status" VisibleIndex="10">
@@ -51,7 +80,7 @@
                         </dx:GridViewDataDateColumn>
                         <dx:GridViewDataTextColumn MinWidth="280" Width="36%" Caption="Observacion" FieldName="observaciones" VisibleIndex="12">
                         </dx:GridViewDataTextColumn>
-                        <dx:GridViewDataTextColumn MinWidth="280" Width="36%" Caption="Cédula" FieldName="cedula_profesional" VisibleIndex="4">
+                        <dx:GridViewDataTextColumn MinWidth="280" Width="36%" Caption="Cédula" FieldName="cedula" VisibleIndex="4">
                         </dx:GridViewDataTextColumn>
                     </Columns>
                     <SettingsPager PageSize="10" NumericButtonCount="6" />
@@ -59,7 +88,40 @@
                                     <Cell Wrap="true" />
                                 </Styles>
                 </dx:ASPxGridView>
+                <br />
+                <br />
+               
+                <dx:ASPxLabel ID="ASPxLabel1" runat="server" Text="ASPxLabel" ClientVisible="false" Visible="false"></dx:ASPxLabel>
+                <dx:ASPxLabel ID="ASPxLabel2" runat="server" Text="ASPxLabel" ClientVisible="false" Visible="false"></dx:ASPxLabel>
                 </div>
+            
             </div>
+        <asp:Panel runat="server" ID="s">
+            <table id="tabla">
+                <tr>
+                    <td style="width:25px">
+                        <dx:ASPxPanel ID="ASPxPanel1" runat="server" Width="20px" Height="20px" BackColor="LightGreen" Border-BorderColor="Black" Border-BorderStyle="Solid"></dx:ASPxPanel>
+                        
+                    </td>
+                    <td style="width:180px">
+                        <dx:ASPxLabel ID="ASPxLabel3" runat="server" Text="SOLICITUD AUTORIZADA" Font-Bold="true"></dx:ASPxLabel>
+                    </td>
+                    <td style="width:25px">
+                        <dx:ASPxPanel ID="ASPxPanel2" runat="server" Width="20px" Height="20px" BackColor="Salmon"></dx:ASPxPanel>
+                        
+                    </td>
+                    <td style="width:180px">
+                        <dx:ASPxLabel ID="ASPxLabel4" runat="server" Text="SOLICITUD RECHAZADA" Font-Bold="true"></dx:ASPxLabel>
+                    </td>
+                    <td style="width:25px">
+                        <dx:ASPxPanel ID="ASPxPanel3" runat="server" Width="20px" Height="20px" BackColor="#F4F4F4"></dx:ASPxPanel>
+                        
+                    </td>
+                    <td style="width:180px">
+                        <dx:ASPxLabel ID="ASPxLabel5" runat="server" Text="EN ESPERA" Font-Bold="true"></dx:ASPxLabel>
+                    </td>
+                </tr>
+            </table>
+         </asp:Panel>
         </div>
 </asp:Content>

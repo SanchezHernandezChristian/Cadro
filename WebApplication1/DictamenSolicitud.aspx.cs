@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -9,7 +10,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using WebApp;
-using WebApp.Code;
+using WebApplication1.Code;
 
 namespace WebApplication1
 {
@@ -18,21 +19,20 @@ namespace WebApplication1
         Correo c = new Correo();
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["InfoUsuario"] != null)
-            {
-                InfUsuario objInfUsuario = Session["InfoUsuario"] as InfUsuario;
-                (Master.FindControl("lblNombreUsuario") as DevExpress.Web.ASPxLabel).Text = objInfUsuario.Nombre;
-                (Master.FindControl("correo") as DevExpress.Web.ASPxLabel).Text = objInfUsuario.Correo;
-            }
-            else
-            {
-                Response.Redirect("default.aspx", false);
-            }
+            //if (Session["InfoUsuario"] != null)
+            //{
+            //    InfUsuario objInfUsuario = Session["InfoUsuario"] as InfUsuario;
+            //    (Master.FindControl("lblNombreUsuario") as DevExpress.Web.ASPxLabel).Text = objInfUsuario.Nombre;
+            //    (Master.FindControl("correo") as DevExpress.Web.ASPxLabel).Text = objInfUsuario.Correo;
+            //}
+            //else
+            //{
+            //    Response.Redirect("default.aspx", false);
+            //}
             try
             {
                 if (!IsPostBack)
                 {
-                   
                     ObtenerInformacion(long.Parse(Request.QueryString[0]));
                     obtenerRegion();
                 }
@@ -43,6 +43,38 @@ namespace WebApplication1
             }
         }
 
+
+        protected void cargagrids()
+        {
+            DirectoryInfo dirInfo = new DirectoryInfo(Server.MapPath("~/Documents/Pagos/" + ASPxLabel1.Text));
+            FileInfo[] fileInfo = dirInfo.GetFiles("*.*", SearchOption.AllDirectories);
+            GridView1.DataSource = fileInfo;
+            GridView1.DataBind();
+            DirectoryInfo dirInfo2 = new DirectoryInfo(Server.MapPath("~/Documents/Elector/" + ASPxLabel1.Text));
+            FileInfo[] fileInfo2 = dirInfo2.GetFiles("*.*", SearchOption.AllDirectories);
+            GridView2.DataSource = fileInfo2;
+            GridView2.DataBind();
+            DirectoryInfo dirInfo3 = new DirectoryInfo(Server.MapPath("~/Documents/Domicilio/" + ASPxLabel1.Text));
+            FileInfo[] fileInfo3 = dirInfo3.GetFiles("*.*", SearchOption.AllDirectories);
+            GridView3.DataSource = fileInfo3;
+            GridView3.DataBind();
+            DirectoryInfo dirInfo4 = new DirectoryInfo(Server.MapPath("~/Documents/Nacimiento/" + ASPxLabel1.Text));
+            FileInfo[] fileInfo4 = dirInfo4.GetFiles("*.*", SearchOption.AllDirectories);
+            GridView4.DataSource = fileInfo4;
+            GridView4.DataBind();
+            DirectoryInfo dirInfo5 = new DirectoryInfo(Server.MapPath("~/Documents/Vitae/" + ASPxLabel1.Text));
+            FileInfo[] fileInfo5 = dirInfo5.GetFiles("*.*", SearchOption.AllDirectories);
+            GridView5.DataSource = fileInfo5;
+            GridView5.DataBind();
+            DirectoryInfo dirInfo6 = new DirectoryInfo(Server.MapPath("~/Documents/Foto/" + ASPxLabel1.Text));
+            FileInfo[] fileInfo6 = dirInfo6.GetFiles("*.*", SearchOption.AllDirectories);
+            GridView6.DataSource = fileInfo6;
+            GridView6.DataBind();
+            DirectoryInfo dirInfo7 = new DirectoryInfo(Server.MapPath("~/Documents/Cedulas/" + ASPxLabel1.Text));
+            FileInfo[] fileInfo7 = dirInfo7.GetFiles("*.*", SearchOption.AllDirectories);
+            GridView7.DataSource = fileInfo7;
+            GridView7.DataBind();
+        }
 
         void ObtenInformacion(string cedulaProfesional)
         {
@@ -106,7 +138,7 @@ namespace WebApplication1
                 }
             }
         }
-        
+
         void ObtenerInformacion(long folio)
         {
             try
@@ -226,13 +258,14 @@ namespace WebApplication1
                     cboClasificacion.ValidationSettings.ErrorTextPosition = DevExpress.Web.ErrorTextPosition.Left;
                     cboClasificacion.ValidationSettings.RequiredField.IsRequired = true;
                     cboClasificacion.ValidationSettings.RequiredField.ErrorText = "*";
-
                 }
-
+                txtCedula.Text = txtCedula.Text.Trim();
+                ASPxLabel1.Text = txtCedula.Value.ToString();
+                cargagrids();
             }
             catch (Exception ex)
             {
-                (Master.FindControl("lblError") as DevExpress.Web.ASPxLabel).Text = ex.Message;
+                (Master.FindControl("lblError") as DevExpress.Web.ASPxLabel).Text = "No contiene la documentación completa";
             }
             finally
             {
@@ -242,8 +275,7 @@ namespace WebApplication1
                 }
             }
         }
-
-
+        
         void obtenerRegion()
         {
             int valormun = int.Parse(cboMunicipio.Value.ToString());
@@ -259,7 +291,6 @@ namespace WebApplication1
             {
                 //this.Page.Response.Write("<script language='JavaScript'>window.alert('" + dr["id"] + "');</script>");
                 cboRegion.Value = dr["id"].ToString();
-
             }
             dr.Close();
         }
@@ -305,21 +336,20 @@ namespace WebApplication1
                 conn.Open();
                 cmd = conn.CreateCommand();
                 transaction = conn.BeginTransaction();
-                cmd.Transaction = transaction;  
-                
+                cmd.Transaction = transaction;
+
                 if (rdstatus.Text == "Autorizado")
                 {
                     cSQL = " update [tblsolicitudes]   " +
-                                   " set observaciones = observaciones + @observaciones,votos = votos + 1, registrovotos = registrovotos + 1, correo_votantes = correo_votantes + @correo  " +
+                                   " set observaciones = @observaciones + observaciones,votos = votos + 1, registrovotos = registrovotos + 1, correo_votantes = @correo +  ISNULL(correo_votantes,0)  " +
                                    " where Id=" + Request.QueryString[0].ToString();
                     cmd.CommandText = cSQL;
                     cmd.Parameters.Clear();
-
                 }
                 else
                 {
                     cSQL = " update [tblsolicitudes]   " +
-                                   " set observaciones = observaciones + @observaciones,registrovotos = registrovotos + 1, correo_votantes = correo_votantes + @correo " +
+                                   " set observaciones = @observaciones + observaciones,registrovotos = registrovotos + 1, correo_votantes = @correo +  ISNULL(correo_votantes,0)  " +
                                    " where Id=" + Request.QueryString[0].ToString();
                     cmd.CommandText = cSQL;
                     cmd.Parameters.Clear();
@@ -329,24 +359,26 @@ namespace WebApplication1
                 cmd.Parameters.AddWithValue("@correo", (Master.FindControl("correo") as DevExpress.Web.ASPxLabel).Text + "|");
                 cmd.ExecuteNonQuery();
 
-            
+
+
                 System.Diagnostics.Debug.WriteLine("correo " + (Master.FindControl("correo") as DevExpress.Web.ASPxLabel).Text);
                 //enviarCorreo();
-                e.Result = "Solicitud dictaminada correctamente";
                 transaction.Commit();
+                e.Result = "true|Solicitud dictaminada correctamente";
                 
             }
             catch (Exception ex)
             {
                 transaction.Rollback();
-                e.Result = "No se pudo completar la solicitud";
+                e.Result = "false|No se pudo realizar el dictamen. Verifique los datos e intente de nuevo";
+
                 (Master.FindControl("lblError") as DevExpress.Web.ASPxLabel).Text = ex.Message;
             }
             finally
             {
                 if (conn != null)
                 {
-                    
+
                     conn.Close();
                 }
             }
@@ -367,11 +399,11 @@ namespace WebApplication1
             mail.Bcc.Add("yarielsilva54@gmail.com");
             //mail.Bcc.Add("ismaelgomezvelasco@outlook.com");
             mail.SubjectEncoding = System.Text.Encoding.UTF8;
-            mail.Body = "Nombre de DRO = " + txtNombres.Text + " " + txtApaterno.Text + " " + txtAMaterno.Text + "<br/>" +
-                        "Usuario = " + txtCorreoElectronico.Text + "<br/>" +
-                        "Tramite Solicitado = " + cboTipoTramite.Text + "<br/>" +
-                        "Estado de trámite = " + rdstatus.Text + "<br/>" +
-                        "Cedula = " + txtCedula.Text;
+            mail.Body = "Nombre de DRO: " + txtNombres.Text + " " + txtApaterno.Text + " " + txtAMaterno.Text + "<br/>" +
+                       // "Usuario = " + txtCorreoElectronico.Text + "<br/>" +
+                        "Trámite Solicitado: " + cboTipoTramite.Text + "<br/>" +
+                        "Resultado de trámite:" + rdstatus.Text + "<br/>" +
+                        "Cedula: " + txtCedula.Text;
             mail.BodyEncoding = System.Text.Encoding.UTF8;
             mail.IsBodyHtml = true;
             mail.Priority = MailPriority.High;
@@ -395,7 +427,7 @@ namespace WebApplication1
                 }
             }
         }
-       // DataClasses1DataContext db = new DataClasses1DataContext();
+        // DataClasses1DataContext db = new DataClasses1DataContext();
 
         /*   void LoadData()
            {

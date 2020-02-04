@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace WebApp.Code
+namespace WebApplication1.Code
 {
     public class InfUsuario
     {
         private string _Nombre;
+        private string _ApPaterno;
+        private string _ApMaterno;
         private string _Correo;
         private string _Rol;
         private bool _IsActivo;
@@ -24,6 +26,32 @@ namespace WebApp.Code
             set
             {
                 _Nombre = value;
+            }
+        }
+
+        public string Paterno
+        {
+            get
+            {
+                return _ApPaterno;
+            }
+
+            set
+            {
+                _ApPaterno = value;
+            }
+        }
+
+        public string Materno
+        {
+            get
+            {
+                return _ApMaterno;
+            }
+
+            set
+            {
+                _ApMaterno = value;
             }
         }
 

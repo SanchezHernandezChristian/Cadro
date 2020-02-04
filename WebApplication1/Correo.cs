@@ -8,7 +8,7 @@ using System.Net.Mail;
 using System.Web;
 using System.Net.Mime;
 
-namespace WebApp
+namespace WebApplication1
 {
     class Correo
     {

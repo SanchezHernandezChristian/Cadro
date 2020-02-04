@@ -1,0 +1,8 @@
+			-----		Credencial					--------- 
+
+SELECT    p.cedula  , UPPER(prof.abreviatura_de_profesion + ' ' + p.ap_paterno + ' ' + p.ap_paterno + ' ' + p.ap_materno + ' ' + p.nombre) as nombre, 
+ prof.abreviatura_de_profesion as clave_profesion, p.id  ,   p.clasificacion, p.Idregistro, p.url, p.ultima_vigencia, p.id_profesion,
+(isnull(p.clasificacion, ' ') + '-' + convert(varchar, p.Idregistro) + '-' + isnull(p.id_profesion, ' ')) as registroDRO
+ FROM tblPadronDRO as p 
+ inner join tblProfesiones as prof on prof.id_profesion = p.id_profesion  
+ where p.cedula ='9513202079'

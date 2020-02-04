@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using WebApp.Code;
+using WebApplication1.Code;
 
 namespace WebApplication1
 {
@@ -14,6 +14,15 @@ namespace WebApplication1
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["InfoUsuario"] != null && Session["rol"].ToString() == "ADMIN")
+            {
+                InfUsuario objInfUsuario = Session["InfoUsuario"] as InfUsuario;
+                (Master.FindControl("lblNombreUsuario") as DevExpress.Web.ASPxLabel).Text = objInfUsuario.Nombre;
+            }
+            else
+            {
+                Response.Redirect("default.aspx", false);
+            }
             CargarRegiones();
         }
 
@@ -26,7 +35,7 @@ namespace WebApplication1
                 conn = new SqlConnection(strConexion);
                 conn.Open();
 
-                String cSQL = string.Format(" SELECT * from catregiones order by iIdRegion ");
+                String cSQL = string.Format(" SELECT * from catregiones order by iIdRegion");
 
                 cmd = conn.CreateCommand();
                 cmd.CommandText = cSQL;

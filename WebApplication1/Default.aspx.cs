@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using RestMembership.Models;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
@@ -9,7 +11,8 @@ using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using WebApp.Code;
+using UtilsInfraestructura;
+using WebApplication1.Code;
 
 namespace WebApplication1
 {
@@ -18,178 +21,128 @@ namespace WebApplication1
         SqlCommand cmd;
         SqlConnection conn;
         String strConexion = ConfigurationManager.ConnectionStrings["BD_CADROConnectionString"].ConnectionString;
+        ApiService apiService;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                if (SessionHelper.InformacionUsuario != null)
+                {
+                    foreach (var item in SessionHelper.InformacionUsuario.ListPermisosConNivelAcceso)
+                    {
+                        switch (item.RoleName)
+                        {
+                            case "DRO":
+                                Response.Redirect("solicitante.aspx", false);
+                                break;
+                            case "DRO_ASIGNADOR":
+                                Response.Redirect("asignador.aspx", false);
+                                break;
+                            case "DRO_SESIONADOR":
+                                Response.Redirect("solicitudes.aspx", false);
+                                break;
+                            case "ADMIN":
+                                Response.Redirect("dro_Administrador.aspx", false);
+                                break;
+                        }
+                    }
+                }
+            }
         }
 
         protected void ASPxButton1_Click(object sender, EventArgs e)
         {
+            bool loggin = false;
             if (Page.IsValid)
             {
                 try
                 {
-                    bool loggin = false;
-                    string contraseñaCifrada = "";
-                    conn = new SqlConnection(strConexion);
-                    conn.Open();
-                    String cSQL = "select * from [tblUsuarios] where Email=@usuario and Contrasena=@contrasena";
-                    cmd = conn.CreateCommand();
-                    cmd.CommandText = cSQL;
-                    cmd.Parameters.AddWithValue("@usuario", UserName.Text);
-                    cmd.Parameters.AddWithValue("@contrasena", PassWord.Text);
-                    SqlDataReader dr = cmd.ExecuteReader();
-                    InfUsuario objUsuario = new InfUsuario();
-                    while (dr.Read())
-                    {
-                        loggin = true;
+                    apiService = new ApiService();
 
-                        objUsuario.Nombre = dr["Nombre"].ToString();
-                        objUsuario.Correo = dr["Email"].ToString();
-                        objUsuario.IsActivo = Convert.ToBoolean(dr["IsActivado"]);
-                        objUsuario.Rol = dr["rol"].ToString();
-                        contraseñaCifrada = dr["contrasena"].ToString();
-                        Session["InfoUsuario"] = objUsuario;
-                    }
-                    if (contraseñaCifrada == Utils.sha256_hash(PassWord.Text))
+                    var result = apiService.GetObjectSeguridad(string.Format("Users?app=PII&Email={0}&Pass={1}", UserName.Text, PassWord.Text));
+                    if (result.IsSuccess)
                     {
-                        loggin = true;
-                    }
-                    if (loggin == true)
-                    {
-                        System.Diagnostics.Debug.WriteLine("rol"+objUsuario.Rol+"usuario"+objUsuario.Correo);
-                        if (objUsuario.Rol == "CIUDADANO")
+                        var res = JsonConvert.DeserializeObject<Response>(result.Result.ToString());
+                        if (res.IsSuccess)
                         {
-                            Response.Redirect("solicitante.aspx", false);
-                        }
-                        else if (objUsuario.Rol == "ASIGNADOR")
-                        {
-                            Response.Redirect("asignador.aspx", false);
-                        }
-                        else if (objUsuario.Rol == "SESIONADOR")
-                        {
-                            Response.Redirect("solicitudes.aspx", false);
-                        }
-                        else if (objUsuario.Rol == "ADMIN")
-                        {
-                            Response.Redirect("administrador.aspx", false);
+                            var usu = JsonConvert.DeserializeObject<User>(res.Result.ToString());
+                            SessionHelper.Login = true;
+                            loggin = true;
+                            SessionHelper.InformacionUsuario = usu;
+
+                            conn = new SqlConnection(strConexion);
+                            conn.Open();
+                            String cSQL = "select * from [tblUsuarios] where nomUser=@usuario";
+                            cmd = conn.CreateCommand();
+                            cmd.CommandText = cSQL;
+                            cmd.Parameters.AddWithValue("@usuario", usu.IdUser);
+                            SqlDataReader dr = cmd.ExecuteReader();
+                            InfUsuario objUsuario = new InfUsuario();
+                            while (dr.Read())
+                            {
+                                loggin = true;
+                                objUsuario.Nombre = dr["Nombre"].ToString();
+                                objUsuario.Correo = dr["Email"].ToString();
+                                objUsuario.IsActivo = Convert.ToBoolean(dr["IsActivado"]);
+                                objUsuario.Rol = dr["rol"].ToString();
+                                objUsuario.cedula = dr["cedula"].ToString();
+                                objUsuario.Paterno = dr["APaterno"].ToString();
+                                objUsuario.Materno = dr["AMaterno"].ToString();
+                                Session["InfoUsuario2"] = objUsuario;
+                                Session["rol"]= dr["rol"].ToString();
+
+
+
+                            }
+                            conn.Close();
+                            foreach (var item in usu.ListPermisosConNivelAcceso)
+                            {
+                                switch (item.RoleName)
+                                {
+                                    case "DRO":
+                                        Response.Redirect("solicitante.aspx", false);
+                                        break;
+                                    case "DRO_ASIGNADOR":
+                                        Response.Redirect("asignador.aspx", false);
+                                        break;
+                                    case "DRO_SESIONADOR":
+                                        Response.Redirect("solicitudes.aspx", false);
+                                        break;
+                                    case "ADMIN":
+                                        Response.Redirect("dro_Administrador.aspx", false);
+                                        break;
+                                    default:
+                                        ClientScript.RegisterStartupScript(GetType(), "Message", "alertas('No tiene rol', 'error');", true);
+                                        break;
+                                }
+                            }
                         }
                         else
                         {
-                            ClientScript.RegisterStartupScript(GetType(), "Message", "notificacion('" + "El usuario no existe o se encuentra inactivo" + objUsuario.Rol + "');", true);
+                            ClientScript.RegisterStartupScript(GetType(), "Message", "alertas('" + res.Message + "', 'error');", true);
                         }
                     }
                     else
                     {
-                        //lblError.Text = "Usuario/contraseña incorrecto";
-
-                        ClientScript.RegisterStartupScript(GetType(), "Message", "notificacion('"+ "Usuario/contraseña incorrecto" + "');", true);
-                    }
+                        ClientScript.RegisterStartupScript(GetType(), "Message", "alertas('" + result.Message + "', 'error');", true);
+                    } 
+                    
                 }
                 catch (Exception ex)
                 {
                     //lblError.Text = "Error " + ex.Message;
-                    ClientScript.RegisterStartupScript(GetType(), "Message", "notificacion('" + "No se pudo conectar al servidor" + "');", true);
+                    ClientScript.RegisterStartupScript(GetType(), "Message", "alertas('" + "No se pudo conectar al servidor" + "', 'error');", true);
                 }
                 finally
                 {
-                    conn.Close();
-
+                    
                 }
             }
             else
             {
-                ClientScript.RegisterStartupScript(GetType(), "Message", "notificacion('" + "Agregue el usuario y contraseña" + "');", true);
+                ClientScript.RegisterStartupScript(GetType(), "Message", "alertas('" + "Agregue el usuario y contraseña" + "', 'error');", true);
             }
-                
-        }
-
-       /* protected void cbRecuperar_Callback(object source, DevExpress.Web.CallbackEventArgs e)
-        {
-            try
-            {
-                if (txtEmail.Text == "")
-                {
-                    e.Result = "Debe ingresar el correo";
-                    return;
-                }
-                conn = new SqlConnection(strConexion);
-                conn.Open();
-                String cSQL = "select * from [tblUsuarios] where Email=@email";
-                cmd = conn.CreateCommand();
-                cmd.CommandText = cSQL;
-                cmd.Parameters.AddWithValue("@email", txtEmail.Text);
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                string cPassword = "";
-                while (reader.Read())
-                {
-                    cPassword = reader["Contrasena"].ToString();
-                }
-                reader.Close();
-
-                string nuevaContraseña = Membership.GeneratePassword(8, 1);
-                Random rdn = new Random();
-                nuevaContraseña = Regex.Replace(nuevaContraseña, @"[^0-9]", m => rdn.Next(1, 9).ToString());
-
-                //Registrarse objRegistrarse = new Registrarse();
-
-                System.Net.Mail.MailMessage mail = new System.Net.Mail.MailMessage();
-                mail.To.Add(txtEmail.Text);
-                mail.From = new MailAddress("cadro.sinfra@gmail.com", "CADRO", System.Text.Encoding.UTF8);
-                mail.Subject = "Recuperación de contraseña";
-                mail.Bcc.Add("yarielsilva54@gmail.com");
-                //mail.Bcc.Add("ismaelgomezvelasco@outlook.com");
-                mail.SubjectEncoding = System.Text.Encoding.UTF8;
-                mail.Body = "Usuario = " + txtEmail.Text + "<br/>" +
-                            "Contraseña = " + nuevaContraseña;
-                mail.BodyEncoding = System.Text.Encoding.UTF8;
-                mail.IsBodyHtml = true;
-                mail.Priority = MailPriority.High;
-                SmtpClient client = new SmtpClient();
-                client.Credentials = new System.Net.NetworkCredential("cadro.sinfra@gmail.com", "judicial10");
-                client.Port = 587;
-                client.Host = "smtp.gmail.com";
-                client.EnableSsl = true;
-                e.Result = "Contraseña modificada, revise su correo por favor";
-                try
-                {
-                    cSQL = "update [tblUsuarios] set Contrasena=@contra where [Email]='" + txtEmail.Text + "'";
-                    cmd.CommandText = cSQL;
-                    cmd.Parameters.AddWithValue("@contra", nuevaContraseña);
-                    cmd.ExecuteNonQuery();
-                    client.Send(mail);
-                }
-                catch (Exception ex)
-                {
-                    Exception ex2 = ex;
-                    string errorMessage = string.Empty;
-                    while (ex2 != null)
-                    {
-                        errorMessage += ex2.ToString();
-                        ex2 = ex2.InnerException;
-                    }
-                }
-                txtEmail.Text = "";
-            }
-
-            catch (Exception ex)
-            {
-                e.Result = "Error " + ex.Message;
-
-            }
-            finally
-            {
-                if (conn != null)
-                {
-                    conn.Close();
-                }
-            }
-        }*/
-
-        protected void btnRecuperar_Click(object sender, EventArgs e)
-        {
 
         }
     }

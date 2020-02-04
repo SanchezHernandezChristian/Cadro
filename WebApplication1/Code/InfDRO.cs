@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace WebApp.Code
+namespace WebApplication1.Code
 {
     public class InfDRO
     {
         private long _Id;       
         private DateTime _FechaActualizacion;
-        private string _CedulaProfesional;
+        private string _cedula;
         private long _IdRegistro;
         private string _Clasificacion;
         private string _APaterno;
@@ -67,16 +67,16 @@ namespace WebApp.Code
             }
         }
 
-        public string CedulaProfesional
+        public string cedula
         {
             get
             {
-                return _CedulaProfesional;
+                return _cedula;
             }
 
             set
             {
-                _CedulaProfesional = value;
+                _cedula = value;
             }
         }
                    
@@ -237,10 +237,6 @@ namespace WebApp.Code
             }
         }
 
-       
-
-       
-
         public int IdUniversidad
         {
             get
@@ -305,10 +301,7 @@ namespace WebApp.Code
                 _CursoActualizacion = value;
             }
         }
-
       
-      
-
         public long IdRegistro
         {
             get
@@ -322,7 +315,6 @@ namespace WebApp.Code
             }
         }
         
-
         public int IdColegio
         {
             get
@@ -349,7 +341,6 @@ namespace WebApp.Code
             }
         }
        
-
         public string ClaveProfesion
         {
             get
@@ -451,6 +442,7 @@ namespace WebApp.Code
                 _Rfc = value;
             }
         }
+
         public string Nacimiento
         {
             get
@@ -461,6 +453,19 @@ namespace WebApp.Code
             set
             {
                 _Nacimiento = value;
+            }
+        }
+
+        public int UltimaVigencia
+        {
+            get
+            {
+                return _UltimaVigencia;
+            }
+
+            set
+            {
+                _UltimaVigencia = value;
             }
         }
     }
