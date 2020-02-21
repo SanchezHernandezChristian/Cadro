@@ -149,10 +149,9 @@
                                         </Items>
             </dx:ASPxMenu>
     </div>
-
             <ol class="breadcrumb justify-content-center">
               <li class="breadcrumb-item">
-                <a><strong>Registro D. R. O.</strong></a>
+                <a><strong>Datos D. R. O.</strong></a>
               </li>
             </ol>
 
@@ -196,7 +195,8 @@
                                 </div>
      <p class="text-center text-black rounded h5" style="background-color: cornsilk">Documentos para registro</p>
                                 <div class="form-group">
-                                    <div class="row" >
+                                    <dx:ASPxLabel ID="ASPxLabel2" runat="server" Text="         *EL BOTÓN SE ACTIVARA HASTA QUE SUBA TODOS LOS DOCUMENTOS REQUERIDOS" ForeColor="Red"></dx:ASPxLabel>
+                                        <div class="row" >
                                         <div class="form-label-group col-md-4">
                                             <label>Comprobante de pago del trámite</label>
                                             <dx:ASPxUploadControl ID="pago" Theme="Material" runat="server" Width="280px" ShowProgressPanel="True" ClientInstanceName="uploadControl" 

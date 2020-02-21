@@ -40,7 +40,6 @@ function alertas(texto,tipo) {
 function notificacionerror(texto) {
     swal.fire({
         allowEnterKey: false,
-        title: 'Error',
       // width: '1200px',
         type: 'error',
         html: texto

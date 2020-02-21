@@ -1,7 +1,10 @@
-﻿using System;
+﻿using DevExpress.XtraPrinting;
+using DevExpress.XtraReports.UI;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -15,15 +18,28 @@ namespace WebApplication1
         protected void Page_Load(object sender, EventArgs e)
         {
             String nID = Request.QueryString["p"];
-
-            rptCredencial reportfi = new rptCredencial();
-            reportfi.ShowPreviewMarginLines = true;
-
-            reportfi.DataSource = CargarDatos(nID);
-            reportfi.CreateDocument();
-
-            dro_credencial.Report = reportfi;
+            rptCredencial report = new rptCredencial();
+            report.DataSource = CargarDatos(nID);
+            report.CreateDocument();
+            dro_credencial.Report = report;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                report.ExportToPdf(ms, new PdfExportOptions() { ShowPrintDialogOnOpen = true });
+                PrintDocument(ms.ToArray(), nID + ".pdf");
+            }
         }
+
+        void PrintDocument(byte[] documentData, string fileName)
+        {
+            string contentType = String.Format("application/{0}", "pdf");
+            string disposition = "inline";
+            Response.Clear();
+            Response.ContentType = "application/pdf";
+            Response.AddHeader("Content-Disposition", String.Format("{0}; filename={1}", disposition, fileName));
+            Response.BinaryWrite(documentData);
+            Response.End();
+        }
+
         private List<credencial> CargarDatos(String nID)
         {
             List<credencial> result = null;

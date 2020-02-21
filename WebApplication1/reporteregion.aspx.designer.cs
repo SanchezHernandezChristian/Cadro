@@ -13,6 +13,24 @@ namespace WebApplication1 {
     public partial class reporteregion {
         
         /// <summary>
+        /// Control ASPxMenu1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxMenu ASPxMenu1;
+        
+        /// <summary>
+        /// Control ASPxPageControl1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxPageControl ASPxPageControl1;
+        
+        /// <summary>
         /// Control cboRegion.
         /// </summary>
         /// <remarks>
@@ -56,5 +74,50 @@ namespace WebApplication1 {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxGridView gvReporte;
+        
+        /// <summary>
+        /// Control cboTipoTramite.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxComboBox cboTipoTramite;
+        
+        /// <summary>
+        /// Control ASPxGridViewExporter1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxGridViewExporter ASPxGridViewExporter1;
+        
+        /// <summary>
+        /// Control ASPxButton1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton ASPxButton1;
+        
+        /// <summary>
+        /// Control ASPxButton2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton ASPxButton2;
+        
+        /// <summary>
+        /// Control ASPxGridView1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxGridView ASPxGridView1;
     }
 }

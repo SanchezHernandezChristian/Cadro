@@ -14,7 +14,6 @@ namespace WebApplication1
     {
         protected void Page_Load(object sender, EventArgs e)
      {
-            
             credencial.DataBind();
             documentos.DataBind();
             gvSolicitudesFolios.DataBind();
@@ -28,7 +27,8 @@ namespace WebApplication1
                       " ,fecha_de_sesion " +
                       " ,fecha_solicitud " +
                       " , prof.abreviatura_de_profesion " +
-                      " , (p.ap_paterno + ' ' + p.ap_materno + ' ' + p.nombre) as nombre " +
+                      " , ((UPPER(substring(p.ap_paterno, 1,1)) + lower(SUBSTRING(p.ap_paterno,2,Len(p.ap_paterno)))) + ' ' + (UPPER(substring(p.ap_materno, 1,1)) + lower(SUBSTRING(p.ap_materno,2,Len(p.ap_materno)))) + ' ' + (UPPER(substring(p.nombre, 1,1)) + lower(SUBSTRING(p.nombre,2,Len(p.nombre))))) as nombre " +
+                        ",p.Idregistro " +
                       //" , (isnull(p.clasificacion, ' ') + '-' + isnull(p.idRegistro, ' ') + '-' + isnull(p.id_profesion, ' ')) as registroDRO " +
                       " , m.nombreMunicipioINEGI as nombreMunicipio " +
                       " , lower(l.nom_loc) as nombreLocalidad " +
@@ -113,7 +113,8 @@ namespace WebApplication1
                       " ,fecha_de_sesion " +
                       " ,fecha_solicitud " +
                       " , prof.abreviatura_de_profesion " +
-                      " , (p.ap_paterno + ' ' + p.ap_materno + ' ' + p.nombre) as nombre " +
+                      " , ((UPPER(substring(p.ap_paterno, 1,1)) + lower(SUBSTRING(p.ap_paterno,2,Len(p.ap_paterno)))) + ' ' + (UPPER(substring(p.ap_materno, 1,1)) + lower(SUBSTRING(p.ap_materno,2,Len(p.ap_materno)))) + ' ' + (UPPER(substring(p.nombre, 1,1)) + lower(SUBSTRING(p.nombre,2,Len(p.nombre))))) as nombre " +
+      ",p.Idregistro " +
                       //" , (isnull(p.clasificacion, ' ') + '-' + isnull(p.idRegistro, ' ') + '-' + isnull(p.id_profesion, ' ')) as registroDRO " +
                       " , m.nombreMunicipioINEGI as nombreMunicipio " +
                       " , lower(l.nom_loc) as nombreLocalidad " +
@@ -217,7 +218,8 @@ namespace WebApplication1
                       " ,fecha_de_sesion " +
                       " ,fecha_solicitud " +
                       " , prof.abreviatura_de_profesion " +
-                      " , (p.ap_paterno + ' ' + p.ap_materno + ' ' + p.nombre) as nombre " +
+                      " , ((UPPER(substring(p.ap_paterno, 1,1)) + lower(SUBSTRING(p.ap_paterno,2,Len(p.ap_paterno)))) + ' ' + (UPPER(substring(p.ap_materno, 1,1)) + lower(SUBSTRING(p.ap_materno,2,Len(p.ap_materno)))) + ' ' + (UPPER(substring(p.nombre, 1,1)) + lower(SUBSTRING(p.nombre,2,Len(p.nombre))))) as nombre " +
+      ",p.Idregistro " +
                       //" , (isnull(p.clasificacion, ' ') + '-' + isnull(p.idRegistro, ' ') + '-' + isnull(p.id_profesion, ' ')) as registroDRO " +
                       " , m.nombreMunicipioINEGI as nombreMunicipio " +
                       " , lower(l.nom_loc) as nombreLocalidad " +
@@ -301,7 +303,8 @@ namespace WebApplication1
                       " ,fecha_de_sesion " +
                       " ,fecha_solicitud " +
                       " , prof.abreviatura_de_profesion " +
-                      " , (p.ap_paterno + ' ' + p.ap_materno + ' ' + p.nombre) as nombre " +
+                      " , ((UPPER(substring(p.ap_paterno, 1,1)) + lower(SUBSTRING(p.ap_paterno,2,Len(p.ap_paterno)))) + ' ' + (UPPER(substring(p.ap_materno, 1,1)) + lower(SUBSTRING(p.ap_materno,2,Len(p.ap_materno)))) + ' ' + (UPPER(substring(p.nombre, 1,1)) + lower(SUBSTRING(p.nombre,2,Len(p.nombre))))) as nombre " +
+      ",p.Idregistro " +
                       //" , (isnull(p.clasificacion, ' ') + '-' + isnull(p.idRegistro, ' ') + '-' + isnull(p.id_profesion, ' ')) as registroDRO " +
                       " , m.nombreMunicipioINEGI as nombreMunicipio " +
                       " , lower(l.nom_loc) as nombreLocalidad " +
@@ -322,7 +325,7 @@ namespace WebApplication1
                   " on l.Id = p.Idlocalidad " +
                   " inner join tblMunicipios as m" +
                   " on l.mun = m.idMunicipio" +
-                  " where s.status='EN REVISION DE DOCUMENTOS' order by fecha_de_sesion desc");
+                  " where s.status='EN REVISION DE DOCUMENTOS' order by fecha_solicitud desc");
                 cmd = conn.CreateCommand();
                 cmd.CommandText = cSQL;
                 //md.Parameters.AddWithValue("@acepta", acepta.Text);
@@ -380,7 +383,8 @@ namespace WebApplication1
                       " ,fecha_de_sesion " +
                       " ,fecha_solicitud " +
                       " , prof.abreviatura_de_profesion " +
-                      " , (p.ap_paterno + ' ' + p.ap_materno + ' ' + p.nombre) as nombre " +
+                      " , ((UPPER(substring(p.ap_paterno, 1,1)) + lower(SUBSTRING(p.ap_paterno,2,Len(p.ap_paterno)))) + ' ' + (UPPER(substring(p.ap_materno, 1,1)) + lower(SUBSTRING(p.ap_materno,2,Len(p.ap_materno)))) + ' ' + (UPPER(substring(p.nombre, 1,1)) + lower(SUBSTRING(p.nombre,2,Len(p.nombre))))) as nombre " +
+                      ",p.Idregistro " +
                       //" , (isnull(p.clasificacion, ' ') + '-' + isnull(p.idRegistro, ' ') + '-' + isnull(p.id_profesion, ' ')) as registroDRO " +
                       " , m.nombreMunicipioINEGI as nombreMunicipio " +
                       " , lower(l.nom_loc) as nombreLocalidad " +
@@ -401,10 +405,9 @@ namespace WebApplication1
                   " on l.Id = p.Idlocalidad " +
                   " inner join tblMunicipios as m" +
                   " on l.mun = m.idMunicipio" +
-                  " where s.status='EN ESPERA DE DICTAMEN ' order by fecha_de_sesion desc");
+                  " where s.status='EN ESPERA DE DICTAMEN' order by fecha_de_sesion desc");
                 cmd = conn.CreateCommand();
                 cmd.CommandText = cSQL;
-                //md.Parameters.AddWithValue("@acepta", acepta.Text);
                 SqlDataReader drR = cmd.ExecuteReader();
                 DataTable dt = new DataTable();
                 dt.Load(drR);

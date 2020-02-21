@@ -17,16 +17,6 @@ namespace WebApplication1
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["InfoUsuario"] != null)
-            {
-                InfUsuario objInfUsuario = Session["InfoUsuario"] as InfUsuario;
-                //(Master.FindControl("lblNombreUsuario") as DevExpress.Web.ASPxLabel).Text = objInfUsuario.Nombre;
-                //(Master.FindControl("correo") as DevExpress.Web.ASPxLabel).Text = objInfUsuario.Correo;
-            }
-            else
-            {
-                Response.Redirect("default.aspx", false);
-            }
             try
             {
                 if (!IsPostBack)
@@ -53,9 +43,9 @@ namespace WebApplication1
                   " , fecha_de_sesion " +
                   " , tramite_que_solicita " +
                   " , p.cedula " +
-                  " , p.ap_paterno " +
-                  " , p.ap_materno " +
-                  " , p.nombre " +
+                 " , (UPPER(substring(p.ap_paterno, 1,1)) + lower(SUBSTRING(p.ap_paterno,2,Len(p.ap_paterno)))) as ap_paterno " +
+                  " , (UPPER(substring(p.ap_materno, 1,1)) + lower(SUBSTRING(p.ap_materno,2,Len(p.ap_materno)))) as ap_materno " +
+                  " , (UPPER(substring(p.nombre, 1,1)) + lower(SUBSTRING(p.nombre,2,Len(p.nombre)))) as nombre " +
                   " , p.calle_numero " +
                   " , m.idMunicipio as nombreMunicipio " +
                   " , l.nom_loc as idLocalidad " +
@@ -68,7 +58,7 @@ namespace WebApplication1
                   " , p.cursos " +
                   " , col.descripcion as colegio " +
                   " , p.clasificacion " +
-                  " , p.colonia " +
+                  " , UPPER(p.colonia) as colonia " +
                   " , p.telefono_local " +
                   " , p.telefono_celular " +
                   //" , (isnull(p.clasificacion, ' ') + '-' + isnull(p.idRegistro, ' ') + '-' + isnull(prof.abreviatura_de_profesion, ' ')) as registroDRO " +
@@ -131,27 +121,7 @@ namespace WebApplication1
                 }
             }
         }
-
-   /*     void obtenerRegion()
-        {
-            int valormun = int.Parse(cboMunicipio.Value.ToString());
-            conn = new SqlConnection(strConexion);
-            conn.Open();
-            String cSQL = string.Format(" SELECT  " +
-                "id, nombre from dbo.tblRegion as reg inner join dbo.tblRegionesMunicipios as regm on reg.Id = regm.idRegion  where idMunicipio = {0}", valormun);
-
-            cmd = conn.CreateCommand();
-            cmd.CommandText = cSQL;
-            SqlDataReader dr = cmd.ExecuteReader();
-            while (dr.Read())
-            {
-                //this.Page.Response.Write("<script language='JavaScript'>window.alert('" + dr["id"] + "');</script>");
-                cboRegion.Value = dr["id"].ToString();
-
-            }
-            dr.Close();
-        }  */
-
+        
         protected void gvSolicitudes_DataBinding(object sender, EventArgs e)
         {
             try
@@ -209,7 +179,7 @@ namespace WebApplication1
                 cmd.CommandText = cSQL;
                 cmd.ExecuteNonQuery();
                 transaction.Commit();
-                enviarCorreo();
+                //enviarCorreo();
                 e.Result = "true|Credencial generada correctamente";
             }
             catch
@@ -227,8 +197,6 @@ namespace WebApplication1
             mail.To.Add(txtCorreoElectronico.Text);
             mail.From = new MailAddress("cadro.sinfra@gmail.com", "CADRO", System.Text.Encoding.UTF8);
             mail.Subject = "Impresión de Credencial";
-            mail.Bcc.Add("yarielsilva54@gmail.com");
-            //mail.Bcc.Add("ismaelgomezvelasco@outlook.com");
             mail.SubjectEncoding = System.Text.Encoding.UTF8;
             mail.Body = "Nombre de DRO = " + txtNombres.Text + " " + txtApaterno.Text + " " + txtAMaterno.Text + "<br/>" +
                         "Usuario = " + txtCorreoElectronico.Text + "<br/>" +

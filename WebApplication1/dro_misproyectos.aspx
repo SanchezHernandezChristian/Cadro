@@ -26,6 +26,8 @@
                                                 </Image>
                                             </dx:MenuItem>
                                             <dx:MenuItem Text="PII" NavigateUrl="dro_misproyectos.aspx">
+                                                <Image Url="css/img/pii blanco.png" Width="10%">
+                                                  </Image>
                                             </dx:MenuItem>
                                         </Items>
             </dx:ASPxMenu>
@@ -42,9 +44,11 @@
         <Border BorderStyle="None" />
          <SettingsPager PageSize="50">
          </SettingsPager>
-        <Settings GridLines="Vertical" ShowFilterRow="True" ShowHeaderFilterButton="True" VerticalScrollableHeight="300" VerticalScrollBarMode="Visible" HorizontalScrollBarMode="Auto" />
-        <SettingsBehavior AllowSelectByRowClick="true" />
-        <SettingsSearchPanel Visible="True" />
+        <Settings ShowFilterRow="true" ShowFilterRowMenu="true" ShowGroupPanel="true" UseFixedTableLayout="true" />
+                                        <SettingsBehavior AutoExpandAllGroups="true" />
+                                        <SettingsPager PageSize="20" NumericButtonCount="6" />
+                                        <SettingsDataSecurity AllowInsert="false" AllowEdit="false" AllowDelete="false" />
+                                        <SettingsAdaptivity AdaptivityMode="HideDataCells" AllowOnlyOneAdaptiveDetailExpanded="true" />
         <Columns>
             <dx:GridViewCommandColumn Caption="OPCIONES" Name="Comandos" ShowInCustomizationForm="True" VisibleIndex="0" Width="120px" ShowNewButtonInHeader="false" FixedStyle="Left">
                 <CustomButtons>
@@ -56,25 +60,25 @@
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn Caption="Folio" FieldName="Folio" ShowInCustomizationForm="True" VisibleIndex="3" Width="70px">
             </dx:GridViewDataTextColumn>
-            <dx:GridViewDataTextColumn Caption="Status" FieldName="StStatusProyecto" ShowInCustomizationForm="True" VisibleIndex="5">
+            <dx:GridViewDataTextColumn Caption="Status" FieldName="StStatusProyecto" ShowInCustomizationForm="True" VisibleIndex="12">
             </dx:GridViewDataTextColumn>
-            <dx:GridViewDataTextColumn FieldName="StatusProyecto" ShowInCustomizationForm="True" Visible="False" VisibleIndex="6">
+            <dx:GridViewDataTextColumn FieldName="StatusProyecto" ShowInCustomizationForm="True" Visible="False" VisibleIndex="14">
             </dx:GridViewDataTextColumn>
-            <dx:GridViewDataTextColumn Caption="Proyecto" FieldName="StProyecto" ShowInCustomizationForm="True" VisibleIndex="7" Width="300px">
+            <dx:GridViewDataTextColumn Caption="Proyecto" FieldName="StProyecto" ShowInCustomizationForm="True" VisibleIndex="5" Width="550px">
             </dx:GridViewDataTextColumn>
-            <dx:GridViewDataTextColumn Caption="Tipo" FieldName="StTipoProyecto" ShowInCustomizationForm="True" VisibleIndex="8" Width="200px">
+            <dx:GridViewDataTextColumn Caption="Tipo" FieldName="StTipoProyecto" ShowInCustomizationForm="True" VisibleIndex="10">
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="Idmunicipio" ShowInCustomizationForm="True" Visible="False" VisibleIndex="9">
             </dx:GridViewDataTextColumn>
-            <dx:GridViewDataTextColumn Caption="Municipio" FieldName="StMunicipio" ShowInCustomizationForm="True" VisibleIndex="10" Width="200px">
+            <dx:GridViewDataTextColumn Caption="Municipio" FieldName="StMunicipio" ShowInCustomizationForm="True" VisibleIndex="6" Width="200px">
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="Idlocalidad" ShowInCustomizationForm="True" Visible="False" VisibleIndex="11">
             </dx:GridViewDataTextColumn>
-            <dx:GridViewDataTextColumn Caption="Localidad" FieldName="StLocalidad" ShowInCustomizationForm="True" VisibleIndex="12" Width="200px">
+            <dx:GridViewDataTextColumn Caption="Localidad" FieldName="StLocalidad" ShowInCustomizationForm="True" VisibleIndex="7" Width="200px">
             </dx:GridViewDataTextColumn>
             <dx:GridViewDataTextColumn FieldName="IdCatProyecto" ShowInCustomizationForm="True" Visible="False" VisibleIndex="13">
             </dx:GridViewDataTextColumn>
-            <dx:GridViewDataSpinEditColumn Caption="Monto Total" FieldName="MontoTotal" ShowInCustomizationForm="True" VisibleIndex="14" Width="150px">
+            <dx:GridViewDataSpinEditColumn Caption="Monto Total" FieldName="MontoTotal" ShowInCustomizationForm="True" VisibleIndex="8" Width="150px">
                 <PropertiesSpinEdit DecimalPlaces="2" DisplayFormatString="c" NumberFormat="Custom" MinValue="0" MaxValue="10000000000000000000000">
                 </PropertiesSpinEdit>
             </dx:GridViewDataSpinEditColumn>

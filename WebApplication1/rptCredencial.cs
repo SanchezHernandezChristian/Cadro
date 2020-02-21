@@ -149,6 +149,7 @@ public class rptCredencial : DevExpress.XtraReports.UI.XtraReport
             // xrBarCode2
             // 
             this.xrBarCode2.Alignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
+            this.xrBarCode2.BarCodeOrientation = DevExpress.XtraPrinting.BarCode.BarCodeOrientation.RotateRight;
             this.xrBarCode2.Dpi = 100F;
             this.xrBarCode2.LocationFloat = new DevExpress.Utils.PointFloat(82F, 629.125F);
             this.xrBarCode2.Name = "xrBarCode2";
@@ -159,7 +160,8 @@ public class rptCredencial : DevExpress.XtraReports.UI.XtraReport
             qrCodeGenerator1.CompactionMode = DevExpress.XtraPrinting.BarCode.QRCodeCompactionMode.Byte;
             qrCodeGenerator1.Version = DevExpress.XtraPrinting.BarCode.QRCodeVersion.Version7;
             this.xrBarCode2.Symbology = qrCodeGenerator1;
-            this.xrBarCode2.Text = "http://pii.oaxaca.gob.mx/cadro/Documents/REGLAMENTO.pdf";
+            this.xrBarCode2.Text = "https://www.oaxaca.gob.mx/sinfra/wp-content/uploads/sites/14/2016/02/REGLAMENTO_D" +
+    "E_CONSTRUCCIONES_DEL_ESTADO_DE_OAXACA.pdf";
             this.xrBarCode2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
             // 
             // xrLabel11
@@ -254,7 +256,7 @@ public class rptCredencial : DevExpress.XtraReports.UI.XtraReport
             this.xrLabel1.StylePriority.UseFont = false;
             this.xrLabel1.StylePriority.UseForeColor = false;
             this.xrLabel1.StylePriority.UseTextAlignment = false;
-            this.xrLabel1.Text = "SE EXPIDE LA PRESENTE AL (A) C.";
+            this.xrLabel1.Text = "SE EXPIDE LA PRESENTE A";
             this.xrLabel1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter;
             // 
             // xrLabel3
@@ -348,7 +350,7 @@ public class rptCredencial : DevExpress.XtraReports.UI.XtraReport
             this.xrLabel2.Multiline = true;
             this.xrLabel2.Name = "xrLabel2";
             this.xrLabel2.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.xrLabel2.SizeF = new System.Drawing.SizeF(548.5417F, 160.1247F);
+            this.xrLabel2.SizeF = new System.Drawing.SizeF(548.5416F, 144.4996F);
             this.xrLabel2.StyleName = "FieldCaption";
             this.xrLabel2.StylePriority.UseFont = false;
             this.xrLabel2.StylePriority.UseForeColor = false;

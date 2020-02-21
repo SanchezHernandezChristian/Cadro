@@ -58,7 +58,7 @@ namespace WebApplication1
             }
             */
 
-            Image2.ImageUrl = "~/Documents/Foto/" + txtCedula.Text.Trim() + "/cedula.png";
+            Image2.ImageUrl = "~/Documents/D_Registro/Foto/" + txtCedula.Text.Trim() + "/cedula.png";
             
         }
 

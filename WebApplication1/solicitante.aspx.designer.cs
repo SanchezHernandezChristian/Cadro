@@ -40,6 +40,15 @@ namespace WebApplication1 {
         protected global::DevExpress.Web.ASPxLabel acepta;
         
         /// <summary>
+        /// Control docpendiente.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel docpendiente;
+        
+        /// <summary>
         /// Control correo.
         /// </summary>
         /// <remarks>
@@ -56,6 +65,33 @@ namespace WebApplication1 {
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel ced;
+        
+        /// <summary>
+        /// Control doc.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxGridView doc;
+        
+        /// <summary>
+        /// Control validarDoc.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.GridViewCommandColumnCustomButton validarDoc;
+        
+        /// <summary>
+        /// Control solici.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel solici;
         
         /// <summary>
         /// Control gvSolicitudes.

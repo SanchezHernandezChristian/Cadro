@@ -14,17 +14,6 @@ namespace WebApplication1
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["InfoUsuario2"] != null && Session["rol"].ToString() == "ADMIN")
-            {
-                System.Diagnostics.Debug.WriteLine("antes del rollback" + Session["rol"].ToString());
-                InfUsuario objInfUsuario = Session["InfoUsuario2"] as InfUsuario;
-                //(Master.FindControl("lblNombreUsuario") as DevExpress.Web.ASPxLabel).Text = objInfUsuario.Nombre;
-                ClientScript.RegisterStartupScript(GetType(), "Message", "logueado();", true);
-            }
-            else
-            {
-                Response.Redirect("default.aspx", false);
-            }
             gvSolicitudesFolios.DataBind();
             gvSolicitudesSesion.DataBind();
         }
@@ -93,7 +82,6 @@ namespace WebApplication1
                   " where s.status='SOLICITUD AUTORIZADA' order by fecha_de_sesion desc");
                 cmd = conn.CreateCommand();
                 cmd.CommandText = cSQL;
-                //md.Parameters.AddWithValue("@acepta", acepta.Text);
                 SqlDataReader drR = cmd.ExecuteReader();
                 DataTable dt = new DataTable();
                 dt.Load(drR);
@@ -204,7 +192,6 @@ namespace WebApplication1
                   " where s.status='SOLICITUD RECHAZADA' order by fecha_de_sesion desc");
                 cmd = conn.CreateCommand();
                 cmd.CommandText = cSQL;
-                //md.Parameters.AddWithValue("@acepta", acepta.Text);
                 SqlDataReader drR = cmd.ExecuteReader();
                 DataTable dt = new DataTable();
                 dt.Load(drR);

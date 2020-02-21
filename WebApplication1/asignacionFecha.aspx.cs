@@ -17,15 +17,6 @@ namespace WebApplication1
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //if (Session["InfoUsuario2"] != null && Session["rol"].ToString() == "ASIGNADOR")
-            //{
-            //    InfUsuario objInfUsuario = Session["InfoUsuario2"] as InfUsuario;
-            //    (Master.FindControl("lblNombreUsuario") as DevExpress.Web.ASPxLabel).Text = objInfUsuario.Nombre;
-            //}
-            //else
-            //{
-            //    Response.Redirect("default.aspx", false);
-            //}
             try
             {
                 if (!IsPostBack)
@@ -76,16 +67,9 @@ namespace WebApplication1
                     }
                     cboColegio.Value = dr["colegio"].ToString();
                     txtCursos.Text = dr["cursos"].ToString();
-                    /*       if (dr["IdRegistro"] != DBNull.Value)
-                           {
-                               txtCedula.Text = dr["IdRegistro"].ToString();
-                           }  */
                     txtAnioRegistro.Text = dr["anio_registro_sop"].ToString();
                     cboClasificacion.Value = dr["clasifica"].ToString();
                     cboClaveProfesion.Value = dr["prof.abreviatura_de_profesion as clave_profesion"].ToString();
-                    //if (cboTipoTramite.Text == "Reclasificación" ) {
-                    //    cboClasificacion.ClientEnabled = true;
-                    //}
                 }
                 dr.Close();
 
@@ -115,10 +99,10 @@ namespace WebApplication1
       " , fecha_de_sesion " +
       " , tramite_que_solicita " +
       " , p.cedula " +
-      " , p.ap_paterno " +
-      " , p.ap_materno " +
-      " , p.nombre " +
-      " , p.calle_numero " +
+      " , (UPPER(substring(p.ap_paterno, 1,1)) + lower(SUBSTRING(p.ap_paterno,2,Len(p.ap_paterno)))) as ap_paterno " +
+      " , (UPPER(substring(p.ap_materno, 1,1)) + lower(SUBSTRING(p.ap_materno,2,Len(p.ap_materno)))) as ap_materno " +
+      " , (UPPER(substring(p.nombre, 1,1)) + lower(SUBSTRING(p.nombre,2,Len(p.nombre)))) as nombre " +
+      " , UPPER(p.calle_numero) as calle_numero " +
       " , m.idMunicipio as nombreMunicipio " +
       " , l.nom_loc as idLocalidad " +
       " , p.email " +
@@ -130,7 +114,7 @@ namespace WebApplication1
       " , p.cursos " +
       " , col.descripcion as colegio " +
       " , p.clasificacion " +
-      " , p.colonia " +
+      " , UPPER(p.colonia) as colonia " +
       " , p.telefono_local " +
       " , p.telefono_celular " +
       //" , (isnull(p.clasificacion, ' ') + '-' + isnull(p.idRegistro, ' ') + '-' + isnull(prof.abreviatura_de_profesion, ' ')) as registroDRO " +
@@ -198,10 +182,10 @@ namespace WebApplication1
                     {
                         cboClasificacion.Value = dr["clasificacion"].ToString();
                     }
-                    //if (dr["registroDRO"] != DBNull.Value)
-                    //{
-                    //    txtRegistroDRO.Text = dr["registroDRO"].ToString();
-                    //}
+                    if (dr["idRegistro"] != DBNull.Value)
+                    {
+                        txtRegistroDRO.Text = dr["idRegistro"].ToString();
+                    }
                     if (dr["clave_profesion"] != DBNull.Value)
                     {
                         cboClaveProfesion.Value = dr["clave_profesion"].ToString();
@@ -214,7 +198,7 @@ namespace WebApplication1
                 }
                 dr.Close();
                 //clasificación
-                if (cboTipoTramite.Value.ToString() == "5")
+                if (cboTipoTramite.Value.ToString() == "4")
                 {
                     cboClasificacion.ClientEnabled = true;
                     cboClasificacion.ValidationSettings.CausesValidation = true;
@@ -225,7 +209,6 @@ namespace WebApplication1
                 }
                 txtCedula.Text = txtCedula.Text.Trim();
                 ASPxLabel1.Text = txtCedula.Value.ToString();
-                cargagrids();
             }
             catch (Exception ex)
             {
@@ -238,38 +221,6 @@ namespace WebApplication1
                     conn.Close();
                 }
             }
-        }
-
-        protected void cargagrids()
-        {
-            DirectoryInfo dirInfo = new DirectoryInfo(Server.MapPath("~/Documents/Pagos/" + ASPxLabel1.Text));
-            FileInfo[] fileInfo = dirInfo.GetFiles("*.*", SearchOption.AllDirectories);
-            GridView1.DataSource = fileInfo;
-            GridView1.DataBind();
-            DirectoryInfo dirInfo2 = new DirectoryInfo(Server.MapPath("~/Documents/Elector/" + ASPxLabel1.Text));
-            FileInfo[] fileInfo2 = dirInfo2.GetFiles("*.*", SearchOption.AllDirectories);
-            GridView2.DataSource = fileInfo2;
-            GridView2.DataBind();
-            DirectoryInfo dirInfo3 = new DirectoryInfo(Server.MapPath("~/Documents/Domicilio/" + ASPxLabel1.Text));
-            FileInfo[] fileInfo3 = dirInfo3.GetFiles("*.*", SearchOption.AllDirectories);
-            GridView3.DataSource = fileInfo3;
-            GridView3.DataBind();
-            DirectoryInfo dirInfo4 = new DirectoryInfo(Server.MapPath("~/Documents/Nacimiento/" + ASPxLabel1.Text));
-            FileInfo[] fileInfo4 = dirInfo4.GetFiles("*.*", SearchOption.AllDirectories);
-            GridView4.DataSource = fileInfo4;
-            GridView4.DataBind();
-            DirectoryInfo dirInfo5 = new DirectoryInfo(Server.MapPath("~/Documents/Vitae/" + ASPxLabel1.Text));
-            FileInfo[] fileInfo5 = dirInfo5.GetFiles("*.*", SearchOption.AllDirectories);
-            GridView5.DataSource = fileInfo5;
-            GridView5.DataBind();
-            DirectoryInfo dirInfo6 = new DirectoryInfo(Server.MapPath("~/Documents/Foto/" + ASPxLabel1.Text));
-            FileInfo[] fileInfo6 = dirInfo6.GetFiles("*.*", SearchOption.AllDirectories);
-            GridView6.DataSource = fileInfo6;
-            GridView6.DataBind();
-            DirectoryInfo dirInfo7 = new DirectoryInfo(Server.MapPath("~/Documents/Cedulas/" + ASPxLabel1.Text));
-            FileInfo[] fileInfo7 = dirInfo7.GetFiles("*.*", SearchOption.AllDirectories);
-            GridView7.DataSource = fileInfo7;
-            GridView7.DataBind();
         }
 
         void obtenerRegion()

@@ -2,6 +2,22 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
+    <script>
+        function cbGuardarDROComplete(s, e) {
+             try {
+                var htmlData = e.result.split("|");
+
+                if (htmlData[0] == "true") {
+                    alert(htmlData[1]);
+                } else {
+                    alert(htmlData[1]);
+                }
+
+            } catch (exception) {
+                console.log(exception);
+            }
+        }
+    </script>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
@@ -19,6 +35,8 @@
                                                 </Image>
                                             </dx:MenuItem>
                                             <dx:MenuItem Text="PII" NavigateUrl="dro_misproyectos.aspx">
+                                                <Image Url="css/img/pii blanco.png" Width="32px" Height="32px">
+                                                  </Image>
                                             </dx:MenuItem>
                                         </Items>
             </dx:ASPxMenu>
@@ -606,24 +624,7 @@
                             <br />
                             <div id="divMap" style="width: 100%; height: 450px; margin: 0 auto; border: 1px solid #000000; text-align: center"></div>
                             <br />
-                            <table cellpadding="2" style="border-collapse: separate; border-spacing: 10px; width: 100%">
-                                <tr>
-                                    <td style="width: 13%"></td>
-                                    <td style="width: 20%">&nbsp;</td>
-                                    <td style="width: 13%">
-                                        <dx:ASPxButton ID="btnGuardarGeoreferencias" runat="server" Text="GUARDAR" Theme="Material" ClientEnabled="true" ClientInstanceName="btnGuardarGeoreferencias" AutoPostBack="false">
-                                            <ClientSideEvents Click="function(s, e) {cbGuardarProyecto.PerformCallback();}" />
-                                        </dx:ASPxButton>
-                                    </td>
-                                    <td style="width: 20%">
-                                        <dx:ASPxButton ID="btnSiguienteComponentes" runat="server" AutoPostBack="False" ClientInstanceName="btnSiguiente" Text="SIGUIENTE" Theme="Material">
-                                            <ClientSideEvents Click="function(s, e) {  cpInfoBasica.SetActiveTabIndex(3);}" />
-                                        </dx:ASPxButton>
-                                    </td>
-                                    <td style="width: 13%">&nbsp;</td>
-                                    <td style="width: 20%">&nbsp;</td>
-                                </tr>
-                            </table>
+                           
 
                         </dx:ContentControl>
                     </ContentCollection>
@@ -856,11 +857,11 @@
                                                                     <dx:GridViewDataCheckColumn FieldName="IsDoc" Caption="*" ReadOnly="true" Width="30px" VisibleIndex="1" Visible="False">
                                                                     </dx:GridViewDataCheckColumn>
 
-                                                                    <dx:GridViewCommandColumn VisibleIndex="2" Caption="..." Width="10%" HeaderStyle-CssClass="txt-center">
+                                                                    <dx:GridViewCommandColumn VisibleIndex="2" Caption="..." Width="0px" HeaderStyle-CssClass="txt-center">
                                                                         <CustomButtons>
                                                                             <dx:GridViewCommandColumnCustomButton ID="verDocSocial" Text="Ver" Visibility="Invisible">
                                                                             </dx:GridViewCommandColumnCustomButton>
-                                                                            <dx:GridViewCommandColumnCustomButton ID="subirDocSocial" Text="Subir"></dx:GridViewCommandColumnCustomButton>
+                                                                            <dx:GridViewCommandColumnCustomButton ID="subirDocSocial" Text="Subir" Visibility="Invisible"></dx:GridViewCommandColumnCustomButton>
                                                                         </CustomButtons>
 
                                                                         <HeaderStyle CssClass="txt-center"></HeaderStyle>
@@ -983,11 +984,11 @@
                                                                     <dx:GridViewDataCheckColumn FieldName="IsDoc" Caption="*" ReadOnly="true" Width="30px" VisibleIndex="2" Visible="False">
                                                                     </dx:GridViewDataCheckColumn>
 
-                                                                    <dx:GridViewCommandColumn VisibleIndex="3" Caption="..." Width="15%" HeaderStyle-CssClass="txt-center">
+                                                                    <dx:GridViewCommandColumn VisibleIndex="3" Caption="..." Width="0px" HeaderStyle-CssClass="txt-center">
                                                                         <CustomButtons>
                                                                             <dx:GridViewCommandColumnCustomButton ID="verDocTecnico" Text="Ver" Visibility="Invisible">
                                                                             </dx:GridViewCommandColumnCustomButton>
-                                                                            <dx:GridViewCommandColumnCustomButton ID="subirDocTecnico" Text="Subir" Visibility="AllDataRows"></dx:GridViewCommandColumnCustomButton>
+                                                                            <dx:GridViewCommandColumnCustomButton ID="subirDocTecnico" Text="Subir" Visibility="Invisible"></dx:GridViewCommandColumnCustomButton>
                                                                             <dx:GridViewCommandColumnCustomButton ID="btnNoAplica" Text="No aplica" Visibility="Invisible"></dx:GridViewCommandColumnCustomButton>
                                                                         </CustomButtons>
 
@@ -1331,7 +1332,7 @@
                                                 <td style="width: 20%">&nbsp;</td>
                                                 <td class="auto-style3">&nbsp;</td>
                                                 <td style="width: 20%">
-                                                    <dx:ASPxButton ID="btnAgregarComponente" runat="server" AutoPostBack="False" ClientInstanceName="btnAgregarComponente" Text="Agregar Componente" Theme="Material">
+                                                    <dx:ASPxButton ID="btnAgregarComponente" runat="server" AutoPostBack="False" ClientInstanceName="btnAgregarComponente" Text="Agregar Componente" Theme="Material" Visible="false">
                                                         <ClientSideEvents Click="function(s, e) { cbpComponentes.PerformCallback();}" />
                                                     </dx:ASPxButton>
                                                 </td>
@@ -1763,6 +1764,6 @@ CON LAS 15 AULAS QUE EXISTIRÁN SE VERÁN BENEFICIADOS LA MATRICULA ESCOLAR QUE 
         </asp:SqlDataSource>
     </div>
     <dx:ASPxCallback ID="cbGuardarDRO" ClientInstanceName="cbGuardarDRO" OnCallback="cbGuardarDRO_Callback" runat="server">
-        <ClientSideEvents CallbackComplete=""  />
+        <ClientSideEvents CallbackComplete="cbGuardarDROComplete"  />
     </dx:ASPxCallback>
 </asp:Content>

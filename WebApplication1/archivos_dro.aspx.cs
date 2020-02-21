@@ -19,14 +19,10 @@ namespace WebApplication1
             if (Session["InfoUsuario2"] != null)
             {
                 InfUsuario objInfUsuario = Session["InfoUsuario2"] as InfUsuario;
-                //    (Master.FindControl("lblNombreUsuario") as DevExpress.Web.ASPxLabel).Text = objInfUsuario.Nombre;
                 txtCedula.Text = objInfUsuario.cedula;
                 txtNombres.Text = objInfUsuario.Nombre;
                 txtApaterno.Text = objInfUsuario.Paterno;
                 txtAMaterno.Text = objInfUsuario.Materno;
-                // cedulatxt.Text = objInfUsuario.cedula;
-              //  btnGuardar.Enabled = false;
-              //  btnGuardar.ClientEnabled = false;
             }
             else
             {
@@ -70,13 +66,13 @@ namespace WebApplication1
                 {
                     UploadedFile file = uploadControl7.UploadedFiles[i];
 
-                    string.Format(Server.MapPath("~/Documents/Cedulas/{0}"), txtCedula.Text);
-                    string path = (Server.MapPath(string.Format("~/Documents/Cedulas/{0}", txtCedula.Text)));
+                    string.Format(Server.MapPath("~/Documents/D_Registro/Cedulas/{0}"), txtCedula.Text);
+                    string path = (Server.MapPath(string.Format("~/Documents/D_Registro/Cedulas/{0}", txtCedula.Text)));
                     Directory.CreateDirectory(path);
 
                     if (file.FileName != "")
                     {
-                        string fileName = Path.Combine("{0}{1}", MapPath("~/Documents/Cedulas/" + txtCedula.Text), file.FileName);
+                        string fileName = Path.Combine("{0}{1}", MapPath("~/Documents/D_Registro/Cedulas/" + txtCedula.Text), "cedula.pdf");
                         file.SaveAs(fileName, true);
                     }
                 }
@@ -98,13 +94,13 @@ namespace WebApplication1
                 {
                     UploadedFile file = uploadControl.UploadedFiles[i];
 
-                    string.Format(Server.MapPath("~/Documents/Pagos/{0}"), txtCedula.Text);
-                    string path = (Server.MapPath(string.Format("~/Documents/Pagos/{0}", txtCedula.Text)));
+                    string.Format(Server.MapPath("~/Documents/D_Registro/Pagos/{0}"), txtCedula.Text);
+                    string path = (Server.MapPath(string.Format("~/Documents/D_Registro/Pagos/{0}", txtCedula.Text)));
                     Directory.CreateDirectory(path);
 
                     if (file.FileName != "")
                     {
-                        string fileName = Path.Combine("{0}{1}", MapPath("~/Documents/Pagos/" + txtCedula.Text), file.FileName);
+                        string fileName = Path.Combine("{0}{1}", MapPath("~/Documents/D_Registro/Pagos/" + txtCedula.Text), "pago.pdf");
                         file.SaveAs(fileName, true);
                     }
                 }
@@ -126,13 +122,13 @@ namespace WebApplication1
                 {
                     UploadedFile file = uploadControl2.UploadedFiles[i];
 
-                    string.Format(Server.MapPath("~/Documents/Elector/{0}"), txtCedula.Text);
-                    string path = (Server.MapPath(string.Format("~/Documents/Elector/{0}", txtCedula.Text)));
+                    string.Format(Server.MapPath("~/Documents/D_Registro/Elector/{0}"), txtCedula.Text);
+                    string path = (Server.MapPath(string.Format("~/Documents/D_Registro/Elector/{0}", txtCedula.Text)));
                     Directory.CreateDirectory(path);
 
                     if (file.FileName != "")
                     {
-                        string fileName = Path.Combine("{0}{1}", MapPath("~/Documents/Elector/" + txtCedula.Text), file.FileName);
+                        string fileName = Path.Combine("{0}{1}", MapPath("~/Documents/D_Registro/Elector/" + txtCedula.Text), "ine.pdf");
                         file.SaveAs(fileName, true);
                     }
                 }
@@ -154,13 +150,13 @@ namespace WebApplication1
                 {
                     UploadedFile file = uploadControl3.UploadedFiles[i];
 
-                    string.Format(Server.MapPath("~/Documents/Domicilio/{0}"), txtCedula.Text);
-                    string path = (Server.MapPath(string.Format("~/Documents/Domicilio/{0}", txtCedula.Text)));
+                    string.Format(Server.MapPath("~/Documents/D_Registro/Domicilio/{0}"), txtCedula.Text);
+                    string path = (Server.MapPath(string.Format("~/Documents/D_Registro/Domicilio/{0}", txtCedula.Text)));
                     Directory.CreateDirectory(path);
 
                     if (file.FileName != "")
                     {
-                        string fileName = Path.Combine("{0}{1}", MapPath("~/Documents/Domicilio/" + txtCedula.Text), file.FileName);
+                        string fileName = Path.Combine("{0}{1}", MapPath("~/Documents/D_Registro/Domicilio/" + txtCedula.Text), "domicilio.pdf");
                         file.SaveAs(fileName, true);
                     }
                 }
@@ -182,13 +178,13 @@ namespace WebApplication1
                 {
                     UploadedFile file = uploadControl4.UploadedFiles[i];
 
-                    string.Format(Server.MapPath("~/Documents/Nacimiento/{0}"), txtCedula.Text);
-                    string path = (Server.MapPath(string.Format("~/Documents/Nacimiento/{0}", txtCedula.Text)));
+                    string.Format(Server.MapPath("~/Documents/D_Registro/Nacimiento/{0}"), txtCedula.Text);
+                    string path = (Server.MapPath(string.Format("~/Documents/D_Registro/Nacimiento/{0}", txtCedula.Text)));
                     Directory.CreateDirectory(path);
 
                     if (file.FileName != "")
                     {
-                        string fileName = Path.Combine("{0}{1}", MapPath("~/Documents/Nacimiento/" + txtCedula.Text), file.FileName);
+                        string fileName = Path.Combine("{0}{1}", MapPath("~/Documents/D_Registro/Nacimiento/" + txtCedula.Text), "acta.pdf");
                         file.SaveAs(fileName, true);
                     }
                 }
@@ -210,13 +206,13 @@ namespace WebApplication1
                 {
                     UploadedFile file = uploadControl5.UploadedFiles[i];
 
-                    string.Format(Server.MapPath("~/Documents/Vitae/{0}"), txtCedula.Text);
-                    string path = (Server.MapPath(string.Format("~/Documents/Vitae/{0}", txtCedula.Text)));
+                    string.Format(Server.MapPath("~/Documents/D_Registro/Vitae/{0}"), txtCedula.Text);
+                    string path = (Server.MapPath(string.Format("~/Documents/D_Registro/Vitae/{0}", txtCedula.Text)));
                     Directory.CreateDirectory(path);
 
                     if (file.FileName != "")
                     {
-                        string fileName = Path.Combine("{0}{1}", MapPath("~/Documents/Vitae/" + txtCedula.Text), file.FileName);
+                        string fileName = Path.Combine("{0}{1}", MapPath("~/Documents/D_Registro/Vitae/" + txtCedula.Text), "cv.pdf");
                         file.SaveAs(fileName, true);
                     }
                 }
@@ -238,14 +234,14 @@ namespace WebApplication1
                 {
                     UploadedFile file = uploadControl6.UploadedFiles[i];
 
-                    string.Format(Server.MapPath("~/Documents/Foto/{0}"), txtCedula.Text);
-                    string path = (Server.MapPath(string.Format("~/Documents/Foto/{0}", txtCedula.Text)));
+                    string.Format(Server.MapPath("~/Documents/D_Registro/Foto/{0}"), txtCedula.Text);
+                    string path = (Server.MapPath(string.Format("~/Documents/D_Registro/Foto/{0}", txtCedula.Text)));
                     Directory.CreateDirectory(path);
 
                     if (file.FileName != "")
                     {
 
-                        string fileName = Path.Combine("{0}{1}", MapPath("~/Documents/Foto/" + txtCedula.Text), "cedula.png");
+                        string fileName = Path.Combine("{0}{1}", MapPath("~/Documents/D_Registro/Foto/" + txtCedula.Text), "cedula.png");
                         file.SaveAs(fileName, true);
                     }
                 }
@@ -257,6 +253,7 @@ namespace WebApplication1
             try
             {
                 string foliosol = null;
+                string idDRO = null;
                 conn = new SqlConnection(strConexion);
                 conn.Open();
 
@@ -265,7 +262,7 @@ namespace WebApplication1
       " FROM tblsolicitudes as s" +
                   " inner join tblPadronDRO as p" +
                   " on s.id_PadronDRO = p.id" +
-                  " where s.status='EN RECEPCION DE DOCUMENTOS' and p.cedula = '{0}'", txtCedula.Text);
+                  " where s.status='EN RECEPCION DE DOCUMENTOS' and tramite_que_solicita=1 and p.cedula = '{0}'", txtCedula.Text);
                 cmd = conn.CreateCommand();
                 cmd.CommandText = cSQL2;
 
@@ -273,22 +270,40 @@ namespace WebApplication1
                 while (dr.Read())
                 {
                     foliosol = dr["id"].ToString();
+                    idDRO = dr["Idregistro"].ToString();
+                    if (idDRO == "")
+                    {
+                        idDRO = null;
+                    }
+                        else
+                    {
+                        idDRO = dr["Idregistro"].ToString();
+                    }
                 }
                 dr.Close();
-                
+                String cSQL = "";
                 conn = new SqlConnection(strConexion);
                 conn.Open();
                 cmd = conn.CreateCommand();
                 transaction = conn.BeginTransaction();
                 cmd.Transaction = transaction;
-                String cSQL = string.Format(" update [tblsolicitudes]   " +
-                                       " set status='EN REVISION DE DOCUMENTOS' where id='{0}'", foliosol);
-                cmd.CommandText = cSQL;
+                if (idDRO == null)
+                {
+                  cSQL = (" update [tblsolicitudes]   " +
+                                       " set status='EN REVISION DE DOCUMENTOS' where id=" + foliosol);
+                    cmd.CommandText = cSQL;
+                }
+                else
+                {
+
+                    cSQL = (" update [tblsolicitudes]   " +
+                                             " set status='SOLICITUD AUTORIZADA' where id=" + foliosol);
+                    cmd.CommandText = cSQL;
+                }
+
                 cmd.ExecuteNonQuery();
                 transaction.Commit();
-                
-                enviarCorreo();
-                //e.Result = "true|Trámite de registro realizado correctamente";
+                e.Result = "true|Trámite de registro realizado correctamente";
             }
             catch
             {
@@ -312,13 +327,13 @@ namespace WebApplication1
                 {
                     UploadedFile file = uploadControl.UploadedFiles[i];
 
-                    string.Format(Server.MapPath("~/Documents/Cursos/{0}"), txtCedula.Text);
-                    string path = (Server.MapPath(string.Format("~/Documents/Cursos/{0}", txtCedula.Text)));
+                    string.Format(Server.MapPath("~/Documents/D_Registro/Cursos/{0}"), txtCedula.Text);
+                    string path = (Server.MapPath(string.Format("~/Documents/D_Registro/Cursos/{0}", txtCedula.Text)));
                     Directory.CreateDirectory(path);
                     
                     if (file.FileName != "")
                     {
-                        string fileName = Path.Combine("{0}{1}", MapPath("~/Documents/Cursos/" + txtCedula.Text), file.FileName);
+                        string fileName = Path.Combine("{0}{1}", MapPath("~/Documents/D_Registro/Cursos/" + txtCedula.Text), file.FileName);
                         file.SaveAs(fileName, true);
                     }
                 }

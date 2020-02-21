@@ -9,7 +9,7 @@ using System.Net.Mail;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using WebApp;
+using WebApplication1;
 using WebApplication1.Code;
 
 namespace WebApplication1
@@ -19,16 +19,6 @@ namespace WebApplication1
         Correo c = new Correo();
         protected void Page_Load(object sender, EventArgs e)
         {
-            //if (Session["InfoUsuario"] != null)
-            //{
-            //    InfUsuario objInfUsuario = Session["InfoUsuario"] as InfUsuario;
-            //    (Master.FindControl("lblNombreUsuario") as DevExpress.Web.ASPxLabel).Text = objInfUsuario.Nombre;
-            //    (Master.FindControl("correo") as DevExpress.Web.ASPxLabel).Text = objInfUsuario.Correo;
-            //}
-            //else
-            //{
-            //    Response.Redirect("default.aspx", false);
-            //}
             try
             {
                 if (!IsPostBack)
@@ -39,42 +29,123 @@ namespace WebApplication1
             }
             catch (Exception ex)
             {
-                (Master.FindControl("lblError") as DevExpress.Web.ASPxLabel).Text = ex.Message;
+                (Master.FindControl("lblError") as DevExpress.Web.ASPxLabel).Text = "No contiene la documentación completa";
             }
         }
 
 
-        protected void cargagrids()
+        protected void carga_reclas()
         {
-            DirectoryInfo dirInfo = new DirectoryInfo(Server.MapPath("~/Documents/Pagos/" + ASPxLabel1.Text));
+            DirectoryInfo dirInfo = new DirectoryInfo(Server.MapPath("~/Documents/D_Recla/Solicitud/" + ASPxLabel1.Text));
+            FileInfo[] fileInfo = dirInfo.GetFiles("*.*", SearchOption.AllDirectories);
+            GridView18.DataSource = fileInfo;
+            GridView18.DataBind();
+            DirectoryInfo dirInfo3 = new DirectoryInfo(Server.MapPath("~/Documents/D_Recla/Credencial/" + ASPxLabel1.Text));
+            FileInfo[] fileInfo3 = dirInfo3.GetFiles("*.*", SearchOption.AllDirectories);
+            GridView20.DataSource = fileInfo3;
+            GridView20.DataBind();
+            DirectoryInfo dirInfo4 = new DirectoryInfo(Server.MapPath("~/Documents/D_Recla/Oficios/" + ASPxLabel1.Text));
+            FileInfo[] fileInfo4 = dirInfo4.GetFiles("*.*", SearchOption.AllDirectories);
+            GridView21.DataSource = fileInfo4;
+            GridView21.DataBind();
+            DirectoryInfo dirInfo5 = new DirectoryInfo(Server.MapPath("~/Documents/D_Recla/Cursos/" + ASPxLabel1.Text));
+            FileInfo[] fileInfo5 = dirInfo5.GetFiles("*.*", SearchOption.AllDirectories);
+            GridView22.DataSource = fileInfo5;
+            GridView22.DataBind();
+            DirectoryInfo dirInfo6 = new DirectoryInfo(Server.MapPath("~/Documents/D_Recla/CV/" + ASPxLabel1.Text));
+            FileInfo[] fileInfo6 = dirInfo6.GetFiles("*.*", SearchOption.AllDirectories);
+            GridView23.DataSource = fileInfo6;
+            GridView23.DataBind();
+        }
+
+        protected void carga_crede()
+        {
+            DirectoryInfo dirInfo2 = new DirectoryInfo(Server.MapPath("~/Documents/D_Credencial/Pagos/" + ASPxLabel1.Text));
+            FileInfo[] fileInfo2 = dirInfo2.GetFiles("*.*", SearchOption.AllDirectories);
+            GridView19.DataSource = fileInfo2;
+            GridView19.DataBind();
+        }
+
+        protected void carga_revaliclas()
+        {
+            DirectoryInfo dirInfo = new DirectoryInfo(Server.MapPath("~/Documents/D_RevalidayRecla/Solicitud/" + ASPxLabel1.Text));
+            FileInfo[] fileInfo = dirInfo.GetFiles("*.*", SearchOption.AllDirectories);
+            GridView12.DataSource = fileInfo;
+            GridView12.DataBind();
+            DirectoryInfo dirInfo2 = new DirectoryInfo(Server.MapPath("~/Documents/D_RevalidayRecla/Pagos/" + ASPxLabel1.Text));
+            FileInfo[] fileInfo2 = dirInfo2.GetFiles("*.*", SearchOption.AllDirectories);
+            GridView13.DataSource = fileInfo2;
+            GridView13.DataBind();
+            DirectoryInfo dirInfo3 = new DirectoryInfo(Server.MapPath("~/Documents/D_RevalidayRecla/Credencial/" + ASPxLabel1.Text));
+            FileInfo[] fileInfo3 = dirInfo3.GetFiles("*.*", SearchOption.AllDirectories);
+            GridView14.DataSource = fileInfo3;
+            GridView14.DataBind();
+            DirectoryInfo dirInfo4 = new DirectoryInfo(Server.MapPath("~/Documents/D_RevalidayRecla/Oficios/" + ASPxLabel1.Text));
+            FileInfo[] fileInfo4 = dirInfo4.GetFiles("*.*", SearchOption.AllDirectories);
+            GridView15.DataSource = fileInfo4;
+            GridView15.DataBind();
+            DirectoryInfo dirInfo5 = new DirectoryInfo(Server.MapPath("~/Documents/D_RevalidayRecla/Cursos/" + ASPxLabel1.Text));
+            FileInfo[] fileInfo5 = dirInfo5.GetFiles("*.*", SearchOption.AllDirectories);
+            GridView16.DataSource = fileInfo5;
+            GridView16.DataBind();
+            DirectoryInfo dirInfo6 = new DirectoryInfo(Server.MapPath("~/Documents/D_RevalidayRecla/CV/" + ASPxLabel1.Text));
+            FileInfo[] fileInfo6 = dirInfo6.GetFiles("*.*", SearchOption.AllDirectories);
+            GridView17.DataSource = fileInfo6;
+            GridView17.DataBind();
+        }
+
+        protected void carga_revalidacion()
+        {
+            DirectoryInfo dirInfo4 = new DirectoryInfo(Server.MapPath("~/Documents/D_Revalida/Solicitud/" + ASPxLabel1.Text));
+            FileInfo[] fileInfo4 = dirInfo4.GetFiles("*.*", SearchOption.AllDirectories);
+            GridView11.DataSource = fileInfo4;
+            GridView11.DataBind();
+            DirectoryInfo dirInfo = new DirectoryInfo(Server.MapPath("~/Documents/D_Revalida/Pagos/" + ASPxLabel1.Text));
+            FileInfo[] fileInfo = dirInfo.GetFiles("*.*", SearchOption.AllDirectories);
+            GridView8.DataSource = fileInfo;
+            GridView8.DataBind();
+            DirectoryInfo dirInfo2 = new DirectoryInfo(Server.MapPath("~/Documents/D_Revalida/Credencial/" + ASPxLabel1.Text));
+            FileInfo[] fileInfo2 = dirInfo2.GetFiles("*.*", SearchOption.AllDirectories);
+            GridView9.DataSource = fileInfo2;
+            GridView9.DataBind();
+            DirectoryInfo dirInfo3 = new DirectoryInfo(Server.MapPath("~/Documents/D_Revalida/Oficio/" + ASPxLabel1.Text));
+            FileInfo[] fileInfo3 = dirInfo3.GetFiles("*.*", SearchOption.AllDirectories);
+            GridView10.DataSource = fileInfo3;
+            GridView10.DataBind();
+        }
+
+        protected void cargagrids_registros()
+        {
+            DirectoryInfo dirInfo = new DirectoryInfo(Server.MapPath("~/Documents/D_Registro/Pagos/" + ASPxLabel1.Text));
             FileInfo[] fileInfo = dirInfo.GetFiles("*.*", SearchOption.AllDirectories);
             GridView1.DataSource = fileInfo;
             GridView1.DataBind();
-            DirectoryInfo dirInfo2 = new DirectoryInfo(Server.MapPath("~/Documents/Elector/" + ASPxLabel1.Text));
+            DirectoryInfo dirInfo2 = new DirectoryInfo(Server.MapPath("~/Documents/D_Registro/Elector/" + ASPxLabel1.Text));
             FileInfo[] fileInfo2 = dirInfo2.GetFiles("*.*", SearchOption.AllDirectories);
             GridView2.DataSource = fileInfo2;
             GridView2.DataBind();
-            DirectoryInfo dirInfo3 = new DirectoryInfo(Server.MapPath("~/Documents/Domicilio/" + ASPxLabel1.Text));
+            DirectoryInfo dirInfo3 = new DirectoryInfo(Server.MapPath("~/Documents/D_Registro/Domicilio/" + ASPxLabel1.Text));
             FileInfo[] fileInfo3 = dirInfo3.GetFiles("*.*", SearchOption.AllDirectories);
             GridView3.DataSource = fileInfo3;
             GridView3.DataBind();
-            DirectoryInfo dirInfo4 = new DirectoryInfo(Server.MapPath("~/Documents/Nacimiento/" + ASPxLabel1.Text));
+            DirectoryInfo dirInfo4 = new DirectoryInfo(Server.MapPath("~/Documents/D_Registro/Nacimiento/" + ASPxLabel1.Text));
             FileInfo[] fileInfo4 = dirInfo4.GetFiles("*.*", SearchOption.AllDirectories);
             GridView4.DataSource = fileInfo4;
             GridView4.DataBind();
-            DirectoryInfo dirInfo5 = new DirectoryInfo(Server.MapPath("~/Documents/Vitae/" + ASPxLabel1.Text));
+            DirectoryInfo dirInfo5 = new DirectoryInfo(Server.MapPath("~/Documents/D_Registro/Vitae/" + ASPxLabel1.Text));
             FileInfo[] fileInfo5 = dirInfo5.GetFiles("*.*", SearchOption.AllDirectories);
             GridView5.DataSource = fileInfo5;
             GridView5.DataBind();
-            DirectoryInfo dirInfo6 = new DirectoryInfo(Server.MapPath("~/Documents/Foto/" + ASPxLabel1.Text));
+            DirectoryInfo dirInfo6 = new DirectoryInfo(Server.MapPath("~/Documents/D_Registro/Foto/" + ASPxLabel1.Text));
             FileInfo[] fileInfo6 = dirInfo6.GetFiles("*.*", SearchOption.AllDirectories);
             GridView6.DataSource = fileInfo6;
             GridView6.DataBind();
-            DirectoryInfo dirInfo7 = new DirectoryInfo(Server.MapPath("~/Documents/Cedulas/" + ASPxLabel1.Text));
+            DirectoryInfo dirInfo7 = new DirectoryInfo(Server.MapPath("~/Documents/D_Registro/Cedulas/" + ASPxLabel1.Text));
             FileInfo[] fileInfo7 = dirInfo7.GetFiles("*.*", SearchOption.AllDirectories);
             GridView7.DataSource = fileInfo7;
             GridView7.DataBind();
         }
+
 
         void ObtenInformacion(string cedulaProfesional)
         {
@@ -151,10 +222,10 @@ namespace WebApplication1
                   " , fecha_de_sesion " +
                   " , tramite_que_solicita " +
                   " , p.cedula " +
-                  " , p.ap_paterno " +
-                  " , p.ap_materno " +
-                  " , p.nombre " +
-                  " , p.calle_numero " +
+                 " , (UPPER(substring(p.ap_paterno, 1,1)) + lower(SUBSTRING(p.ap_paterno,2,Len(p.ap_paterno)))) as ap_paterno " +
+                  " , (UPPER(substring(p.ap_materno, 1,1)) + lower(SUBSTRING(p.ap_materno,2,Len(p.ap_materno)))) as ap_materno " +
+                  " , (UPPER(substring(p.nombre, 1,1)) + lower(SUBSTRING(p.nombre,2,Len(p.nombre)))) as nombre " +
+                  " , UPPER(p.calle_numero) as calle_numero " +
                   " , m.idMunicipio as nombreMunicipio " +
                   " , l.nom_loc as idLocalidad " +
                   " , p.email " +
@@ -166,7 +237,7 @@ namespace WebApplication1
                   " , p.cursos " +
                   " , col.descripcion as colegio " +
                   " , p.clasificacion " +
-                  " , p.colonia " +
+                  " , UPPER(p.colonia) as colonia " +
                   " , p.telefono_local " +
                   " , p.telefono_celular " +
                   //" , (isnull(p.clasificacion, ' ') + '-' + isnull(p.idRegistro, ' ') + '-' + isnull(prof.abreviatura_de_profesion, ' ')) as registroDRO " +
@@ -208,6 +279,7 @@ namespace WebApplication1
                     txtClaveSolicitud.Text = dr["id"].ToString();
                     txtApaterno.Text = dr["ap_paterno"].ToString();
                     txtAMaterno.Text = dr["ap_materno"].ToString();
+                    txtRegistroDRO.Text = dr["idRegistro"].ToString();
                     txtNombres.Text = dr["nombre"].ToString();
                     txtCalleNumero.Text = dr["calle_numero"].ToString();
                     txtColonia.Text = dr["colonia"].ToString();
@@ -230,14 +302,12 @@ namespace WebApplication1
                     }
                     txtCursos.Text = dr["cursos"].ToString();
                     cboColegio.Value = dr["colegio"].ToString();
+                    txtCedula.Text = txtCedula.Text.Trim();
+                    ASPxLabel1.Text = txtCedula.Value.ToString();
                     if (dr["clasificacion"] != DBNull.Value)
                     {
                         cboClasificacion.Value = dr["clasificacion"].ToString();
                     }
-                    //if (dr["registroDRO"] != DBNull.Value)
-                    //{
-                    //    txtRegistroDRO.Text = dr["registroDRO"].ToString();
-                    //}
                     if (dr["clave_profesion"] != DBNull.Value)
                     {
                         cboClaveProfesion.Value = dr["clave_profesion"].ToString();
@@ -248,10 +318,35 @@ namespace WebApplication1
                         cbTramiteProcede.Value = dr["tramite_que_solicita"].ToString();
                     }
 
+                    if (dr["tramite_que_solicita"].ToString() == "1")
+                    {
+                        doc_registro.Visible = true;
+                        cargagrids_registros();
+                    }
+                    else if (dr["tramite_que_solicita"].ToString() == "2")
+                    {
+                        doc_revalida.Visible = true;
+                        carga_revalidacion();
+                    }
+                    else if (dr["tramite_que_solicita"].ToString() == "3")
+                    {
+                        RevaRecla.Visible = true;
+                        carga_revaliclas();
+                    }
+                    else if (dr["tramite_que_solicita"].ToString() == "4")
+                    {
+                        reclasifica.Visible = true;
+                        carga_reclas();
+                    }
+                    else if (dr["tramite_que_solicita"].ToString() == "5")
+                    {
+                        ReponCrede.Visible = true;
+                        carga_crede();
+                    }
                 }
                 dr.Close();
                 //clasificación
-                if (cboTipoTramite.Value.ToString() == "5")
+                if (cboTipoTramite.Value.ToString() == "4")
                 {
                     cboClasificacion.ClientEnabled = true;
                     cboClasificacion.ValidationSettings.CausesValidation = true;
@@ -259,9 +354,6 @@ namespace WebApplication1
                     cboClasificacion.ValidationSettings.RequiredField.IsRequired = true;
                     cboClasificacion.ValidationSettings.RequiredField.ErrorText = "*";
                 }
-                txtCedula.Text = txtCedula.Text.Trim();
-                ASPxLabel1.Text = txtCedula.Value.ToString();
-                cargagrids();
             }
             catch (Exception ex)
             {
@@ -358,14 +450,10 @@ namespace WebApplication1
                 cmd.Parameters.AddWithValue("@observaciones", txtObservacionesDictamen.Text + " | ");
                 cmd.Parameters.AddWithValue("@correo", (Master.FindControl("correo") as DevExpress.Web.ASPxLabel).Text + "|");
                 cmd.ExecuteNonQuery();
-
-
-
                 System.Diagnostics.Debug.WriteLine("correo " + (Master.FindControl("correo") as DevExpress.Web.ASPxLabel).Text);
                 //enviarCorreo();
                 transaction.Commit();
                 e.Result = "true|Solicitud dictaminada correctamente";
-                
             }
             catch (Exception ex)
             {
@@ -378,7 +466,6 @@ namespace WebApplication1
             {
                 if (conn != null)
                 {
-
                     conn.Close();
                 }
             }
@@ -396,11 +483,8 @@ namespace WebApplication1
             mail.To.Add(txtCorreoElectronico.Text);
             mail.From = new MailAddress("cadro.sinfra@gmail.com", "CADRO", System.Text.Encoding.UTF8);
             mail.Subject = "Respuesta de Solicitud";
-            mail.Bcc.Add("yarielsilva54@gmail.com");
-            //mail.Bcc.Add("ismaelgomezvelasco@outlook.com");
             mail.SubjectEncoding = System.Text.Encoding.UTF8;
             mail.Body = "Nombre de DRO: " + txtNombres.Text + " " + txtApaterno.Text + " " + txtAMaterno.Text + "<br/>" +
-                       // "Usuario = " + txtCorreoElectronico.Text + "<br/>" +
                         "Trámite Solicitado: " + cboTipoTramite.Text + "<br/>" +
                         "Resultado de trámite:" + rdstatus.Text + "<br/>" +
                         "Cedula: " + txtCedula.Text;

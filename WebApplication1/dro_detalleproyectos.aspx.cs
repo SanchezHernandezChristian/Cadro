@@ -46,7 +46,7 @@ namespace WebApplication1
                                 if (response.IsSuccess)
                                 {
                                     var p = JsonConvert.DeserializeObject<Proyecto>(response.Result.ToString());
-                                    if (p.IdDRO.ToLower() == SessionHelper.InformacionUsuario.IdUser.ToLower())
+                                    if (p.Dro.ToLower() == SessionHelper.InformacionUsuario.FullName.ToLower())
                                     {
                                         SessionHelper.Proyecto = p;
                                         getDocumentos(p.IdCatProyecto, p.Folio);
@@ -127,7 +127,6 @@ namespace WebApplication1
                                         txtEstatusPago.Text = p.EstatusPagoFinanzas;
                                         //if(p.dr)
 
-
                                         //Fotos georeferenciadas
                                         if (p.LtImagen != null || p.LtImagen.Count > 0)
                                         {
@@ -164,7 +163,7 @@ namespace WebApplication1
                                             soloLectura();
                                             var numTecParaSolventar = SessionHelper.DetalleIntegracionProyecto.DetalleTecnico.LtDocumentacionTecnico.Where(x => x.IsParaSolventar || x.StDetalleRevisionTecnica == "OBSERVADO").Count();
                                             var numSocParaSolventar = SessionHelper.DetalleIntegracionProyecto.IntegSocial.DetIntegracion.Where(x => x.IsParaSolventar || x.StDetalleRevisionSocial == "OBSERVADO" || x.StObservacionTecnica == "OBSERVADO" || x.StObservacionTecnica == "PENDIENTE DE FIRMAS").Count();
-                                            
+
                                             if (SessionHelper.DetalleIntegracionProyecto.DetalleTecnico.StRevisionTecnica == "EN REVISIÓN")
                                             {
                                                 txtNombreProyecto.ReadOnly = false;
@@ -263,7 +262,7 @@ namespace WebApplication1
             btnBuscarDRO.Visible = false;
             btnAgregarComponente.Visible = false;
             btnBuscarProyectista.Visible = false;
-            btnGuardarGeoreferencias.Visible = false;
+
             btnGuardarComponentes.Visible = false;
             upcFotos.Visible = false;
         }
@@ -2051,7 +2050,7 @@ namespace WebApplication1
             {
                 e.Cancel = true;
                 (sender as ASPxGridView).CancelEdit();
-            }
+            }   
         }
         #region Presupuesto
 
@@ -2378,7 +2377,8 @@ namespace WebApplication1
             catch (Exception ex)
             {
                 Log4NetCommon.WriteException(ex);
+                e.Result = "false|Ocurrio un error al guardar la información.";
             }
         }
     }
-}
+}    

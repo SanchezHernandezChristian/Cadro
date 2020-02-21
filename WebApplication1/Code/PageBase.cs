@@ -121,8 +121,8 @@ namespace WebApplication1.Code
                 {
                     if ((pagina != "Default.aspx") || (pagina != "Default"))
                     {
-                        String strFuncion = "<script type='text/javascript'> setTimeout('RegresarLogin()') </script>";
-                        RegistrScriptClient(strFuncion);
+                        //String strFuncion = "<script type='text/javascript'> setTimeout('RegresarLogin()') </script>";
+                        //RegistrScriptClient(strFuncion);
                     }
                 }
             }
@@ -130,8 +130,8 @@ namespace WebApplication1.Code
             {
                 if (pagina != "Default.aspx")
                 {
-                    String strFuncion = "<script type='text/javascript'> setTimeout('RegresarLogin()') </script>";
-                    RegistrScriptClient(strFuncion);
+                    //String strFuncion = "<script type='text/javascript'> setTimeout('RegresarLogin()') </script>";
+                    //RegistrScriptClient(strFuncion);
                 }
             }
 

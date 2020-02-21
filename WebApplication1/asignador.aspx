@@ -145,7 +145,7 @@
             </dx:TabPage>
              
             
-            <dx:TabPage Text="IMPRESIÓN DE DICTAMEN" ActiveTabStyle-ForeColor="#009688" TabStyle-ForeColor="#D6D2C9">
+            <dx:TabPage Text="GENERACIÓN DE DICTAMEN" ActiveTabStyle-ForeColor="#009688" TabStyle-ForeColor="#D6D2C9">
                 <ContentCollection>
                     <dx:ContentControl runat="server">
             
@@ -197,7 +197,6 @@
                     </dx:ContentControl>
                 </ContentCollection>
             </dx:TabPage>
-            
             
             <dx:TabPage Text="SOLICITUDES RECHAZADAS" ActiveTabStyle-ForeColor="#009688" TabStyle-ForeColor="#D6D2C9">
                 <ContentCollection>

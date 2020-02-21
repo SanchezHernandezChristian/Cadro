@@ -15,7 +15,7 @@ namespace WebApplication1
         {
             if (!IsPostBack)
             {
-                if (SessionHelper.InformacionUsuario != null)
+              if (SessionHelper.InformacionUsuario != null)
                 {
                     lblNombreUsuario.Text = SessionHelper.InformacionUsuario.FullName;
                     correo.Text = SessionHelper.InformacionUsuario.Email; //objUser.Correo;
@@ -23,8 +23,7 @@ namespace WebApplication1
                 else
                 {
                     Response.Redirect("default.aspx", false);
-                }
-               
+                } 
             }
         }
 

@@ -25,7 +25,7 @@ namespace WebApplication1
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+         if (!IsPostBack)
             {
                 if (SessionHelper.InformacionUsuario != null)
                 {
@@ -42,13 +42,13 @@ namespace WebApplication1
                             case "DRO_SESIONADOR":
                                 Response.Redirect("solicitudes.aspx", false);
                                 break;
-                            case "ADMIN":
+                            case "DRO_ADMINISTRADOR":
                                 Response.Redirect("dro_Administrador.aspx", false);
                                 break;
                         }
                     }
                 }
-            }
+            }   
         }
 
         protected void ASPxButton1_Click(object sender, EventArgs e)
@@ -59,7 +59,6 @@ namespace WebApplication1
                 try
                 {
                     apiService = new ApiService();
-
                     var result = apiService.GetObjectSeguridad(string.Format("Users?app=PII&Email={0}&Pass={1}", UserName.Text, PassWord.Text));
                     if (result.IsSuccess)
                     {
@@ -70,7 +69,6 @@ namespace WebApplication1
                             SessionHelper.Login = true;
                             loggin = true;
                             SessionHelper.InformacionUsuario = usu;
-
                             conn = new SqlConnection(strConexion);
                             conn.Open();
                             String cSQL = "select * from [tblUsuarios] where nomUser=@usuario";
@@ -91,12 +89,9 @@ namespace WebApplication1
                                 objUsuario.Materno = dr["AMaterno"].ToString();
                                 Session["InfoUsuario2"] = objUsuario;
                                 Session["rol"]= dr["rol"].ToString();
-
-
-
                             }
                             conn.Close();
-                            foreach (var item in usu.ListPermisosConNivelAcceso)
+                         foreach (var item in usu.ListPermisosConNivelAcceso)
                             {
                                 switch (item.RoleName)
                                 {
@@ -109,11 +104,11 @@ namespace WebApplication1
                                     case "DRO_SESIONADOR":
                                         Response.Redirect("solicitudes.aspx", false);
                                         break;
-                                    case "ADMIN":
+                                    case "DRO_ADMINISTRADOR":
                                         Response.Redirect("dro_Administrador.aspx", false);
                                         break;
                                     default:
-                                        ClientScript.RegisterStartupScript(GetType(), "Message", "alertas('No tiene rol', 'error');", true);
+                                        ClientScript.RegisterStartupScript(GetType(), "Message", "alertas('No tiene acceso a la pagina', 'error');", true);
                                         break;
                                 }
                             }
@@ -126,8 +121,7 @@ namespace WebApplication1
                     else
                     {
                         ClientScript.RegisterStartupScript(GetType(), "Message", "alertas('" + result.Message + "', 'error');", true);
-                    } 
-                    
+                    }
                 }
                 catch (Exception ex)
                 {

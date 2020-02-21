@@ -1,4 +1,5 @@
-﻿using DevExpress.Web;
+﻿using BusinessEntities;
+using DevExpress.Web;
 using Newtonsoft.Json;
 using RestMembership.Models;
 using System;
@@ -14,7 +15,7 @@ using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using UtilsInfraestructura;
-using WebApp;
+using WebApplication1;
 using WebApplication1.Code;
 
 namespace WebApplication1
@@ -242,12 +243,12 @@ namespace WebApplication1
         
         protected void subirarchivos()
         {
-            string path = Path.Combine(Server.MapPath("~/Documents/Cedulas"), txtCedula.Text);
-            string path2 = Path.Combine(Server.MapPath("~/Documents/Pagos"), txtCedula.Text);
-            string path3 = Path.Combine(Server.MapPath("~/Documents/Elector"), txtCedula.Text);
-            string path4 = Path.Combine(Server.MapPath("~/Documents/Domicilio"), txtCedula.Text);
-            string path5 = Path.Combine(Server.MapPath("~/Documents/Nacimiento"), txtCedula.Text);
-            string path6 = Path.Combine(Server.MapPath("~/Documents/Vitae"), txtCedula.Text);
+            string path = Path.Combine(Server.MapPath("~/Documents/D_Registro/Cedulas"), txtCedula.Text);
+            string path2 = Path.Combine(Server.MapPath("~/Documents/D_Registro/Pagos"), txtCedula.Text);
+            string path3 = Path.Combine(Server.MapPath("~/Documents/D_Registro/Elector"), txtCedula.Text);
+            string path4 = Path.Combine(Server.MapPath("~/Documents/D_Registro/Domicilio"), txtCedula.Text);
+            string path5 = Path.Combine(Server.MapPath("~/Documents/D_Registro/Nacimiento"), txtCedula.Text);
+            string path6 = Path.Combine(Server.MapPath("~/Documents/D_Registro/Vitae"), txtCedula.Text);
             Directory.CreateDirectory(path);
             Directory.CreateDirectory(path2);
             Directory.CreateDirectory(path3);
@@ -263,8 +264,6 @@ namespace WebApplication1
             mail.To.Add(txtCorreoElectronico.Text);
             mail.From = new MailAddress("cadro.sinfra@gmail.com", "CADRO", System.Text.Encoding.UTF8);
             mail.Subject = "Registro Exitoso";
-            mail.Bcc.Add("yarielsilva54@gmail.com");
-            //mail.Bcc.Add("ismaelgomezvelasco@outlook.com");
             mail.SubjectEncoding = System.Text.Encoding.UTF8;
             mail.Body = "<html><head></head><body>" +
                         "<img style='text - align: center; background - size: cover; max - width:200px;' src='cid:logo'>"+
@@ -329,14 +328,11 @@ namespace WebApplication1
                         reader.Close();
                         if (isRegistrado == false)
                         {
-
                             apiService = new ApiService();
                             Random r = new Random();
                             int pass = r.Next(100000, 999999); //
                             string contrasenia = System.Web.Security.Membership.GeneratePassword(6, 0); // 
-                           
-                            user.FullName = string.Format("{0} {1} {2}", txtNombres.Text.Trim(), txtApaterno.Text.Trim(), txtAMaterno.Text.Trim());
-
+                            user.FullName = string.Format("{0} {1} {2}", txtNombres.Text.Trim().ToUpper(), txtApaterno.Text.Trim().ToUpper(), txtAMaterno.Text.Trim().ToUpper());
                             user.Email = txtCorreoElectronico.Text;
                             user.IsEmpresa = false;
                             user.IsApproved = true;
@@ -344,12 +340,14 @@ namespace WebApplication1
                                 user.Password = pass.ToString();
                             else
                                 user.Password = r.Next(100000, 999999).ToString();
-
-
                             user.Roles = new List<Rol>();
                             Rol rol = new Rol();
+                             rol.ApplicationName = "PII";
+                             rol.RoleName = "DRO";
+                             user.Roles.Add(rol);
+                            rol = new Rol();
                             rol.ApplicationName = "PII";
-                            rol.RoleName = "DRO";
+                            rol.RoleName = "Solicitante de proyectos";
                             user.Roles.Add(rol);
                             var responseSeguridad = apiService.postSeguridad("Users", user);
                             if (responseSeguridad.IsSuccess)
@@ -364,19 +362,45 @@ namespace WebApplication1
                                         System.Diagnostics.Debug.WriteLine("Error " + resUserID);
                                         if (resUserID.IsSuccess)//Respuesta obtener el ID del Usuario
                                         {
-                                            InfDRO objInfDRO = new InfDRO();
-                                            cSQL = " insert into tblPadronDRO ( " + "  cedula,clasificacion,ap_paterno " +
+                                            var proyectista = new Proyectista();
+                                            proyectista.IsArchivo = false;
+                                            proyectista.ArchivoAnexo = "";
+                                            proyectista.Calle = "";
+                                            proyectista.Cedula = txtCedula.Text.Trim();
+                                            proyectista.Colonia = "";
+                                            proyectista.Correo = txtCorreoElectronico.Text;
+                                            proyectista.Estado = "OAXACA";
+                                            proyectista.IdEstado = 20;
+                                            proyectista.IdMunicipio = 67;
+                                            proyectista.Municipio = "OAXACA DE JUAREZ";
+                                            proyectista.Nombre = user.FullName; //B3E5D0DC-23A5-4A1F-B955-1A77BD58123A string.Format("{0} {1} {2}",txtNombre.Text.Trim().ToUpper(), txtApPaterno.Text.Trim().ToUpper(), txtApMaterno.Text.Trim().ToUpper());
+                                            proyectista.NumExterior = "0";
+                                            proyectista.Telefono = txtTelCelular.Text;
+                                            proyectista.Profesion = cboProfesion.Text;
+                                            proyectista.Curp = curp.Text;
+                                            proyectista.IdUsuario = resUserID.Message;
+                                            var respProyectista = apiService.post("Proyectistas", proyectista);
+                                            if (respProyectista.IsSuccess)
+                                            {
+                                                var resulP = JsonConvert.DeserializeObject<Response>(respProyectista.Result.ToString());
+                                                if (resulP.IsSuccess)
+                                                {
+                                                   // msj = "true|¡Su información a sido registrada correctamente!, Para validar su información, verifique su correo.";
+                                                }
+                                            }  
+                                                InfDRO objInfDRO = new InfDRO();
+                                            cSQL = " insert into tblPadronDRO (cedula,clasificacion,ap_paterno " +
                                                        " ,ap_materno,nombre,id_profesion,calle_numero " +
                                                        " ,colonia " + " ,telefono_local " + " ,telefono_celular " + " ,id_colegio " + " ,id_universidad" + " ,fecha_titulo " +
                                                        " ,fecha_cedula " + " ,anio_reg_sop " + " ,cursos " + " ,email " + " ,ultima_vigencia " + " ,observaciones " + " ,FechaRegistro " +
                                                        " ,FechaActualizacion " + " ,Idlocalidad " + " ,curp " + " ,rfc " +
-                                                       " ,nacimiento, isActivado, url) output inserted.id values (@cedula,@clasificacion,@aPaterno,@aMaterno,@nombres,@claveProfesion,@calle,@colonia,@telLocal,@telCelular,@colegio,@egresado,@fechaTitulo,@fechacedula,'',@cursos,@email,'',null,getdate(),getdate(),@idLocalidad,@curp,@rfc,@nacimiento,@activado,@url); select scope_identity()";
+                                                       " ,nacimiento, isActivado, url) values (@cedula,@clasificacion,@aPaterno,@aMaterno,@nombres,@claveProfesion,@calle,@colonia,@telLocal,@telCelular,@colegio,@egresado,@fechaTitulo,@fechacedula,'',@cursos,@email,'',null,getdate(),getdate(),@idLocalidad,@curp,@rfc,@nacimiento,@activado,@url); select scope_identity()";
                                             cmd.CommandText = cSQL;
                                             cmd.Parameters.AddWithValue("@cedula", txtCedula.Text.Trim());
                                             cmd.Parameters.AddWithValue("@clasificacion", " ");
-                                            cmd.Parameters.AddWithValue("@aPaterno", txtApaterno.Text);
-                                            cmd.Parameters.AddWithValue("@aMaterno", txtAMaterno.Text);
-                                            cmd.Parameters.AddWithValue("@nombres", txtNombres.Text);
+                                            cmd.Parameters.AddWithValue("@aPaterno", txtApaterno.Text.ToUpper());
+                                            cmd.Parameters.AddWithValue("@aMaterno", txtAMaterno.Text.ToUpper());
+                                            cmd.Parameters.AddWithValue("@nombres", txtNombres.Text.ToUpper());
                                             cmd.Parameters.AddWithValue("@claveProfesion", cboProfesion.Value.ToString() == null ? "" : cboProfesion.Value.ToString());
                                             cmd.Parameters.AddWithValue("@calle", txtCalleNumero.Text);
                                             cmd.Parameters.AddWithValue("@colonia", txtColonia.Text);
@@ -384,7 +408,7 @@ namespace WebApplication1
                                             cmd.Parameters.AddWithValue("@telCelular", txtTelCelular.Text);
                                             cmd.Parameters.AddWithValue("@colegio", cboColegio.Value.ToString());
                                             cmd.Parameters.AddWithValue("@egresado", cboEgresado.Value.ToString());
-
+                                            cmd.Parameters.AddWithValue("@idLocalidad", cboLocalidad.Value.ToString());
                                             if (dtFechaTitulo.Date == null)
                                             {
                                                 cmd.Parameters.AddWithValue("@fechaTitulo", DBNull.Value);
@@ -403,12 +427,11 @@ namespace WebApplication1
                                             }
                                             cmd.Parameters.AddWithValue("@cursos", txtCursos.Text);
                                             cmd.Parameters.AddWithValue("@email", txtCorreoElectronico.Text);
-                                            cmd.Parameters.AddWithValue("@idLocalidad", cboLocalidad.Value.ToString());
-                                            cmd.Parameters.AddWithValue("@curp", curp.Text);
-                                            cmd.Parameters.AddWithValue("@rfc", rfc.Text);
+                                            cmd.Parameters.AddWithValue("@curp", curp.Text.ToUpper());
+                                            cmd.Parameters.AddWithValue("@rfc", rfc.Text.ToUpper());
                                             cmd.Parameters.AddWithValue("@nacimiento", nacimiento.Text);
-                                            cmd.Parameters.AddWithValue("@activado", false);
-                                            cmd.Parameters.AddWithValue("@url", "pii.oaxaca.gob.mx/dro/datos_dro?cedula=" + txtCedula.Text.Trim());
+                                            cmd.Parameters.AddWithValue("@activado", "False");
+                                            cmd.Parameters.AddWithValue("@url", "http://pii.oaxaca.gob.mx/dro/datos_dro?cedula=" + txtCedula.Text.Trim());
                                             //cmd.ExecuteNonQuery();
                                             // int idPersona = cmd.ExecuteNonQuery();
                                             var idPersona = cmd.ExecuteScalar();
@@ -418,21 +441,18 @@ namespace WebApplication1
                                                " fecha_de_sesion " + " ,fecha_solicitud " + " ,id_PadronDRO " + " ,tramite_que_solicita " +
                                                " ,numero_de_oficio " + " ,fecha_de_oficio " + " ,status " + " ,fecha_de_entrega_de_licencia " +
                                                " ,entregado_por, observaciones, correo_votantes) values (null,getdate(),@idRegister,'1',null,null,'EN RECEPCION DE DOCUMENTOS',null,null,'',''); select scope_identity();";
-
                                             cmd.CommandText = cSQL;
                                             //     cmd.Parameters.Clear();
                                             //     ClientScript.RegisterStartupScript(GetType(), "Message", "notificacion('" + "inicio insercion en solicitudes" + "');", true);
                                             cmd.Parameters.AddWithValue("@idRegister", idPersona);
-
                                             folio = cmd.ExecuteScalar().ToString();
-
                                             cmd.Parameters.Clear();
                                             // Agerega a tabla usuarios
                                             cSQL = "insert into tblUsuarios (Nombre,Apaterno,Amaterno,isActivado,rol,fechaRegistro,Email,Contrasena,nivel,nomUser,cedula) values(@nombre,@apaterno,@amaterno,@isactivado,@rol,getdate(),@email,@contrasena,@nivel,@usuario,@ced_pro)";
                                             cmd.CommandText = cSQL;
-                                            cmd.Parameters.AddWithValue("@nombre", txtNombres.Text);
-                                            cmd.Parameters.AddWithValue("@apaterno", txtApaterno.Text);
-                                            cmd.Parameters.AddWithValue("@amaterno", txtAMaterno.Text);
+                                            cmd.Parameters.AddWithValue("@nombre", txtNombres.Text.ToUpper());
+                                            cmd.Parameters.AddWithValue("@apaterno", txtApaterno.Text.ToUpper());
+                                            cmd.Parameters.AddWithValue("@amaterno", txtAMaterno.Text.ToUpper());
                                             cmd.Parameters.AddWithValue("@isactivado", true);
                                             cmd.Parameters.AddWithValue("@rol", "CIUDADANO");
                                             cmd.Parameters.AddWithValue("@email", txtCorreoElectronico.Text);
@@ -441,10 +461,11 @@ namespace WebApplication1
                                             cmd.Parameters.AddWithValue("@usuario", resUserID.Message);
                                             cmd.Parameters.AddWithValue("@ced_pro", txtCedula.Text);
                                             cmd.ExecuteNonQuery();
-                                            transaction.Commit();
                                             enviarCorreo(user.Password);
+                                            transaction.Commit();
                                             Solicitud.JSProperties["cp_Resultado"] = "true|Solicitud generada correctamente con folio " + folio + "\nLa informacion ha sido enviada al correo " + txtCorreoElectronico.Text;
-                                        }
+                                        
+                                            }  
                                     }
                                     else
                                     {
@@ -486,6 +507,13 @@ namespace WebApplication1
         protected void dtFechaCedula_Init(object sender, EventArgs e)
         {
             dtFechaCedula.MaxDate = DateTime.Now;
+        }
+
+        protected void txtNombres_TextChanged(object sender, EventArgs e)
+        {
+            txtNombres.Text = txtNombres.Text.ToUpper();
+            txtApaterno.Text = txtApaterno.Text.ToUpper();
+            txtAMaterno.Text = txtAMaterno.Text.ToUpper();
         }
     }
 }

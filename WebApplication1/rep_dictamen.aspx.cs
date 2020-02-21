@@ -17,16 +17,6 @@ namespace WebApplication1
         Correo c = new Correo();
         protected void Page_Load(object sender, EventArgs e)
         {
-            //if (Session["InfoUsuario"] != null && Session["rol"].ToString() == "ASIGNADOR")
-            //{
-            //    InfUsuario objInfUsuario = Session["InfoUsuario"] as InfUsuario;
-            //    (Master.FindControl("lblNombreUsuario") as DevExpress.Web.ASPxLabel).Text = objInfUsuario.Nombre;
-            //    (Master.FindControl("correo") as DevExpress.Web.ASPxLabel).Text = objInfUsuario.Correo;
-            //}
-            //else
-            //{
-            //    Response.Redirect("default.aspx", false);
-            //}
             try
             {
                 if (!IsPostBack)
@@ -55,9 +45,9 @@ namespace WebApplication1
                   " , fecha_de_sesion " +
                   " , tramite_que_solicita " +
                   " , p.cedula " +
-                  " , p.ap_paterno " +
-                  " , p.ap_materno " +
-                  " , p.nombre " +
+                 " , (UPPER(substring(p.ap_paterno, 1,1)) + lower(SUBSTRING(p.ap_paterno,2,Len(p.ap_paterno)))) as ap_paterno " +
+                  " , (UPPER(substring(p.ap_materno, 1,1)) + lower(SUBSTRING(p.ap_materno,2,Len(p.ap_materno)))) as ap_materno " +
+                  " , (UPPER(substring(p.nombre, 1,1)) + lower(SUBSTRING(p.nombre,2,Len(p.nombre)))) as nombre " +
                   " , p.calle_numero " +
                   " , m.idMunicipio as nombreMunicipio " +
                   " , l.nom_loc as idLocalidad " +
@@ -70,7 +60,7 @@ namespace WebApplication1
                   " , p.cursos " +
                   " , col.descripcion as colegio " +
                   " , p.clasificacion " +
-                  " , p.colonia " +
+                  " , UPPER(p.colonia) as colonia " +
                   " , p.telefono_local " +
                   " , p.telefono_celular " +
                   //" , (isnull(p.clasificacion, ' ') + '-' + isnull(p.idRegistro, ' ') + '-' + isnull(prof.abreviatura_de_profesion, ' ')) as registroDRO " +
@@ -230,7 +220,7 @@ namespace WebApplication1
         }
 
         protected void cbGuardar_Callback(object source, DevExpress.Web.CallbackEventArgs e)
-        {
+            {
             try
             {
                 String cSQL = "";
@@ -260,7 +250,7 @@ namespace WebApplication1
                             cmd.CommandText = cSQL;
                             cmd.ExecuteNonQuery();
                             
-                            if (cboTipoTramite.Value.ToString() == "1")
+                            if (cboTipoTramite.Value.ToString() == "1")//registro
                             {
                                 cSQL = "update [dbo].[tblPadronDRO] set ultima_vigencia = (Select year(getdate())), clasificacion = 'C', Idregistro = isnull(Idregistro, (select top 1 IdRegistro from tblPadronDRO order by IdRegistro DESC) + 1) where cedula= '" + txtCedula.Text.Trim().ToString()+"'";
                                 cmd.CommandText = cSQL;
@@ -274,6 +264,30 @@ namespace WebApplication1
                                 cSQL = "INSERT INTO[dbo].[tblFoliosRegistros]([id_PadronDRO],[fecha])VALUES(@id,getdate());";
                                 cmd.CommandText = cSQL;
                                 cmd.Parameters.AddWithValue("@id", idPersona);
+                                cmd.ExecuteNonQuery();
+                            }else if(cboTipoTramite.Value.ToString() == "2")//revalidacion
+                            {
+                                cSQL = "update [dbo].[tblPadronDRO] set ultima_vigencia = (Select year(getdate())) where cedula= '" + txtCedula.Text.Trim().ToString() + "'";
+                                cmd.CommandText = cSQL;
+                                cmd.ExecuteNonQuery();
+                            }else if (cboTipoTramite.Value.ToString() == "3")//revalidacion con reclasificacion
+                            {
+                                cSQL = " select folio_solicitud from tblSolicitudes where id=" + Request.QueryString[0].ToString();
+                                cmd.CommandText = cSQL;
+                                var nueva_clasi = cmd.ExecuteScalar();
+                                cSQL = "update [dbo].[tblPadronDRO] set ultima_vigencia = (Select year(getdate())), clasificacion = @nueva_clasificacion where cedula= '" + txtCedula.Text.Trim().ToString() + "'";
+                                cmd.Parameters.AddWithValue("@nueva_clasificacion", nueva_clasi);
+                                cmd.CommandText = cSQL;
+                                cmd.ExecuteNonQuery();
+                            }
+                            else
+                            {
+                                cSQL = " select folio_solicitud from tblSolicitudes where id=" + Request.QueryString[0].ToString();
+                                cmd.CommandText = cSQL;
+                                var nueva_clasi = cmd.ExecuteScalar();
+                                cSQL = "update [dbo].[tblPadronDRO] set clasificacion = @nueva_clasificacion where cedula= '" + txtCedula.Text.Trim().ToString() + "'";
+                                cmd.Parameters.AddWithValue("@nueva_clasificacion", nueva_clasi);
+                                cmd.CommandText = cSQL;
                                 cmd.ExecuteNonQuery();
                             }
                             
@@ -347,8 +361,6 @@ namespace WebApplication1
             mail.To.Add(txtCorreoElectronico.Text);
             mail.From = new MailAddress("cadro.sinfra@gmail.com", "CADRO", System.Text.Encoding.UTF8);
             mail.Subject = "Impresión de Dictamen";
-            mail.Bcc.Add("yarielsilva54@gmail.com");
-            //mail.Bcc.Add("ismaelgomezvelasco@outlook.com");
             mail.SubjectEncoding = System.Text.Encoding.UTF8;
             mail.Body = "Nombre de DRO = " + txtNombres.Text + " " + txtApaterno.Text + " " + txtAMaterno.Text + "<br/>" +
                         "Usuario = " + txtCorreoElectronico.Text + "<br/>" +
@@ -376,32 +388,6 @@ namespace WebApplication1
                     errorMessage += ex2.ToString();
                     ex2 = ex2.InnerException;
                 }
-            }
-        }
-        // DataClasses1DataContext db = new DataClasses1DataContext();
-
-        /*   void LoadData()
-           {
-               var st = from s in db.Documentos select s;
-               GridView1.DataSource = st;
-               GridView1.DataBind();
-           } */
-
-        protected void LinkButton1_Click(object sender, EventArgs e)
-        {
-            int rowIndex = ((GridViewRow)((sender as Control)).NamingContainer).RowIndex;
-            string filelocation = GridView1.Rows[rowIndex].Cells[3].Text;
-            //   string filelocation = "select FileLocation from Documents where FileName="+ txtCedula.Text +"";
-            string filePath = Server.MapPath("~/" + filelocation);
-
-            WebClient user = new WebClient();
-            Byte[] FileBuffer = user.DownloadData(filePath);
-
-            if (FileBuffer != null)
-            {
-                Response.ContentType = "application/pdf";
-                Response.AddHeader("content-leght", FileBuffer.Length.ToString());
-                Response.BinaryWrite(FileBuffer);
             }
         }
         protected void GridView1_DataBinding(object sender, EventArgs e)

@@ -6,13 +6,21 @@
             var htmlData = e.result.split('|');
             if (htmlData[0] == "true") {
                 lp.Hide();
-                var ubicacion = "asignador.aspx"
                 console.log(htmlData[1])
-                notexitoso(htmlData[1], ubicacion);
+
+                    swal.fire({
+                        type: 'success',
+                        html: htmlData[1],
+                        allowOutsideClick: false,
+                        allowEnterKey: false
+                    }).then((result) => {
+                        if (result.value) {
+                            location.href="imp_crede.aspx?p=" + txtCedula.GetText(), + "Reporte ficha";
+                        }
+                    });
             } else {
                 notificacionerror(htmlData[1]);
             }
-            window.open('imp_crede.aspx?p=' + txtCedula.GetText(), 'Reporte ficha', '_self');
         }
 
         function printDiv(nombreDiv) {
@@ -59,37 +67,6 @@
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
-    <%--
-
-    <div id="areaImprimir">
-            <div style="background-image: url('http://localhost:3421/credencial/delante.png'); background-repeat: no-repeat; background-position: center center" class="auto-style1">
-                <div class="auto-style2">
-                <dx:ASPxLabel ID="ASPxLabel2" runat="server" Text="Se expide la presente al A. C." Width="170px">
-                </dx:ASPxLabel>
-                </div>
-                <div class="auto-style3">
-                    <dx:ASPxTextBox ID="ASPxTextBox1" runat="server" Height="18px" Width="235px" Border-BorderColor="Transparent" BackColor="Transparent">
-                    </dx:ASPxTextBox>
-                </div>
-                <div class="auto-style4">
-
-                    <dx:ASPxLabel ID="ASPxLabel3" runat="server" Height="17px" Text="CUYA FIRMA, NO. DE CÉDULA PROFESIONAL, FOTOGRAFÍA Y REGISTRO LO ACREDITAN COMO DIRECTOR RESPONSABLE DE OBRA (D.R.O.) EN EL ESTADO, CON SUJECIÓN A LAS LEYES, PLANES Y PROGRAMAS VIGENTES EN LOS CENTROS DE POBLACIÓN." Width="236px">
-                    </dx:ASPxLabel>
-
-                </div>
-                <div class="auto-style5">
-                    <dx:ASPxLabel ID="ASPxLabel1" runat="server" Text="Cédula profesional"></dx:ASPxLabel>
-                    <dx:ASPxTextBox ID="ASPxTextBox2" runat="server" Border-BorderColor="Transparent" BackColor="Transparent" Width="170px"></dx:ASPxTextBox>
-                </div>
-            </div>
-            
-           
-        </div>
-
-    <input type="button" onclick="printDiv('areaImprimir')" value="imprimir div" />
-
-    --%>
 
     <div class="d-flex justify-content-start flex-wrap flex-md-nowrap align-items-center mt-2">
         <div class="container-fluid">

@@ -25,7 +25,7 @@ namespace WebApplication1.Code
                 case "pruebas":
                     urlSeguridad = "http://172.17.75.116/seguridad/api/";
                     //urlService = "http://172.17.75.116/ServicioPruebas/api/"; //"http://172.17.75.9/ServicioPruebas/api/";
-                    urlService = "http://localhost:24012/api/";
+                    urlService = "http://172.17.75.116/RESTPII_V3/api/";
                     break;
                 case "local":
                     urlSeguridad = "http://localhost:53903/api/";

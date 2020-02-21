@@ -19,70 +19,70 @@
             <dx:ASPxLabel runat="server" Text="EN ESPERA DE DICTAMEN" ClientVisible="false" ForeColor="Transparent" ID="acepta">
             </dx:ASPxLabel>
         </div>
-         
+
     </div>
     <div class="container-fluid">
         <div class="row">
             <div class="col">
                 <dx:ASPxPageControl ID="ASPxPageControl1" Width="100%" Theme="Material" runat="server" ActiveTabIndex="0" OnActiveTabChanged="ASPxPageControl1_ActiveTabChanged">
-        <TabPages>
-            <dx:TabPage Text="En espera">
-                <ContentCollection> 
-                    <dx:ContentControl runat="server">
-                            <dx:ASPxGridView ID="gvSolicitudes" ClientInstanceName="gvSolicitudes" OnHtmlRowPrepared="gvSolicitudes_HtmlRowPrepared" 
-                                KeyFieldName="id" Width="100%" Theme="Material" OnCustomCallback="gvSolicitudes_CustomCallback" OnDataBinding="gvSolicitudes_DataBinding" 
-                                runat="server" AutoGenerateColumns="False">
-                                <Settings ShowFilterRow="true" ShowFilterRowMenu="true" ShowGroupPanel="true" UseFixedTableLayout="true" />
-                                <SettingsBehavior AutoExpandAllGroups="true" />
-                                <SettingsPager PageSize="20" NumericButtonCount="6" />
-                                <SettingsDataSecurity AllowInsert="false" AllowEdit="false" AllowDelete="false" />
-                                <SettingsAdaptivity AdaptivityMode="HideDataCells" AllowOnlyOneAdaptiveDetailExpanded="true" />
+                    <TabPages>
+                        <dx:TabPage Text="En espera">
+                            <ContentCollection>
+                                <dx:ContentControl runat="server">
+                                    <dx:ASPxGridView ID="gvSolicitudes" ClientInstanceName="gvSolicitudes" OnHtmlRowPrepared="gvSolicitudes_HtmlRowPrepared"
+                                        KeyFieldName="id" Width="100%" Theme="Material" OnCustomCallback="gvSolicitudes_CustomCallback" OnDataBinding="gvSolicitudes_DataBinding"
+                                        runat="server" AutoGenerateColumns="False">
+                                        <Settings ShowFilterRow="true" ShowFilterRowMenu="true" ShowGroupPanel="true" UseFixedTableLayout="true" />
+                                        <SettingsBehavior AutoExpandAllGroups="true" />
+                                        <SettingsPager PageSize="20" NumericButtonCount="6" />
+                                        <SettingsDataSecurity AllowInsert="false" AllowEdit="false" AllowDelete="false" />
+                                        <SettingsAdaptivity AdaptivityMode="HideDataCells" AllowOnlyOneAdaptiveDetailExpanded="true" />
 
-                                <ClientSideEvents CustomButtonClick="function(s, e) { EjecutaBotonEdicion(s, e) }" />
-                                <Columns>
-                                    <dx:GridViewCommandColumn VisibleIndex="0" Caption="Votar" ButtonType="Image" Width="60px">
-                                        <CustomButtons>
-                                            <dx:GridViewCommandColumnCustomButton ID="btnEditar" Image-IconID="actions_edit_32x32devav" Visibility="AllDataRows" Text="Modificar">
-                                                <Image Url="css/img/Recurso 34.png">
-                                                </Image>
-                                            </dx:GridViewCommandColumnCustomButton>
-                                        </CustomButtons>
-                                    </dx:GridViewCommandColumn>
-                                    <dx:GridViewDataTextColumn MinWidth="280" Width="36%" Caption="Clave de solicitud" FieldName="id" VisibleIndex="2">
-                                    </dx:GridViewDataTextColumn>
-                                    <dx:GridViewDataTextColumn MinWidth="280" Width="36%" Caption="Profesión" FieldName="abreviatura_de_profesion" VisibleIndex="5">
-                                    </dx:GridViewDataTextColumn>
-                                    <dx:GridViewDataTextColumn MinWidth="280" Width="36%" Caption="Nombre" FieldName="nombre" VisibleIndex="3">
-                                         <Settings AutoFilterCondition="Contains" />
-                                    </dx:GridViewDataTextColumn>
-                                    <dx:GridViewDataTextColumn MinWidth="280" Width="36%" Caption="Municipio" FieldName="nombreMunicipio" VisibleIndex="7">
-                                    </dx:GridViewDataTextColumn>
-                                    <dx:GridViewDataTextColumn MinWidth="280" Width="36%" Caption="Localidad" FieldName="nombreLocalidad" VisibleIndex="8">
-                                    </dx:GridViewDataTextColumn>
-                                    <dx:GridViewDataTextColumn MinWidth="280" Width="36%" Caption="Trámite solicitado" FieldName="descripcion" VisibleIndex="9">
-                                    </dx:GridViewDataTextColumn>
-                                    <dx:GridViewDataTextColumn MinWidth="280" Width="36%" Caption="Estado de trámite" FieldName="status" VisibleIndex="10">
-                                    </dx:GridViewDataTextColumn>
-                                    <dx:GridViewDataDateColumn MinWidth="280" Width="36%" Caption="Fecha de trámite" FieldName="fecha_solicitud" VisibleIndex="11">
-                                        <PropertiesDateEdit DisplayFormatString="dd/MM/yyyy"></PropertiesDateEdit>
-                                    </dx:GridViewDataDateColumn>
-                                    <dx:GridViewDataTextColumn MinWidth="280" Width="36%" Caption="Observacion" FieldName="observaciones" VisibleIndex="12">
-                                    </dx:GridViewDataTextColumn>
-                                    <dx:GridViewDataTextColumn MinWidth="280" Width="24%" Caption="Cédula" FieldName="cedula" VisibleIndex="4">
-                                    </dx:GridViewDataTextColumn>
-                                </Columns>
-                                <SettingsPager PageSize="10" NumericButtonCount="6" />
-                                <Styles>
-                                    <Cell Wrap="true" />
-                                </Styles>
-                            </dx:ASPxGridView>
-                        
-                    </dx:ContentControl>
-                </ContentCollection>
-            </dx:TabPage>
+                                        <ClientSideEvents CustomButtonClick="function(s, e) { EjecutaBotonEdicion(s, e) }" />
+                                        <Columns>
+                                            <dx:GridViewCommandColumn VisibleIndex="0" Caption="Votar" ButtonType="Image" Width="60px">
+                                                <CustomButtons>
+                                                    <dx:GridViewCommandColumnCustomButton ID="btnEditar" Image-IconID="actions_edit_32x32devav" Visibility="AllDataRows" Text="Modificar">
+                                                        <Image Url="css/img/Recurso 34.png">
+                                                        </Image>
+                                                    </dx:GridViewCommandColumnCustomButton>
+                                                </CustomButtons>
+                                            </dx:GridViewCommandColumn>
+                                            <dx:GridViewDataTextColumn MinWidth="280" Width="36%" Caption="Clave de solicitud" FieldName="id" VisibleIndex="2">
+                                            </dx:GridViewDataTextColumn>
+                                            <dx:GridViewDataTextColumn MinWidth="280" Width="36%" Caption="Profesión" FieldName="abreviatura_de_profesion" VisibleIndex="5">
+                                            </dx:GridViewDataTextColumn>
+                                            <dx:GridViewDataTextColumn MinWidth="280" Width="36%" Caption="Nombre" FieldName="nombre" VisibleIndex="3">
+                                                <Settings AutoFilterCondition="Contains" />
+                                            </dx:GridViewDataTextColumn>
+                                            <dx:GridViewDataTextColumn MinWidth="280" Width="36%" Caption="Municipio" FieldName="nombreMunicipio" VisibleIndex="7">
+                                            </dx:GridViewDataTextColumn>
+                                            <dx:GridViewDataTextColumn MinWidth="280" Width="36%" Caption="Localidad" FieldName="nombreLocalidad" VisibleIndex="8">
+                                            </dx:GridViewDataTextColumn>
+                                            <dx:GridViewDataTextColumn MinWidth="280" Width="36%" Caption="Trámite solicitado" FieldName="descripcion" VisibleIndex="9">
+                                            </dx:GridViewDataTextColumn>
+                                            <dx:GridViewDataTextColumn MinWidth="280" Width="36%" Caption="Estado de trámite" FieldName="status" VisibleIndex="10">
+                                            </dx:GridViewDataTextColumn>
+                                            <dx:GridViewDataDateColumn MinWidth="280" Width="36%" Caption="Fecha de trámite" FieldName="fecha_solicitud" VisibleIndex="11">
+                                                <PropertiesDateEdit DisplayFormatString="dd/MM/yyyy"></PropertiesDateEdit>
+                                            </dx:GridViewDataDateColumn>
+                                            <dx:GridViewDataTextColumn MinWidth="280" Width="36%" Caption="Observacion" FieldName="observaciones" VisibleIndex="12">
+                                            </dx:GridViewDataTextColumn>
+                                            <dx:GridViewDataTextColumn MinWidth="280" Width="24%" Caption="Cédula" FieldName="cedula" VisibleIndex="4">
+                                            </dx:GridViewDataTextColumn>
+                                        </Columns>
+                                        <SettingsPager PageSize="10" NumericButtonCount="6" />
+                                        <Styles>
+                                            <Cell Wrap="true" />
+                                        </Styles>
+                                    </dx:ASPxGridView>
 
-        </TabPages>
-    </dx:ASPxPageControl>
+                                </dx:ContentControl>
+                            </ContentCollection>
+                        </dx:TabPage>
+
+                    </TabPages>
+                </dx:ASPxPageControl>
             </div>
         </div>
     </div>

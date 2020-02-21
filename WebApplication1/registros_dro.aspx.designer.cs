@@ -265,24 +265,6 @@ namespace WebApplication1 {
         protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource4;
         
         /// <summary>
-        /// Control ASPxLabel1.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel ASPxLabel1;
-        
-        /// <summary>
-        /// Control GridView1.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridView1;
-        
-        /// <summary>
         /// Control cboColegio.
         /// </summary>
         /// <remarks>
@@ -319,6 +301,96 @@ namespace WebApplication1 {
         protected global::DevExpress.Web.ASPxDateEdit dtFechaCedula;
         
         /// <summary>
+        /// Control revalidacion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel revalidacion;
+        
+        /// <summary>
+        /// Control Reva_Solicitud.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxUploadControl Reva_Solicitud;
+        
+        /// <summary>
+        /// Control Reva_Crede.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxUploadControl Reva_Crede;
+        
+        /// <summary>
+        /// Control Reva_Lic.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxUploadControl Reva_Lic;
+        
+        /// <summary>
+        /// Control Reva_Pago.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxUploadControl Reva_Pago;
+        
+        /// <summary>
+        /// Control pago_2.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxTextBox pago_2;
+        
+        /// <summary>
+        /// Control revalidacion_clasi.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel revalidacion_clasi;
+        
+        /// <summary>
+        /// Control Revcl_Solicitud.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxUploadControl Revcl_Solicitud;
+        
+        /// <summary>
+        /// Control Revcl_Crede.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxUploadControl Revcl_Crede;
+        
+        /// <summary>
+        /// Control Revcl_Licencia.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxUploadControl Revcl_Licencia;
+        
+        /// <summary>
         /// Control txtCursos.
         /// </summary>
         /// <remarks>
@@ -328,31 +400,148 @@ namespace WebApplication1 {
         protected global::DevExpress.Web.ASPxMemo txtCursos;
         
         /// <summary>
-        /// Control cursos.
+        /// Control Revcl_cursos.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxUploadControl cursos;
+        protected global::DevExpress.Web.ASPxUploadControl Revcl_cursos;
         
         /// <summary>
-        /// Control pago.
+        /// Control Revcl_cv.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxUploadControl pago;
+        protected global::DevExpress.Web.ASPxUploadControl Revcl_cv;
         
         /// <summary>
-        /// Control credencial.
+        /// Control Revcl_pago.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxUploadControl credencial;
+        protected global::DevExpress.Web.ASPxUploadControl Revcl_pago;
+        
+        /// <summary>
+        /// Control pago_3.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxTextBox pago_3;
+        
+        /// <summary>
+        /// Control reclasificacion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel reclasificacion;
+        
+        /// <summary>
+        /// Control recla_solicitud.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxUploadControl recla_solicitud;
+        
+        /// <summary>
+        /// Control recla_crede.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxUploadControl recla_crede;
+        
+        /// <summary>
+        /// Control recla_lice.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxUploadControl recla_lice;
+        
+        /// <summary>
+        /// Control ASPxMemo1.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxMemo ASPxMemo1;
+        
+        /// <summary>
+        /// Control recla_cursos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxUploadControl recla_cursos;
+        
+        /// <summary>
+        /// Control recla_cv.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxUploadControl recla_cv;
+        
+        /// <summary>
+        /// Control repo_credencial.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel repo_credencial;
+        
+        /// <summary>
+        /// Control credencialdro.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxUploadControl credencialdro;
+        
+        /// <summary>
+        /// Control pago_5.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxTextBox pago_5;
+        
+        /// <summary>
+        /// Control clasificaciones.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel clasificaciones;
+        
+        /// <summary>
+        /// Control nueva_clasificacion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxComboBox nueva_clasificacion;
         
         /// <summary>
         /// Control txtAñoRegistro.
@@ -382,6 +571,15 @@ namespace WebApplication1 {
         protected global::DevExpress.Web.ASPxTextBox txtRegistro;
         
         /// <summary>
+        /// Control cboClaveProfesion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxComboBox cboClaveProfesion;
+        
+        /// <summary>
         /// Control SqlDataSource6.
         /// </summary>
         /// <remarks>
@@ -391,13 +589,13 @@ namespace WebApplication1 {
         protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource6;
         
         /// <summary>
-        /// Control cboClaveProfesion.
+        /// Control status.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxComboBox cboClaveProfesion;
+        protected global::DevExpress.Web.ASPxLabel status;
         
         /// <summary>
         /// Control btnGuardar.

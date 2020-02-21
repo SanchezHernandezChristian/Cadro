@@ -319,24 +319,6 @@ namespace WebApplication1 {
         protected global::DevExpress.Web.ASPxImageSlider imgSliderGeoreferencia;
         
         /// <summary>
-        /// Control btnGuardarGeoreferencias.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxButton btnGuardarGeoreferencias;
-        
-        /// <summary>
-        /// Control btnSiguienteComponentes.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxButton btnSiguienteComponentes;
-        
-        /// <summary>
         /// Control cbpBuscarProyectista.
         /// </summary>
         /// <remarks>

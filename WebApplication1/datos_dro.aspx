@@ -23,7 +23,7 @@
             }
         }
         function imagenarriba() {
-            window.location.href = '/default';
+            window.location.href = '~/';
         }
     </script>
 </head>

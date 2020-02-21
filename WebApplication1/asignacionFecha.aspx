@@ -28,32 +28,38 @@
             <div class="row" >
                 <div class="form-label-group col-md-4">
                     <label>Fecha de solicitud</label>
-                    <dx:ASPxDateEdit runat="server" ID="dtFechaSolicitud" ClientEnabled="false" ClientInstanceName="dtFechaSolicitud" Theme="Material" Width="100%">
+                    <dx:ASPxDateEdit runat="server" ID="dtFechaSolicitud" ClientEnabled="false" ClientInstanceName="dtFechaSolicitud" 
+                        Theme="Material" Width="100%" DisabledStyle-ForeColor="Gray" CssClass="dxeTextBoxSys dxeTextBox_Material form-control dxeTextBoxDefaultWidthSys" >
                     </dx:ASPxDateEdit>
                            
                 </div>
                 <dx:ASPxLabel ID="ASPxLabel1" runat="server" ClientVisible="false" Text=""></dx:ASPxLabel>
                 <div class="form-label-group col-md-4">
                     <label>Cédula profesional</label>
-                    <dx:ASPxTextBox ID="txtCedula" ClientEnabled="false" ClientInstanceName="txtCedula" runat="server" Theme="Material" Width="100%">
+                    <dx:ASPxTextBox ID="txtCedula" ClientEnabled="false" ClientInstanceName="txtCedula" runat="server" 
+                        Theme="Material" Width="100%" DisabledStyle-ForeColor="Gray" CssClass="form-control">
                     </dx:ASPxTextBox>
                             
                 </div>
                 <div class="form-label-group col-md-4">
                     <label>Trámite que solicita</label>
-                    <dx:ASPxComboBox runat="server" ID="cboTipoTramite" ClientEnabled="false" ClientInstanceName="cboTipoTramite" ValueField="id_tipo_solicitud" ValueType="System.String" TextField="descripcion" Theme="Material" Width="100%" DataSourceID="SqlDataSource1">
+                    <dx:ASPxComboBox runat="server" ID="cboTipoTramite" ClientEnabled="false" ClientInstanceName="cboTipoTramite" 
+                        ValueField="id_tipo_solicitud" ValueType="System.String" TextField="descripcion" Theme="Material" Width="100%" 
+                        DataSourceID="SqlDataSource1" DisabledStyle-ForeColor="Gray" CssClass="dxeTextBoxSys dxeTextBox_Material form-control dxeTextBoxDefaultWidthSys">
                     </dx:ASPxComboBox>
                     <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:BD_CADROConnectionString %>" SelectCommand="SELECT id_tipo_solicitud, descripcion FROM [catalogo_de_tramites] ORDER BY descripcion"></asp:SqlDataSource>
               
                 </div>
                 <div class="form-label-group col-md-4">
                     <label>Clave de solicitud</label>
-                    <dx:ASPxTextBox ID="txtClaveSolicitud" ClientInstanceName="txtClaveSolicitud" runat="server" Theme="Material" Width="100%" ClientEnabled="false">
+                    <dx:ASPxTextBox ID="txtClaveSolicitud" ClientInstanceName="txtClaveSolicitud" runat="server" Theme="Material" Width="100%" 
+                        ClientEnabled="false" DisabledStyle-ForeColor="Gray" CssClass="form-control">
                     </dx:ASPxTextBox>
 
                 </div>
                 <div class="form-label-group col-md-4">
-                    <dx:ASPxDateEdit runat="server" ID="dtFechaSesion" ClientEnabled="false" ClientVisible="false" ClientInstanceName="dtFechaSesion" Theme="Material" Width="100%">
+                    <dx:ASPxDateEdit runat="server" ID="dtFechaSesion" ClientEnabled="false" ClientVisible="false" ClientInstanceName="dtFechaSesion" 
+                        Theme="Material" Width="100%" DisabledStyle-ForeColor="Gray" CssClass="dxeTextBoxSys dxeTextBox_Material form-control dxeTextBoxDefaultWidthSys">
                     </dx:ASPxDateEdit>
 
                 </div>
@@ -64,7 +70,7 @@
             <div class="row" >
                 <div class="form-label-group col-md-4">
                     <label>Nombre(s)</label>
-                    <dx:ASPxTextBox ID="txtNombres" runat="server" ClientEnabled="false" Theme="Material" Width="100%">
+                    <dx:ASPxTextBox ID="txtNombres" runat="server" ClientEnabled="false" Theme="Material" Width="100%" DisabledStyle-ForeColor="Gray" CssClass="form-control">
                             <ValidationSettings SetFocusOnError="True" ErrorText="" ErrorTextPosition="Bottom">
                                 <RequiredField IsRequired="True" ErrorText="Obligatorio" />
                             </ValidationSettings>
@@ -72,7 +78,7 @@
                 </div>
                 <div class="form-label-group col-md-4">
                     <label>A. Paterno</label>
-                    <dx:ASPxTextBox ID="txtApaterno" runat="server" Theme="Material" ClientEnabled="false" Width="100%">
+                    <dx:ASPxTextBox ID="txtApaterno" runat="server" Theme="Material" ClientEnabled="false" Width="100%" DisabledStyle-ForeColor="Gray" CssClass="form-control">
                             <ValidationSettings SetFocusOnError="True" ErrorText="" ErrorTextPosition="Bottom">
                                 <RequiredField IsRequired="True" ErrorText="Obligatorio" />
                             </ValidationSettings>
@@ -81,7 +87,7 @@
                 </div>
                 <div class="form-label-group col-md-4">
                     <label>A. Materno</label>
-                    <dx:ASPxTextBox ID="txtAMaterno" runat="server" Theme="Material" ClientEnabled="false" Width="100%">
+                    <dx:ASPxTextBox ID="txtAMaterno" runat="server" Theme="Material" ClientEnabled="false" Width="100%" DisabledStyle-ForeColor="Gray" CssClass="form-control">
                             <ValidationSettings SetFocusOnError="True" ErrorText="" ErrorTextPosition="Bottom">
                                 <RequiredField IsRequired="True" ErrorText="Obligatorio" />
                             </ValidationSettings>
@@ -91,7 +97,7 @@
                 
                 <div class="form-label-group col-md-4">
                     <label>Calle y número</label>
-                    <dx:ASPxTextBox ID="txtCalleNumero" runat="server" ClientEnabled="false" Theme="Material" Width="100%">
+                    <dx:ASPxTextBox ID="txtCalleNumero" runat="server" ClientEnabled="false" Theme="Material" Width="100%" DisabledStyle-ForeColor="Gray" CssClass="form-control">
                             <ValidationSettings SetFocusOnError="True" ErrorText="" ErrorTextPosition="Bottom">
                                 <RequiredField IsRequired="True" ErrorText="Obligatorio" />
                             </ValidationSettings>
@@ -100,7 +106,7 @@
                 </div>
                 <div class="form-label-group col-md-4">
                     <label>Colonia</label>
-                    <dx:ASPxTextBox ID="txtColonia" runat="server" Theme="Material" ClientEnabled="false" Width="100%">
+                    <dx:ASPxTextBox ID="txtColonia" runat="server" Theme="Material" ClientEnabled="false" Width="100%" DisabledStyle-ForeColor="Gray" CssClass="form-control">
                             <ValidationSettings SetFocusOnError="True" ErrorText="" ErrorTextPosition="Bottom">
                                 <RequiredField IsRequired="True" ErrorText="Obligatorio" />
                             </ValidationSettings>
@@ -108,11 +114,8 @@
 
                 </div>
                 <div class="form-label-group col-md-4">
-                    
-                </div>
-                <div class="form-label-group col-md-4">
                     <label>Municipio</label>
-                     <dx:ASPxComboBox runat="server" ValueField="idMunicipio" ClientEnabled="false" ValueType="System.String" TextField="nombreMunicipioINEGI" 
+                     <dx:ASPxComboBox runat="server" ValueField="idMunicipio" ClientEnabled="false" ValueType="System.String" TextField="nombreMunicipioINEGI" DisabledStyle-ForeColor="Gray" CssClass="dxeTextBoxSys dxeTextBox_Material form-control dxeTextBoxDefaultWidthSys"
                          ID="cboMunicipio" Theme="Material" Width="100%" DataSourceID="SqlDataSource2">
                             <ValidationSettings SetFocusOnError="True" ErrorText="" ErrorTextPosition="Bottom">
                                 <RequiredField IsRequired="True" ErrorText="Obligatorio" />
@@ -123,10 +126,13 @@
                 </div>
                 <div class="form-label-group col-md-4">
                     <label>Localidad</label>
-                    <dx:ASPxCallbackPanel ID="callpanelLocalidad" ClientEnabled="false" ClientInstanceName="callpanelLocalidad" Theme="Material" runat="server" Width="100%" OnCallback="callpanelLocalidad_Callback">
+                    <dx:ASPxCallbackPanel ID="callpanelLocalidad" ClientEnabled="false" ClientInstanceName="callpanelLocalidad" Theme="Material" runat="server" Width="100%" DisabledStyle-ForeColor="Gray" OnCallback="callpanelLocalidad_Callback">
                             <PanelCollection>
                                 <dx:PanelContent runat="server">
-                                    <dx:ASPxComboBox ID="cboLocalidad" ClientInstanceName="cboLocalidad" runat="server" Theme="Material" Width="100%" DataSourceID="dsLocalidades" TextField="nom_loc" ValueField="loc"></dx:ASPxComboBox>
+                                    <dx:ASPxComboBox ID="cboLocalidad" ClientInstanceName="cboLocalidad" runat="server" Theme="Material" Width="100%" DataSourceID="dsLocalidades" 
+                                        TextField="nom_loc" DisabledStyle-ForeColor="Gray" ValueField="loc" CssClass="dxeTextBoxSys dxeTextBox_Material form-control dxeTextBoxDefaultWidthSys">
+
+                                    </dx:ASPxComboBox>
                                     <asp:SqlDataSource ID="dsLocalidades" runat="server" ConnectionString="<%$  ConnectionStrings:BD_CADROConnectionString %>" SelectCommand="SELECT [loc], lower([nom_loc]) as nom_loc FROM [tblLocalidades] WHERE ([mun] = @mun) ORDER BY [nom_loc]">
                                         <SelectParameters>
                                             <asp:ControlParameter ControlID="cboMunicipio" Name="mun" PropertyName="Value" Type="Int32" />
@@ -139,7 +145,8 @@
                 </div>
                 <div class="form-label-group col-md-4">
                     <label>Región</label>
-                    <dx:ASPxComboBox runat="server" ClientEnabled="false" ID="cboRegion" ValueType="System.String" ClientInstanceName="cboRegion" DataSourceID="dsRegion" TextField="nombre" ValueField="id" Theme="Material" Width="100%">
+                    <dx:ASPxComboBox runat="server" ClientEnabled="false" ID="cboRegion" ValueType="System.String" ClientInstanceName="cboRegion" DataSourceID="dsRegion" TextField="nombre" 
+                        ValueField="id" Theme="Material" Width="100%" DisabledStyle-ForeColor="Gray" CssClass="dxeTextBoxSys dxeTextBox_Material form-control dxeTextBoxDefaultWidthSys">
                             <ValidationSettings SetFocusOnError="True" ErrorText="" ErrorTextPosition="Bottom">
                                 <RequiredField IsRequired="True" ErrorText="Obligatorio" />
                             </ValidationSettings>
@@ -154,7 +161,7 @@
             <div class="row" >
                 <div class="form-label-group col-md-4">
                     <label>Teléfono local</label>
-                    <dx:ASPxTextBox ID="txtTelLocal" runat="server" ClientEnabled="false" Theme="Material" Width="100%">
+                    <dx:ASPxTextBox ID="txtTelLocal" runat="server" ClientEnabled="false" Theme="Material" Width="100%" DisabledStyle-ForeColor="Gray" CssClass="form-control">
                             <ValidationSettings SetFocusOnError="True" ErrorText="" ErrorTextPosition="Bottom">
                                 <RequiredField IsRequired="True" ErrorText="Obligatorio" />
                             </ValidationSettings>
@@ -163,7 +170,7 @@
                 </div>
                 <div class="form-label-group col-md-4">
                     <label>Teléfono celular</label>
-                    <dx:ASPxTextBox ID="txtTelCelular" runat="server" ClientEnabled="false" Theme="Material" Width="100%">
+                    <dx:ASPxTextBox ID="txtTelCelular" runat="server" ClientEnabled="false" Theme="Material" Width="100%" DisabledStyle-ForeColor="Gray" CssClass="form-control">
                             <ValidationSettings SetFocusOnError="True" ErrorText="" ErrorTextPosition="Bottom">
                                 <RequiredField IsRequired="True" ErrorText="Obligatorio" />
                             </ValidationSettings>
@@ -171,7 +178,7 @@
                 </div>
                 <div class="form-label-group col-md-4">
                     <label>Correo electrónico</label>
-                     <dx:ASPxTextBox ID="txtCorreoElectronico" runat="server" Theme="Material" ClientEnabled="false" Width="100%">
+                     <dx:ASPxTextBox ID="txtCorreoElectronico" runat="server" Theme="Material" ClientEnabled="false" Width="100%" DisabledStyle-ForeColor="Gray" CssClass="form-control">
                             <ValidationSettings SetFocusOnError="True" ErrorText="" ErrorTextPosition="Bottom">
                                 <RequiredField IsRequired="True" ErrorText="Obligatorio" />
                             </ValidationSettings>
@@ -184,8 +191,8 @@
             <div class="row" >
                 <div class="form-label-group col-md-4">
                     <label>Profesión</label>
-                    <dx:ASPxComboBox runat="server" TextField="Descripcion" ClientEnabled="false" ValueType="System.String" ValueField="Id_Profesion"
-                            Theme="Material" ID="cboProfesion"
+                    <dx:ASPxComboBox runat="server" TextField="Descripcion" ClientEnabled="false" ValueType="System.String" ValueField="Id_Profesion" DisabledStyle-ForeColor="Gray"
+                            Theme="Material" ID="cboProfesion" CssClass="dxeTextBoxSys dxeTextBox_Material form-control dxeTextBoxDefaultWidthSys"
                             Width="100%" DataSourceID="SqlDataSource3" CallbackPageSize="15"
                             EnableCallbackMode="True" EnableViewState="false">
                             <ValidationSettings SetFocusOnError="True" ErrorText="" ErrorTextPosition="Bottom">
@@ -197,8 +204,8 @@
                 </div>
                 <div class="form-label-group col-md-4">
                     <label>Institución de egreso</label>
-                    <dx:ASPxComboBox runat="server" ValueField="Id_Universidad" ClientEnabled="false" TextField="Descripcion" ValueType="System.String" Theme="Material"
-                            ID="cboEgresado" Width="100%"
+                    <dx:ASPxComboBox runat="server" ValueField="Id_Universidad" ClientEnabled="false" TextField="Descripcion" ValueType="System.String" Theme="Material" DisabledStyle-ForeColor="Gray"
+                            ID="cboEgresado" Width="100%" CssClass="dxeTextBoxSys dxeTextBox_Material form-control dxeTextBoxDefaultWidthSys"
                             DataSourceID="SqlDataSource4" CallbackPageSize="15"
                             EnableCallbackMode="True" EnableViewState="false">
                             <ValidationSettings SetFocusOnError="True" ErrorText="" ErrorTextPosition="Bottom">
@@ -210,18 +217,18 @@
                 </div>
                 <div class="form-label-group col-md-4">
                     <label>Fecha de título</label>
-                    <dx:ASPxDateEdit runat="server" ID="dtFechaTitulo" ClientEnabled="false" Theme="Material" Width="100%">
+                    <dx:ASPxDateEdit runat="server" ID="dtFechaTitulo" ClientEnabled="false" Theme="Material" Width="100%" DisabledStyle-ForeColor="Gray" CssClass="dxeTextBoxSys dxeTextBox_Material form-control dxeTextBoxDefaultWidthSys">
                         </dx:ASPxDateEdit>
                 </div>
                 <div class="form-label-group col-md-4">
                     <label>Fecha de cédula</label>
-                     <dx:ASPxDateEdit runat="server" ID="dtFechaCedula" ClientEnabled="false" Theme="Material" Width="100%">
+                     <dx:ASPxDateEdit runat="server" ID="dtFechaCedula" ClientEnabled="false" Theme="Material" Width="100%" DisabledStyle-ForeColor="Gray" CssClass="dxeTextBoxSys dxeTextBox_Material form-control dxeTextBoxDefaultWidthSys">
                         </dx:ASPxDateEdit>
 
                 </div>
                 <div class="form-label-group col-md-4">
                     <label>Cursos de actualización o postgrado</label>
-                     <dx:ASPxMemo ID="txtCursos" runat="server" Theme="Material" ClientEnabled="false" Width="100%">
+                     <dx:ASPxMemo ID="txtCursos" runat="server" Theme="Material" ClientEnabled="false" Width="100%" DisabledStyle-ForeColor="Gray" CssClass="form-control">
                         <ValidationSettings SetFocusOnError="True" ErrorText="" ErrorTextPosition="Bottom">
                             <RequiredField IsRequired="True" ErrorText="Obligatorio" />
                         </ValidationSettings>
@@ -230,8 +237,8 @@
                 </div>
                 <div class="form-label-group col-md-4">
                     <label>Colegio de pertenecia</label>
-                     <dx:ASPxComboBox runat="server" ValueField="Id_Colegio" ClientEnabled="false" TextField="Descripcion" ValueType="System.String" Theme="Material"
-                                ID="cboColegio" Width="100%"
+                     <dx:ASPxComboBox runat="server" ValueField="Id_Colegio" ClientEnabled="false" TextField="Descripcion" ValueType="System.String" Theme="Material" DisabledStyle-ForeColor="Gray"
+                                ID="cboColegio" Width="100%" CssClass="dxeTextBoxSys dxeTextBox_Material form-control dxeTextBoxDefaultWidthSys"
                                 DataSourceID="SqlDataSource5" CallbackPageSize="15"
                                 EnableCallbackMode="True" EnableViewState="false">
                                 <ValidationSettings SetFocusOnError="True" ErrorText="" ErrorTextPosition="Bottom">
@@ -246,216 +253,20 @@
             </div>
         </div>
 
-        <p class="text-center text-black rounded h5" style="background-color: cornsilk">Documentos</p>
-                                <div class="form-group">
-                                    <div class="row" >
-                                        <div class="form-label-group col-md-4">
-                                            <label>Comprobante de pago</label>
-                                            <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" CellPadding="4"
-            ForeColor="#333333" GridLines="None" DataKeyNames="Name">
-            <RowStyle BackColor="#EFF3FB" />
-            <Columns>
-                <asp:TemplateField HeaderText="Nombre Archivo">
-                    <ItemTemplate>
-                        <asp:HyperLink ID="nombre" runat="server" Target="_blank" NavigateUrl='<%# Eval("Name", "~/Documents/Pagos/"+ASPxLabel1.Text+"/{0}") %>'
-                            Text='<%# Eval("Name") %>'>
-                        </asp:HyperLink>
-                    </ItemTemplate>
-                </asp:TemplateField>
-  
-                <%--  Arreglar despues ---------------
-                  <asp:TemplateField HeaderText="Descargar" ItemStyle-HorizontalAlign="Center">
-                        <ItemTemplate>
-                            <asp:HyperLink ID="descarga" Text="Descargar" Target="_blank" runat="server" NavigateUrl='<%# Eval("Name", "~/Download.aspx?filename={0}") %>'>
-                               
-                            </asp:HyperLink>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                
---%>
-            </Columns>
-            <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-            <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-            <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
-            <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-            <EditRowStyle BackColor="#2461BF" />
-            <AlternatingRowStyle BackColor="White" />
-        </asp:GridView>
-</div>
-
-                                        <div class="form-label-group col-md-4">
-                                            <label>Credencial de elector</label>
-                                            
-                                            <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" CellPadding="4"
-            ForeColor="#333333" GridLines="None" DataKeyNames="Name">
-            <RowStyle BackColor="#EFF3FB" />
-            <Columns>
-                <asp:TemplateField HeaderText="Nombre Archivo">
-                    <ItemTemplate>
-                        <asp:HyperLink ID="nombre" runat="server" Target="_blank" NavigateUrl='<%# Eval("Name", "~/Documents/Elector/"+ASPxLabel1.Text+"/{0}") %>'
-                            Text='<%# Eval("Name") %>'>
-                        </asp:HyperLink>
-                    </ItemTemplate>
-                </asp:TemplateField>
-            </Columns>
-            <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-            <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-            <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
-            <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-            <EditRowStyle BackColor="#2461BF" />
-            <AlternatingRowStyle BackColor="White" />
-        </asp:GridView>
-                                            <br />
-                                            <br />
-                                            </div>
-
-                                        <div class="form-label-group col-md-4">
-                                            <label>Comprobante de domicilio</label>
-                                            
-                                             <asp:GridView ID="GridView3" runat="server" AutoGenerateColumns="False" CellPadding="4"
-            ForeColor="#333333" GridLines="None" DataKeyNames="Name">
-            <RowStyle BackColor="#EFF3FB" />
-            <Columns>
-                <asp:TemplateField HeaderText="Nombre Archivo">
-                    <ItemTemplate>
-                        <asp:HyperLink ID="nombre" runat="server" Target="_blank" NavigateUrl='<%# Eval("Name", "~/Documents/Domicilio/"+ASPxLabel1.Text+"/{0}") %>'
-                            Text='<%# Eval("Name") %>'>
-                        </asp:HyperLink>
-                    </ItemTemplate>
-                </asp:TemplateField>
-            </Columns>
-            <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-            <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-            <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
-            <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-            <EditRowStyle BackColor="#2461BF" />
-            <AlternatingRowStyle BackColor="White" />
-        </asp:GridView>
-
-                                            <br />
-                                            <br />
-                                            </div>
-                                        </div>
-                                    <div class="row">
-                                        <div class="form-label-group col-md-4">
-                                            <label>Acta de nacimiento</label>
-                                            
-                                           <asp:GridView ID="GridView4" runat="server" AutoGenerateColumns="False" CellPadding="4"
-            ForeColor="#333333" GridLines="None" DataKeyNames="Name">
-            <RowStyle BackColor="#EFF3FB" />
-            <Columns>
-                <asp:TemplateField HeaderText="Nombre Archivo">
-                    <ItemTemplate>
-                        <asp:HyperLink ID="nombre" runat="server" Target="_blank" NavigateUrl='<%# Eval("Name", "~/Documents/Nacimiento/"+ASPxLabel1.Text+"/{0}") %>'
-                            Text='<%# Eval("Name") %>'>
-                        </asp:HyperLink>
-                    </ItemTemplate>
-                </asp:TemplateField>
-            </Columns>
-            <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-            <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-            <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
-            <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-            <EditRowStyle BackColor="#2461BF" />
-            <AlternatingRowStyle BackColor="White" />
-        </asp:GridView>
-
-                                            <br />
-                                            <br />
-                                        </div>
-                                        <div class="form-label-group col-md-4">
-                                            <label>Curriculum Vitae</label>
-                                            
-                                             <asp:GridView ID="GridView5" runat="server" AutoGenerateColumns="False" CellPadding="4"
-            ForeColor="#333333" GridLines="None" DataKeyNames="Name">
-            <RowStyle BackColor="#EFF3FB" />
-            <Columns>
-                <asp:TemplateField HeaderText="Nombre Archivo">
-                    <ItemTemplate>
-                        <asp:HyperLink ID="nombre" runat="server" Target="_blank" NavigateUrl='<%# Eval("Name", "~/Documents/Vitae/"+ASPxLabel1.Text+"/{0}") %>'
-                            Text='<%# Eval("Name") %>'>
-                        </asp:HyperLink>
-                    </ItemTemplate>
-                </asp:TemplateField>
-            </Columns>
-            <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-            <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-            <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
-            <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-            <EditRowStyle BackColor="#2461BF" />
-            <AlternatingRowStyle BackColor="White" />
-        </asp:GridView>
-                                        
-                                            <br />
-                                            <br />
-                                        </div>
-                                        <div class="form-label-group col-md-4">
-                                            <label>Fotografia</label>
-                                           
-                                                     <asp:GridView ID="GridView6" runat="server" AutoGenerateColumns="False" CellPadding="4"
-            ForeColor="#333333" GridLines="None" DataKeyNames="Name">
-            <RowStyle BackColor="#EFF3FB" />
-            <Columns>
-                <asp:TemplateField HeaderText="Nombre Archivo">
-                    <ItemTemplate>
-                        <asp:HyperLink ID="nombre" runat="server" Target="_blank" NavigateUrl='<%# Eval("Name", "~/Documents/Foto/"+ASPxLabel1.Text+"/{0}") %>'
-                            Text='<%# Eval("Name") %>'>
-                        </asp:HyperLink>
-                    </ItemTemplate>
-                </asp:TemplateField>
-            </Columns>
-            <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-            <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-            <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
-            <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-            <EditRowStyle BackColor="#2461BF" />
-            <AlternatingRowStyle BackColor="White" />
-        </asp:GridView>
-
-                                        </div>
-                                        </div>
-                                    <div class="row">
-                                        <div class="form-label-group col-md-4">
-                                            <label>Cedula Profesional</label>
-
-                                                     <asp:GridView ID="GridView7" runat="server" AutoGenerateColumns="False" CellPadding="4"
-            ForeColor="#333333" GridLines="None" DataKeyNames="Name">
-            <RowStyle BackColor="#EFF3FB" />
-            <Columns>
-                <asp:TemplateField HeaderText="Nombre Archivo">
-                    <ItemTemplate>
-                        <asp:HyperLink ID="nombre" runat="server" Target="_blank" NavigateUrl='<%# Eval("Name", "~/Documents/Cedulas/"+ASPxLabel1.Text+"/{0}") %>'
-                            Text='<%# Eval("Name") %>'>
-                        </asp:HyperLink>
-                    </ItemTemplate>
-                </asp:TemplateField>
-            </Columns>
-            <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-            <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
-            <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
-            <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
-            <EditRowStyle BackColor="#2461BF" />
-            <AlternatingRowStyle BackColor="White" />
-        </asp:GridView>
-
-                                            </div>
-                                    </div>
-                                    </div>
-
-
         <p class="text-center text-black rounded h5" style="background-color: cornsilk">Registro en SINFRA</p>
         <div class="form-group">
             <div class="row" >
-                <div class="form-label-group col-md-6">
+                <div class="form-label-group col-md-2">
                     <label>Año de registro en SINFRA</label>
-                    <dx:ASPxSpinEdit ID="txtAnioRegistro" ClientEnabled="false" runat="server" Theme="Material">
+                    <dx:ASPxSpinEdit ID="txtAnioRegistro" ClientEnabled="false" runat="server" Theme="Material" DisabledStyle-ForeColor="Gray" CssClass="dxeTextBoxSys dxeTextBox_Material form-control dxeTextBoxDefaultWidthSys">
                         </dx:ASPxSpinEdit>
                            
                 </div>
                 <div class="form-label-group col-md-6">
                     <label>Registro de D.R.O.</label>
                     <div class="container-fluid row">
-                        <dx:ASPxComboBox ID="cboClasificacion" NullText="Clasificación" ClientEnabled="false" runat="server" Theme="Material" ValueType="System.String">
+                        <dx:ASPxComboBox ID="cboClasificacion" NullText="Clasificación" ClientEnabled="false" runat="server" Theme="Material" Width="33%"
+                            ValueType="System.String" DisabledStyle-ForeColor="Gray" CssClass="dxeTextBoxSys dxeTextBox_Material form-control dxeTextBoxDefaultWidthSys">
                                             <Items>
                                                 <dx:ListEditItem Text="A" Value="A" />
                                                 <dx:ListEditItem Text="B" Value="B" />
@@ -463,10 +274,12 @@
                                             </Items>
 
                                         </dx:ASPxComboBox>
-                         <dx:ASPxTextBox ID="txtRegistroDRO" NullText="Folio" ClientEnabled="false" runat="server" Theme="Material">
+                         <dx:ASPxTextBox ID="txtRegistroDRO" NullText="Folio" ClientEnabled="false" runat="server" Theme="Material" DisabledStyle-ForeColor="Gray" CssClass="form-control" Width="33%">
                                         </dx:ASPxTextBox>
                         <asp:SqlDataSource ID="SqlDataSource6" runat="server" ConnectionString="<%$ ConnectionStrings:BD_CADROConnectionString %>" SelectCommand="SELECT [Id_Profesion], [Descripcion] FROM [tblProfesiones] ORDER BY [Descripcion]"></asp:SqlDataSource>
-                                        <dx:ASPxComboBox ID="cboClaveProfesion" DataSourceID="SqlDataSource6" NullText="Clave Profesión" ClientEnabled="false" runat="server" Theme="Material" TextField="Descripcion" ValueType="System.String" ValueField="Id_Profesion">
+                                        <dx:ASPxComboBox ID="cboClaveProfesion" DataSourceID="SqlDataSource6" NullText="Clave Profesión" ClientEnabled="false" runat="server" 
+                                            Theme="Material" TextField="Descripcion" ValueType="System.String" ValueField="Id_Profesion" DisabledStyle-ForeColor="Gray"
+                                            CssClass="dxeTextBoxSys dxeTextBox_Material form-control dxeTextBoxDefaultWidthSys" Width="33%">
                                         </dx:ASPxComboBox>
                     </div>
                 </div>
@@ -477,7 +290,9 @@
             <div class="row" >
                 <div class="form-label-group col-md-4">
                     <label>Trámite que procedio</label>
-                    <dx:ASPxComboBox runat="server" ClientEnabled="false" ID="cbTramiteSolicita" ClientInstanceName="cbTramiteSolicita" ValueField="id_tipo_solicitud" ValueType="System.String" TextField="descripcion" Theme="Material" Width="100%" DataSourceID="SqlDataSource1">
+                    <dx:ASPxComboBox runat="server" ClientEnabled="false" ID="cbTramiteSolicita" ClientInstanceName="cbTramiteSolicita" ValueField="id_tipo_solicitud" 
+                        ValueType="System.String" TextField="descripcion" Theme="Material" Width="100%" DataSourceID="SqlDataSource1" DisabledStyle-ForeColor="Gray"
+                        CssClass="dxeTextBoxSys dxeTextBox_Material form-control dxeTextBoxDefaultWidthSys">
                         <ValidationSettings SetFocusOnError="True" ErrorText="">
                             <RequiredField IsRequired="True" ErrorText="Obligatorio" />
                         </ValidationSettings>
@@ -487,7 +302,8 @@
                 <div class="form-label-group col-md-4">
                     <label>Fecha para sesión</label>
                      <dx:ASPxDateEdit runat="server" ID="fsesion" ClientEnabled="true" ClientInstanceName="dtFechaSolicitud" 
-                         Theme="Material" Width="100%" OnInit="fsesion_Init" DisplayFormatString="dd/MM/yyyy" EditFormat="Custom" EditFormatString="dd/MM/yyyy" >
+                         Theme="Material" Width="100%" OnInit="fsesion_Init" DisplayFormatString="dd/MM/yyyy" EditFormat="Custom" 
+                         EditFormatString="dd/MM/yyyy" DisabledStyle-ForeColor="Gray" CssClass="dxeTextBoxSys dxeTextBox_Material form-control dxeTextBoxDefaultWidthSys">
                          <CalendarProperties ShowTodayButton="False">
                          </CalendarProperties>
                     <ValidationSettings SetFocusOnError="True" ErrorText="">

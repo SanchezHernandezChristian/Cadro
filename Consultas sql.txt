@@ -6,3 +6,150 @@ SELECT    p.cedula  , UPPER(prof.abreviatura_de_profesion + ' ' + p.ap_paterno +
  FROM tblPadronDRO as p 
  inner join tblProfesiones as prof on prof.id_profesion = p.id_profesion  
  where p.cedula ='9513202079'
+
+
+
+
+		--- -    Reporte Region			------
+
+SELECT p.id as Folio, s.fecha_de_entrega_de_licencia, concat(p.ap_paterno
+                    ,' ', p.ap_materno, ' ', p.nombre) as nombre
+					,(isnull(p.clasificacion, ' ') + '-' + convert(varchar, p.Idregistro) + '-' + isnull(p.id_profesion, ' ')) as Registro 
+                    ,p.cedula,r.Nombre as region,l.nom_loc as idLocalidad
+                    ,t.[descripcion] as tramite,year( s.[fecha_de_sesion]) as año 
+                    FROM tblPadronDRO as p
+                    inner join tblSolicitudes as s on p.id = s.id_PadronDRO
+					inner join tblLocalidades as l
+                   on l.Id = p.Idlocalidad 
+                   inner join tblMunicipios as m
+                   on l.mun = m.idMunicipio 
+                    inner join catalogo_de_tramites t on t.id_tipo_solicitud = s.tramite_que_solicita 
+					inner join tblRegionesMunicipios as regm on regm.idMunicipio = m.idMunicipio
+					inner join tblRegion as r on regm.idRegion = r.Id
+					where r.Id=3
+
+
+
+
+			SELECT p.Idregistro as IddeRegistro, s.tramite_que_solicita, s.fecha_de_entrega_de_licencia, concat(p.ap_paterno,' ', p.ap_materno, ' ', p.nombre) as nombre, p.Idlocalidad, m.idMunicipio
+					,(isnull(p.clasificacion, ' ') + '-' + convert(varchar, p.Idregistro) + '-' + isnull(p.id_profesion, ' ')) as Registro 
+                    ,p.cedula, r.Id as Id_dela_Region, r.Nombre as region,l.nom_loc as NombreLocalidad, l.nom_mun as NombreMunicipio
+                    ,t.[descripcion] as tramite,year( s.[fecha_de_sesion]) as año 
+                    FROM tblPadronDRO as p
+                    inner join tblsolicitudes as s on p.id = s.id_PadronDRO
+					inner join tblLocalidades as l on l.Id = p.Idlocalidad 
+                   inner join tblMunicipios as m on l.mun = m.idMunicipio 
+                    inner join catalogo_de_tramites t on t.id_tipo_solicitud = s.tramite_que_solicita 
+					inner join tblRegionesMunicipios as regm on regm.idMunicipio = m.idMunicipio
+					inner join tblRegion as r on r.Id = regm.idRegion
+					where r.Id='' order by t.id_tipo_solicitud
+
+
+
+
+
+
+----------				Agregar al Padro DRO  			-------------
+
+
+
+/****** Script for SelectTopNRows command from SSMS  ******/
+insert into tblPadronDRO (
+      [cedula]
+      ,[Idregistro]
+      ,[clasificacion]
+      ,[ap_paterno]
+      ,[ap_materno]
+      ,[nombre]
+      ,[id_profesion]
+      ,[calle_numero]
+      ,[colonia]
+      ,[telefono_local]
+      ,[telefono_celular]
+      ,[id_colegio]
+      ,[id_universidad]
+      ,[fecha_titulo]
+      ,[fecha_cedula]
+      ,[anio_reg_sop]
+      ,[cursos]
+      ,[email]
+      ,[ultima_vigencia]
+      ,[observaciones]
+      ,[FechaRegistro]
+      ,[FechaActualizacion]
+      ,[Idlocalidad]
+      ,[curp]
+      ,[rfc]
+      ,[nacimiento]
+      ,[isActivado]
+      ,[url]
+      ,[foto]) values ('2826646', '1619', 'A','HERNÁNDEZ','ZAUNBOS','ROBERTO GERARDO','I','ALMENDROS #401 INTERIOR 1','REFORMA','9515702890','9515702890','1','1','1998-09-18 00:00:00.000','2004-02-18 00:00:00.000','0','Ninguno','faanro.rfhz@gmail.com','2020',NULL,'2020-02-06 00:00:00.000','2020-02-06 00:00:00.000','1','HEZR680518HSLRNB05','HEZR680518E65','Sinaloa','True','http://pii.oaxaca.gob.mx/dro/datos_dro?cedula=2826646',NULL)
+
+
+----------				Agregar  a solicitudes 			-------------
+
+insert into tblsolicitudes ([fecha_de_sesion]
+      ,[fecha_solicitud]
+      ,[folio_solicitud]
+      ,[id_PadronDRO]
+      ,[tramite_que_solicita]
+      ,[observaciones]
+      ,[numero_de_oficio]
+      ,[fecha_de_oficio]
+      ,[status]
+      ,[fecha_de_entrega_de_licencia]
+      ,[entregado_por]
+      ,[notasfecha]
+      ,[votos]
+      ,[registrovotos]
+      ,[correo_votantes]) values (null,getdate(),NULL,'17','1',NULL,null,null,'EN RECEPCION DE DOCUMENTOS',null,null,NULL,'','','')
+
+
+
+----------				Agregar  a usuarios		-------------
+
+
+
+insert into tblUsuarios(
+      [Contrasena]
+      ,[Nombre]
+      ,[APaterno]
+      ,[AMaterno]
+      ,[isActivado]
+      ,[rol]
+      ,[fechaRegistro]
+      ,[Email]
+      ,[nivel]
+      ,[nomUser]
+      ,[cedula]) values ('', 'Jose Francisco', 'Sanchez','Ortega', 'True','CIUDADANO', getdate(), 'josefrancisco6310@hotmail.com', 1, 'ef4b54c1-52c9-499f-9fab-38c9842b61fd','1704653')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

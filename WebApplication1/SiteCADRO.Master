@@ -14,7 +14,6 @@
     <link rel="icon" href="css/img/LogoVII.ico" type="image/x-icon" />
     <script src="Content/sweetalert2.all.min.js"></script>
     <script src="Content/notificaciones.js"></script>
-    <link href="css/Master.css" rel="stylesheet"/>
     <script>
         function imagenarriba() {
             window.location.href = '../';

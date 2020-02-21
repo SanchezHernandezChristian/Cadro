@@ -57,10 +57,6 @@
     </Reference>
     <Reference Include="DevExpress.Data.v16.1, Version=16.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.DataAccess.v16.1, Version=16.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
-    <Reference Include="DevExpress.Docs.v16.1, Version=16.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>F:\dll\DevExpress.Docs.v16.1.dll</HintPath>
-    </Reference>
     <Reference Include="DevExpress.Pdf.v16.1.Core, Version=16.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.RichEdit.v16.1.Export, Version=16.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Printing.v16.1.Core, Version=16.1.12.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
@@ -321,6 +317,7 @@
     <Content Include="css\img\Pantalla7.png" />
     <Content Include="css\img\Pantalla8.png" />
     <Content Include="css\img\Pantalla9.png" />
+    <Content Include="css\img\pii blanco.png" />
     <Content Include="css\img\Principal.png" />
     <Content Include="css\img\rechazar.png" />
     <Content Include="css\img\Recurso 1.png" />
@@ -391,9 +388,11 @@
     <Content Include="dro_Administrador.aspx" />
     <Content Include="dro_detalleproyectos.aspx" />
     <Content Include="dro_misproyectos.aspx" />
+    <Content Include="dro_reenviadoc.aspx" />
     <Content Include="imp_crede.aspx" />
     <Content Include="imp_dictamen.aspx" />
     <Content Include="registros_dro.aspx" />
+    <Content Include="registro_existente.aspx" />
     <Content Include="reporteregion.aspx" />
     <Content Include="rep_credencial.aspx" />
     <Content Include="rep_dictamen.aspx" />
@@ -789,6 +788,13 @@
     <Compile Include="dro_misproyectos.aspx.designer.cs">
       <DependentUpon>dro_misproyectos.aspx</DependentUpon>
     </Compile>
+    <Compile Include="dro_reenviadoc.aspx.cs">
+      <DependentUpon>dro_reenviadoc.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="dro_reenviadoc.aspx.designer.cs">
+      <DependentUpon>dro_reenviadoc.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -820,6 +826,13 @@
     </Compile>
     <Compile Include="registros_dro.aspx.designer.cs">
       <DependentUpon>registros_dro.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="registro_existente.aspx.cs">
+      <DependentUpon>registro_existente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="registro_existente.aspx.designer.cs">
+      <DependentUpon>registro_existente.aspx</DependentUpon>
     </Compile>
     <Compile Include="reporteregion.aspx.cs">
       <DependentUpon>reporteregion.aspx</DependentUpon>
